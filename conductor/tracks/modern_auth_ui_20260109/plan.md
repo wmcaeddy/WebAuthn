@@ -13,6 +13,6 @@
 
 ## Phase 3: Functionality & Mobile Optimization
 - [x] Task: Migrate existing Vanilla JS logic to the new UI structure. [b6f6f8b]
-- [ ] Task: Optimize the "Hybrid" (Passkey via QR) flow for mobile users.
+- [x] Task: Optimize the "Hybrid" (Passkey via QR) flow for mobile users. [5e246fc]
 - [ ] Task: Perform cross-device testing to ensure universal clarity.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Functionality & Mobile Optimization' (Protocol in workflow.md)
