@@ -59,6 +59,12 @@
                     throw new Error('Browser not supported.');
                 }
 
+                const userName = document.getElementById('userName').value;
+                const userDisplayName = document.getElementById('userDisplayName').value;
+
+                if (!userName) throw new Error('Please enter a User Name.');
+                if (!userDisplayName) throw new Error('Please enter a Display Name.');
+
                 showLoading('Preparing registration...');
                 hideStatus();
 
@@ -109,6 +115,9 @@
                 if (!window.fetch || !navigator.credentials || !navigator.credentials.get) {
                     throw new Error('Browser not supported.');
                 }
+
+                const userName = document.getElementById('userName').value;
+                if (!userName) throw new Error('Please enter a User Name.');
 
                 showLoading('Preparing authentication...');
                 hideStatus();
