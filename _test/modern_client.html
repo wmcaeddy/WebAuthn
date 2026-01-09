@@ -3,8 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAuthn - Modern Auth</title>
+    <title>WebAuthn - Thales FIDO Login</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Transition effects */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        .user-section-card {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        .user-info h2 {
+            margin-bottom: 4px;
+            color: var(--color-text-primary);
+        }
+        .user-info p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+        }
+        .login-meta {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 16px;
+        }
+    </style>
     <script>
         /**
          * Logic migration from original client.html
@@ -63,7 +106,7 @@
 
         async function checkRegistration() {
             try {
-                if (!window.fetch || !navigator.credentials || !navigator.credentials.create) {
+                if (!window.fetch || !navigator.credentials || !navigator.credentials.get) {
                     throw new Error('Browser not supported.');
                 }
 
@@ -101,7 +144,29 @@
                 hideLoading();
                 if (response.success) {
                     reloadServerPreview();
-                    setStatus(response.msg || 'Login successful', 'success');
+                    
+                    // Transition to Authenticated State
+                    const loginForm = document.getElementById('login-flow-container');
+                    const userSection = document.getElementById('user-authenticated-section');
+                    
+                    // Populate data
+                    const userName = document.getElementById('userName').value;
+                    const displayName = document.getElementById('userDisplayName').value;
+                    
+                    document.getElementById('auth-user-name').textContent = displayName || userName;
+                    document.getElementById('auth-user-id').textContent = '@' + userName;
+                    document.getElementById('auth-login-time').textContent = new Date().toLocaleString();
+                    document.getElementById('auth-avatar').textContent = (displayName || userName).charAt(0).toUpperCase();
+
+                    // Animate transition
+                    loginForm.classList.add('fade-out');
+                    setTimeout(() => {
+                        loginForm.classList.add('hidden');
+                        userSection.classList.remove('hidden');
+                        userSection.classList.add('fade-in');
+                    }, 300);
+
+                    setStatus('Login successful', 'success');
                 } else {
                     throw new Error(response.msg);
                 }
@@ -110,6 +175,36 @@
                 hideLoading();
                 reloadServerPreview();
                 setStatus(err.message || 'unknown error occured', 'error');
+            }
+        }
+
+        async function logout() {
+            try {
+                showLoading('Signing out...');
+                
+                // Server-side logout
+                await window.fetch('server.php?fn=logout', {method:'GET', cache:'no-cache'});
+                
+                const loginForm = document.getElementById('login-flow-container');
+                const userSection = document.getElementById('user-authenticated-section');
+
+                // Animate transition back
+                userSection.classList.remove('fade-in');
+                userSection.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    userSection.classList.add('hidden');
+                    userSection.classList.remove('fade-out');
+                    loginForm.classList.remove('hidden');
+                    loginForm.classList.remove('fade-out');
+                    loginForm.classList.add('fade-in');
+                    hideStatus();
+                    hideLoading();
+                }, 300);
+
+            } catch (err) {
+                hideLoading();
+                setStatus('Logout failed: ' + err.message, 'error');
             }
         }
 
@@ -264,115 +359,138 @@
 </head>
 <body>
     <div class="auth-wrapper" style="flex-direction: column; gap: 24px; padding: 40px 20px;">
-        <div class="auth-container" style="max-width: 540px; flex-shrink: 0;">
+        <div class="auth-container" style="max-width: 540px; flex-shrink: 0; min-height: 400px; display: flex; flex-direction: column;">
             <!-- Loading Overlay -->
             <div id="loading-overlay" class="loading-overlay hidden">
                 <div class="spinner"></div>
                 <p id="loading-text" style="color: var(--color-text-primary); font-weight: 500;">Please wait...</p>
             </div>
 
-            <header class="auth-header">
-                <h1>Thales FIDO Login</h1>
-                <p>Register or sign in with your passkey</p>
-            </header>
+            <!-- Login Flow Container (Login + Settings) -->
+            <div id="login-flow-container">
+                <header class="auth-header">
+                    <h1>Thales FIDO Login</h1>
+                    <p>Register or sign in with your passkey</p>
+                </header>
 
-            <nav class="tabs-nav">
-                <button class="tab-link active" onclick="switchTab('tab-auth')">Authentication</button>
-                <button class="tab-link" onclick="switchTab('tab-config')">Settings</button>
-            </nav>
+                <nav class="tabs-nav">
+                    <button class="tab-link active" onclick="switchTab('tab-auth')">Authentication</button>
+                    <button class="tab-link" onclick="switchTab('tab-config')">Settings</button>
+                </nav>
 
-            <!-- Authentication Tab -->
-            <div id="tab-auth" class="tab-content">
-                <div class="form-group">
-                    <label class="form-label" for="userName">User Name</label>
-                    <input type="text" id="userName" name="userName" value="" required pattern="[0-9a-zA-Z]{2,}" oninput="updateUserId()">
-                    <small class="form-help">Unique name for your account</small>
+                <!-- Authentication Tab -->
+                <div id="tab-auth" class="tab-content">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">User Name</label>
+                        <input type="text" id="userName" name="userName" value="" required pattern="[0-9a-zA-Z]{2,}" oninput="updateUserId()">
+                        <small class="form-help">Unique name for your account</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userDisplayName">Display Name</label>
+                        <input type="text" id="userDisplayName" name="userDisplayName" value="" required>
+                    </div>
+
+                    <div class="mt-lg">
+                        <button type="button" class="btn btn-primary btn-block" onclick="createRegistration()">
+                            New Registration
+                        </button>
+                    </div>
+
+                    <div style="margin-top: 12px;">
+                        <button type="button" class="btn btn-secondary btn-block" onclick="checkRegistration()">
+                            Sign In with Passkey
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-xl">
+                        <button type="button" class="btn-secondary" style="font-size: 0.75rem; margin-bottom: 10px;" onclick="document.getElementById('preview-container').classList.toggle('hidden')">
+                            Toggle Data Preview
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="userDisplayName">Display Name</label>
-                    <input type="text" id="userDisplayName" name="userDisplayName" value="" required>
-                </div>
+                <!-- Configuration Tab -->
+                <div id="tab-config" class="tab-content hidden" style="max-height: 300px; overflow-y: auto; padding-right: 10px;">
+                    <div class="form-group">
+                        <label class="form-label" for="rpId">Relying Party ID</label>
+                        <input type="text" id="rpId" name="rpId" value="">
+                    </div>
 
-                <div class="mt-lg">
-                    <button type="button" class="btn btn-primary btn-block" onclick="createRegistration()">
-                        New Registration
-                    </button>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label" for="userId">User ID (Hex)</label>
+                        <input type="text" id="userId" name="userId" value="" required pattern="[0-9a-fA-F]{2,}" readonly style="background-color: #f0f0f0; color: #666; cursor: not-allowed;">
+                        <small class="form-help">Auto-generated from User Name</small>
+                    </div>
 
-                <div style="margin-top: 12px;">
-                    <button type="button" class="btn btn-secondary btn-block" onclick="checkRegistration()">
-                        Sign In with Passkey
-                    </button>
-                </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="requireResidentKey" name="requireResidentKey" checked>
+                        <label for="requireResidentKey">Discoverable Credentials (Passkeys)</label>
+                    </div>
 
-                <!-- Status Container -->
-                <div id="status-container" class="hidden">
-                    <p id="status-message" style="margin: 0;"></p>
-                </div>
+                    <div class="mt-lg">
+                        <h4 style="font-size: 0.875rem; margin-bottom: 8px;">User Verification</h4>
+                        <div class="checkbox-group">
+                            <input type="radio" id="userVerification_required" name="userVerification">
+                            <label for="userVerification_required">Required</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="userVerification_preferred" name="userVerification">
+                            <label for="userVerification_preferred">Preferred</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="userVerification_discouraged" name="userVerification" checked>
+                            <label for="userVerification_discouraged">Discouraged</label>
+                        </div>
+                    </div>
 
-                <div class="text-center mt-xl">
-                    <button type="button" class="btn-secondary" style="font-size: 0.75rem; margin-bottom: 10px;" onclick="document.getElementById('preview-container').classList.toggle('hidden')">
-                        Toggle Data Preview
+                    <div class="mt-lg">
+                        <h4 style="font-size: 0.875rem; margin-bottom: 8px;">Authenticator Types</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div class="checkbox-group"><input type="checkbox" id="type_usb" checked><label for="type_usb">USB</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="type_nfc" checked><label for="type_nfc">NFC</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="type_ble" checked><label for="type_ble">BLE</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="type_hybrid" checked><label for="type_hybrid">Hybrid</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="type_int" checked><label for="type_int">Internal</label></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-lg">
+                        <h4 style="font-size: 0.875rem; margin-bottom: 8px;">Attestation Formats</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div class="checkbox-group"><input type="checkbox" id="fmt_none" checked><label for="fmt_none">None</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="fmt_packed" checked><label for="fmt_packed">Packed</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="fmt_android-key" checked><label for="fmt_android-key">Android Key</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="fmt_apple" checked><label for="fmt_apple">Apple</label></div>
+                            <div class="checkbox-group"><input type="checkbox" id="fmt_tpm" checked><label for="fmt_tpm">TPM</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Authenticated Section -->
+            <div id="user-authenticated-section" class="hidden">
+                <div class="user-section-card">
+                    <div id="auth-avatar" class="avatar-circle">U</div>
+                    <div class="user-info">
+                        <h2 id="auth-user-name">User Name</h2>
+                        <p id="auth-user-id">@userid</p>
+                    </div>
+                    
+                    <div style="background: var(--color-bg); padding: 16px; border-radius: var(--radius-md); margin-bottom: 24px;">
+                        <p style="font-size: 0.875rem; margin-bottom: 4px; color: var(--color-text-primary); font-weight: 500;">Session Active</p>
+                        <p id="auth-login-time" class="login-meta">Login time: --</p>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary btn-block" onclick="logout()">
+                        Logout
                     </button>
                 </div>
             </div>
 
-            <!-- Configuration Tab -->
-            <div id="tab-config" class="tab-content hidden" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
-                <div class="form-group">
-                    <label class="form-label" for="rpId">Relying Party ID</label>
-                    <input type="text" id="rpId" name="rpId" value="">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="userId">User ID (Hex)</label>
-                    <input type="text" id="userId" name="userId" value="" required pattern="[0-9a-fA-F]{2,}" readonly style="background-color: #f0f0f0; color: #666; cursor: not-allowed;">
-                    <small class="form-help">Auto-generated from User Name</small>
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="requireResidentKey" name="requireResidentKey" checked>
-                    <label for="requireResidentKey">Discoverable Credentials (Passkeys)</label>
-                </div>
-
-                <div class="mt-lg">
-                    <h4 style="font-size: 0.875rem; margin-bottom: 8px;">User Verification</h4>
-                    <div class="checkbox-group">
-                        <input type="radio" id="userVerification_required" name="userVerification">
-                        <label for="userVerification_required">Required</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="radio" id="userVerification_preferred" name="userVerification">
-                        <label for="userVerification_preferred">Preferred</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="radio" id="userVerification_discouraged" name="userVerification" checked>
-                        <label for="userVerification_discouraged">Discouraged</label>
-                    </div>
-                </div>
-
-                <div class="mt-lg">
-                    <h4 style="font-size: 0.875rem; margin-bottom: 8px;">Authenticator Types</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <div class="checkbox-group"><input type="checkbox" id="type_usb" checked><label for="type_usb">USB</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="type_nfc" checked><label for="type_nfc">NFC</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="type_ble" checked><label for="type_ble">BLE</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="type_hybrid" checked><label for="type_hybrid">Hybrid</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="type_int" checked><label for="type_int">Internal</label></div>
-                    </div>
-                </div>
-
-                <div class="mt-lg">
-                    <h4 style="font-size: 0.875rem; margin-bottom: 8px;">Attestation Formats</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <div class="checkbox-group"><input type="checkbox" id="fmt_none" checked><label for="fmt_none">None</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="fmt_packed" checked><label for="fmt_packed">Packed</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="fmt_android-key" checked><label for="fmt_android-key">Android Key</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="fmt_apple" checked><label for="fmt_apple">Apple</label></div>
-                        <div class="checkbox-group"><input type="checkbox" id="fmt_tpm" checked><label for="fmt_tpm">TPM</label></div>
-                    </div>
-                </div>
+            <!-- Status Container -->
+            <div id="status-container" class="hidden">
+                <p id="status-message" style="margin: 0;"></p>
             </div>
         </div>
 

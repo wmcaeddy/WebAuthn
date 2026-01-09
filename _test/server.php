@@ -296,6 +296,19 @@ try {
         print(json_encode($return));
 
     // ------------------------------------
+    // logout
+    // ------------------------------------
+    } else if ($fn === 'logout') {
+        $_SESSION['challenge'] = null;
+        // Optionally clear other session data if needed
+        
+        $return = new stdClass();
+        $return->success = true;
+
+        header('Content-Type: application/json');
+        print(json_encode($return));
+
+    // ------------------------------------
     // delete single registration
     // ------------------------------------
     } else if ($fn === 'deleteRegistration') {

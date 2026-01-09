@@ -1,0 +1,8 @@
+{
+  "track_id": "post_login_ui_20260109",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-09T16:00:00Z",
+  "updated_at": "2026-01-09T16:00:00Z",
+  "description": "implement user section for a succesful login, so that after a sucessfull login, it does not display user name display name and setting box but the succesed user name and userid with logout button to clear the section"
+}
