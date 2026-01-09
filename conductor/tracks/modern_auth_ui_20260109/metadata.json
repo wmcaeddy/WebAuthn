@@ -1,0 +1,8 @@
+{
+  "track_id": "modern_auth_ui_20260109",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-09T15:00:00Z",
+  "updated_at": "2026-01-09T15:00:00Z",
+  "description": "Refactor `_test` client into a modern, responsive authentication interface using a minimalist aesthetic."
+}
