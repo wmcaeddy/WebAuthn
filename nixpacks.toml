@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.openssl", "php83Extensions.mbstring", "php83Extensions.sodium"]
+
+[phases.install]
+cmds = ["composer install"]
+
+[phases.build]
+cmds = ["chmod -R 777 _test/rootCertificates"]
+
+[start]
+cmd = "php -S 0.0.0.0:$PORT"

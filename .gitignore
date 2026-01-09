@@ -2,9 +2,6 @@
 nbproject
 .idea
 
-# redirect page
-index.php
-
 # composer things
 composer.lock
 vendor
