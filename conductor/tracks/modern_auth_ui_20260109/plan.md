@@ -6,7 +6,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & CSS Reset' (Protocol in workflow.md) [5f3b8e3]
 
 ## Phase 2: UI Refactor
-- [ ] Task: Redesign the registration and login forms to follow minimalist guidelines.
+- [x] Task: Redesign the registration and login forms to follow minimalist guidelines. [7036770]
 - [ ] Task: Implement a clean "Server Preview" data view using the new aesthetic.
 - [ ] Task: Add loading spinners and status overlays for WebAuthn handshakes.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: UI Refactor' (Protocol in workflow.md)
