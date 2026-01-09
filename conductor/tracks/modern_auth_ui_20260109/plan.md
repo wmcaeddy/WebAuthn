@@ -8,7 +8,7 @@
 ## Phase 2: UI Refactor
 - [x] Task: Redesign the registration and login forms to follow minimalist guidelines. [7036770]
 - [x] Task: Implement a clean "Server Preview" data view using the new aesthetic. [7ad9515]
-- [ ] Task: Add loading spinners and status overlays for WebAuthn handshakes.
+- [x] Task: Add loading spinners and status overlays for WebAuthn handshakes. [8eef1d6]
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: UI Refactor' (Protocol in workflow.md)
 
 ## Phase 3: Functionality & Mobile Optimization
