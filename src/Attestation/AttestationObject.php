@@ -34,7 +34,7 @@ class AttestationObject {
 
         // Format ok?
         if (!in_array($this->_attestationFormatName, $allowedFormats)) {
-            throw new WebAuthnException('invalid atttestation format: ' . $this->_attestationFormatName, WebAuthnException::INVALID_DATA);
+            throw new WebAuthnException('invalid attestation format: ' . $this->_attestationFormatName, WebAuthnException::INVALID_DATA);
         }
 
 

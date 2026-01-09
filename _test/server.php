@@ -4,39 +4,49 @@
  * Copyright (C) 2022 Lukas Buchs
  * license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
  *
- * Server test script for WebAuthn library. Saves new registrations in session.
- *
- *            JAVASCRIPT            |          SERVER
- * ------------------------------------------------------------
- *
- *               REGISTRATION
- *
- *      window.fetch  ----------------->     getCreateArgs
- *                                                |
- *   navigator.credentials.create   <-------------'
- *           |
- *           '------------------------->     processCreate
- *                                                |
- *         alert ok or fail      <----------------'
- *
- * ------------------------------------------------------------
- *
- *              VALIDATION
- *
- *      window.fetch ------------------>      getGetArgs
- *                                                |
- *   navigator.credentials.get   <----------------'
- *           |
- *           '------------------------->      processGet
- *                                                |
- *         alert ok or fail      <----------------'
- *
- * ------------------------------------------------------------
+ * Server test script for WebAuthn library. Saves new registrations in serialized file.
  */
 
 require_once '../src/WebAuthn.php';
 try {
     session_start();
+
+    // Data storage setup
+    $dataDir = '/app/data';
+    // Fallback if not writable (local dev or misconfig)
+    if (!is_dir($dataDir) || !is_writable($dataDir)) {
+        $dataDir = sys_get_temp_dir();
+        error_log("WebAuthn: /app/data not writable, using " . $dataDir);
+    }
+    
+    // Use .ser extension for serialized data
+    $registrationsFile = $dataDir . '/registrations.ser';
+
+    // Helper to load registrations
+    function loadRegistrations($file) {
+        if (file_exists($file)) {
+            $content = file_get_contents($file);
+            if ($content !== false) {
+                $data = unserialize($content);
+                if (is_array($data)) {
+                    return $data;
+                } else {
+                    error_log("WebAuthn: Failed to unserialize data from " . $file);
+                }
+            }
+        }
+        return [];
+    }
+
+    // Helper to save registrations
+    function saveRegistrations($file, $data) {
+        $serialized = serialize($data);
+        if (file_put_contents($file, $serialized) === false) {
+            error_log("WebAuthn: Failed to save data to " . $file);
+        } else {
+            error_log("WebAuthn: Saved " . count($data) . " registrations to " . $file);
+        }
+    }
 
     // read get argument and post body
     $fn = filter_input(INPUT_GET, 'fn');
@@ -56,7 +66,7 @@ try {
         $post = json_decode($post, null, 512, JSON_THROW_ON_ERROR);
     }
 
-    if ($fn !== 'getStoredDataHtml') {
+    if ($fn !== 'getStoredDataHtml' && $fn !== 'deleteRegistration') {
 
         // Formats
         $formats = [];
@@ -162,26 +172,24 @@ try {
 
     } else if ($fn === 'getGetArgs') {
         $ids = [];
+        $registrations = loadRegistrations($registrationsFile);
+        error_log("WebAuthn: getGetArgs - Found " . count($registrations) . " total registrations.");
 
         if ($requireResidentKey) {
-            if (!isset($_SESSION['registrations']) || !is_array($_SESSION['registrations']) || count($_SESSION['registrations']) === 0) {
-                throw new Exception('we do not have any registrations in session to check the registration');
+            if (count($registrations) === 0) {
+                throw new Exception('we do not have any registrations to check the registration');
             }
 
         } else {
-            // load registrations from session stored there by processCreate.
-            // normaly you have to load the credential Id's for a username
-            // from the database.
-            if (isset($_SESSION['registrations']) && is_array($_SESSION['registrations'])) {
-                foreach ($_SESSION['registrations'] as $reg) {
-                    if ($reg->userId === $userId) {
-                        $ids[] = $reg->credentialId;
-                    }
+            foreach ($registrations as $reg) {
+                if ($reg->userId === $userId) {
+                    $ids[] = $reg->credentialId;
                 }
             }
 
             if (count($ids) === 0) {
-                throw new Exception('no registrations in session for userId ' . $userId);
+                error_log("WebAuthn: No registrations matched userId: " . $userId);
+                throw new Exception('no registrations found for userId ' . $userId);
             }
         }
 
@@ -204,10 +212,6 @@ try {
         $attestationObject = !empty($post->attestationObject) ? base64_decode($post->attestationObject) : null;
         $challenge = $_SESSION['challenge'] ?? null;
 
-        // processCreate returns data to be stored for future logins.
-        // in this example we store it in the php session.
-        // Normally you have to store the data in a database connected
-        // with the username.
         $data = $WebAuthn->processCreate($clientDataJSON, $attestationObject, $challenge, $userVerification === 'required', true, false);
 
         // add user infos
@@ -216,10 +220,10 @@ try {
         $data->userDisplayName = $userDisplayName;
         //set Null to 0
         $data->signatureCounter ??= 0;
-        if (!isset($_SESSION['registrations']) || !array_key_exists('registrations', $_SESSION) || !is_array($_SESSION['registrations'])) {
-            $_SESSION['registrations'] = [];
-        }
-        $_SESSION['registrations'][] = $data;
+
+        $registrations = loadRegistrations($registrationsFile);
+        $registrations[] = $data;
+        saveRegistrations($registrationsFile, $registrations);
 
         $msg = 'registration success.';
         if ($data->rootValid === false) {
@@ -248,15 +252,13 @@ try {
         $challenge = $_SESSION['challenge'] ?? '';
         $credentialPublicKey = null;
 
-        // looking up correspondending public key of the credential id
-        // you should also validate that only ids of the given user name
-        // are taken for the login.
-        if (isset($_SESSION['registrations']) && is_array($_SESSION['registrations'])) {
-            foreach ($_SESSION['registrations'] as $reg) {
-                if ($reg->credentialId === $id) {
-                    $credentialPublicKey = $reg->credentialPublicKey;
-                    break;
-                }
+        $registrations = loadRegistrations($registrationsFile);
+        $reg = null;
+        foreach ($registrations as $r) {
+            if ($r->credentialId === $id) {
+                $credentialPublicKey = $r->credentialPublicKey;
+                $reg = $r;
+                break;
             }
         }
 
@@ -283,7 +285,7 @@ try {
     // ------------------------------------
 
     } else if ($fn === 'clearRegistrations') {
-        $_SESSION['registrations'] = null;
+        saveRegistrations($registrationsFile, []);
         $_SESSION['challenge'] = null;
 
         $return = new stdClass();
@@ -294,17 +296,66 @@ try {
         print(json_encode($return));
 
     // ------------------------------------
+    // delete single registration
+    // ------------------------------------
+    } else if ($fn === 'deleteRegistration') {
+        $credentialIdHex = filter_input(INPUT_GET, 'credentialId', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        if ($credentialIdHex) {
+            $registrations = loadRegistrations($registrationsFile);
+            $newRegistrations = [];
+            $deleted = false;
+            
+            foreach ($registrations as $reg) {
+                if (bin2hex($reg->credentialId) !== $credentialIdHex) {
+                    $newRegistrations[] = $reg;
+                } else {
+                    $deleted = true;
+                }
+            }
+            
+            if ($deleted) {
+                saveRegistrations($registrationsFile, $newRegistrations);
+                $msg = 'Registration deleted.';
+            } else {
+                $msg = 'Registration not found.';
+            }
+        } else {
+            $msg = 'No credential ID provided.';
+        }
+
+        // Redirect back to the HTML view
+        header('Location: server.php?fn=getStoredDataHtml');
+        exit;
+
+    // ------------------------------------
     // display stored data as HTML
     // ------------------------------------
 
     } else if ($fn === 'getStoredDataHtml') {
         $html = '<!DOCTYPE html>' . "\n";
-        $html .= '<html><head><style>tr:nth-child(even){background-color: #f2f2f2;}</style></head>';
+        $html .= '<html><head>
+            <style>
+                tr:nth-child(even){background-color: #f2f2f2;}
+                .btn-delete { color: white; background-color: red; padding: 5px 10px; text-decoration: none; border-radius: 3px; font-size: 0.8em; }
+            </style>
+            <script>
+                function confirmDelete(credentialId) {
+                    if (confirm("Are you sure you want to delete this registration?")) {
+                        window.location.href = "server.php?fn=deleteRegistration&credentialId=" + credentialId;
+                    }
+                }
+            </script>
+        </head>';
         $html .= '<body style="font-family:sans-serif">';
-        if (isset($_SESSION['registrations']) && is_array($_SESSION['registrations'])) {
-            $html .= '<p>There are ' . count($_SESSION['registrations']) . ' registrations in this session:</p>';
-            foreach ($_SESSION['registrations'] as $reg) {
-                $html .= '<table style="border:1px solid black;margin:10px 0;">';
+        $registrations = loadRegistrations($registrationsFile);
+        if (count($registrations) > 0) {
+            $html .= '<p>There are ' . count($registrations) . ' registrations in ' . htmlspecialchars($registrationsFile) . ':</p>';
+            foreach ($registrations as $reg) {
+                $credIdHex = bin2hex($reg->credentialId);
+                $html .= '<div style="margin: 20px 0; border:1px solid black; padding: 10px;">';
+                $html .= "<div style=\"margin-bottom: 5px;\"><button class=\"btn-delete\" onclick=\"confirmDelete('$credIdHex')\">Delete this registration</button></div>";
+                $html .= '<table style="width:100%">';
                 foreach ($reg as $key => $value) {
 
                     if (is_bool($value)) {
@@ -319,12 +370,12 @@ try {
                     } else if (is_string($value) && strlen($value) > 0 && htmlspecialchars($value, ENT_QUOTES) === '') {
                         $value = chunk_split(bin2hex($value), 64);
                     }
-                    $html .= '<tr><td>' . htmlspecialchars($key) . '</td><td style="font-family:monospace;">' . nl2br(htmlspecialchars($value)) . '</td>';
+                    $html .= '<tr><td style="width:150px;font-weight:bold;">' . htmlspecialchars($key) . '</td><td style="font-family:monospace;word-break:break-all;">' . nl2br(htmlspecialchars($value)) . '</td>';
                 }
-                $html .= '</table>';
+                $html .= '</table></div>';
             }
         } else {
-            $html .= '<p>There are no registrations in this session.</p>';
+            $html .= '<p>There are no registrations in ' . htmlspecialchars($registrationsFile) . '.</p>';
         }
         $html .= '</body></html>';
 
@@ -362,6 +413,9 @@ try {
     }
 
 } catch (Throwable $ex) {
+    // Log exception to stderr for Railway logs
+    error_log("WebAuthn Exception: " . $ex->getMessage());
+    
     $return = new stdClass();
     $return->success = false;
     $return->msg = $ex->getMessage();
