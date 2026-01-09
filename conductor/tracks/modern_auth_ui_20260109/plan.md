@@ -5,11 +5,11 @@
 - [x] Task: Implement a responsive container for the authentication form. [9af2e51]
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & CSS Reset' (Protocol in workflow.md) [5f3b8e3]
 
-## Phase 2: UI Refactor
+## Phase 2: UI Refactor [checkpoint: d0e0a98]
 - [x] Task: Redesign the registration and login forms to follow minimalist guidelines. [7036770]
 - [x] Task: Implement a clean "Server Preview" data view using the new aesthetic. [7ad9515]
 - [x] Task: Add loading spinners and status overlays for WebAuthn handshakes. [8eef1d6]
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: UI Refactor' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: UI Refactor' (Protocol in workflow.md) [d0e0a98]
 
 ## Phase 3: Functionality & Mobile Optimization
 - [ ] Task: Migrate existing Vanilla JS logic to the new UI structure.
