@@ -1,3 +1,3 @@
 <?php
-header("Location: _test/client.html");
+header("Location: _test/modern_client.html");
 exit;
