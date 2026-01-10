@@ -566,11 +566,29 @@
             return window.btoa(binary);
         }
 
+        // Auto-generate User ID from User Name
+        function updateUserId() {
+            const username = document.getElementById('userName').value;
+            const useridField = document.getElementById('userId');
+            
+            if (!username) {
+                useridField.value = '';
+                return;
+            }
+
+            // Simple string to hex conversion
+            let hex = '';
+            for(let i=0;i<username.length;i++) {
+                hex += ''+username.charCodeAt(i).toString(16);
+            }
+            useridField.value = hex;
+        }
+
         function getGetParams() {
             let url = '';
             // Basic params
             url += '&rpId=' + encodeURIComponent(document.getElementById('rpId').value || location.hostname);
-            url += '&userId=' + encodeURIComponent(''); // Simple impl
+            url += '&userId=' + encodeURIComponent(document.getElementById('userId').value);
             url += '&userName=' + encodeURIComponent(document.getElementById('userName').value);
             url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName').value);
             
@@ -690,7 +708,7 @@
                 <div id="login-flow-container">
                     <div class="form-group">
                         <label class="form-label">使用者名稱 (User Name)</label>
-                        <input type="text" id="userName" placeholder="請輸入您的帳號">
+                        <input type="text" id="userName" placeholder="請輸入您的帳號" oninput="updateUserId()">
                     </div>
                     <div class="form-group">
                         <label class="form-label">顯示名稱 (Display Name)</label>
@@ -709,6 +727,11 @@
                         <div class="form-group">
                             <label class="form-label">Relying Party ID</label>
                             <input type="text" id="rpId" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">User ID (Hex)</label>
+                            <input type="text" id="userId" readonly style="background-color: #f0f0f0; color: #666;">
                         </div>
                         
                         <div class="form-group">
