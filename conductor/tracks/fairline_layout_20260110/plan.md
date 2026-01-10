@@ -19,9 +19,9 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Visual Styling' (Protocol in workflow.md)
 
 ## Phase 4: Branding Side Content
-- [ ] Task: Replicate the "hero" look of the Fairline homepage on the branding side of the split-screen.
-- [ ] Task: Ensure imagery is responsive and optimized.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Branding Content' (Protocol in workflow.md)
+- [x] Task: Replicate the "hero" look of the Fairline homepage on the branding side of the split-screen.
+- [x] Task: Ensure imagery is responsive and optimized.
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Branding Content' (Protocol in workflow.md)
 
 ## Phase 5: Integration and Final Polish
 - [ ] Task: Integrate all existing WebAuthn JS triggers with the new UI elements.

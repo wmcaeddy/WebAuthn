@@ -137,6 +137,17 @@
             margin-bottom: 40px;
         }
 
+        .scroll-prompt {
+            position: absolute;
+            bottom: 40px;
+            left: 60px;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            opacity: 0.7;
+        }
+
         /* Auth Side (Right) */
         .auth-side {
             flex: 1;
@@ -300,6 +311,7 @@
                     提供最適合客戶需求且完善的整合性解決方案。
                 </div>
             </div>
+            <div class="scroll-prompt">SCROLL</div>
         </div>
 
         <!-- Right Side: Authentication -->
