@@ -6,10 +6,10 @@
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Research' (Protocol in workflow.md)
 
 ## Phase 2: Core Layout Structure
-- [ ] Task: Create a new modern layout structure in `index.php` or a dedicated template.
-- [ ] Task: Implement the split-screen CSS grid/flexbox container.
-- [ ] Task: Implement the responsive behavior (hide branding side on mobile).
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Layout' (Protocol in workflow.md)
+- [x] Task: Create a new modern layout structure in `index.php` or a dedicated template.
+- [x] Task: Implement the split-screen CSS grid/flexbox container.
+- [x] Task: Implement the responsive behavior (hide branding side on mobile).
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Core Layout' (Protocol in workflow.md)
 
 ## Phase 3: Fairline Visual Styling
 - [ ] Task: Implement Header and Navigation according to Fairline style.
