@@ -713,7 +713,7 @@
                         
                         <div class="form-group">
                             <label class="form-label" style="display:inline-block; margin-right:10px;">Resident Key:</label>
-                            <input type="checkbox" id="requireResidentKey" checked>
+                            <input type="checkbox" id="requireResidentKey">
                         </div>
 
                         <div class="form-group">
