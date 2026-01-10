@@ -363,6 +363,9 @@
                     throw new Error('Browser not supported.');
                 }
 
+                // Ensure User ID is generated
+                updateUserId();
+
                 const userName = document.getElementById('userName').value;
                 const userDisplayName = document.getElementById('userDisplayName').value;
 
@@ -419,6 +422,9 @@
                 if (!window.fetch || !navigator.credentials || !navigator.credentials.get) {
                     throw new Error('Browser not supported.');
                 }
+
+                // Ensure User ID is generated
+                updateUserId();
 
                 const userName = document.getElementById('userName').value;
                 if (!userName) throw new Error('請輸入使用者名稱');
