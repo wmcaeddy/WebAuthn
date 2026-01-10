@@ -24,6 +24,10 @@
             --color-text-light: #ffffff;
             --color-bg-light: #f5f5f5;
             --font-main: "Poppins", "Microsoft JhengHei", sans-serif;
+            --radius-md: 4px;
+            --color-border: #ddd;
+            --color-bg: #f9f9f9;
+            --color-text-primary: #333;
         }
 
         * {
@@ -156,6 +160,7 @@
             padding: 40px;
             background-color: #fff;
             justify-content: space-between;
+            position: relative;
         }
 
         .auth-container {
@@ -282,7 +287,337 @@
                 padding: 40px 20px;
             }
         }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.9);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        .spinner {
+            width: 40px; height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-message {
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .status-success { background: #e6f4ea; color: #1e7e34; }
+        .status-error { background: #fce8e6; color: #d93025; }
+
+        /* User Authenticated View */
+        .user-section-card {
+            text-align: center;
+            padding: 20px 0;
+            animation: fadeIn 0.5s;
+        }
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
+
+    <script>
+        /**
+         * WebAuthn Logic
+         */
+        async function createRegistration() {
+            try {
+                if (!window.fetch || !navigator.credentials || !navigator.credentials.create) {
+                    throw new Error('Browser not supported.');
+                }
+
+                const userName = document.getElementById('userName').value;
+                const userDisplayName = document.getElementById('userDisplayName').value;
+
+                if (!userName) throw new Error('請輸入使用者名稱');
+                if (!userDisplayName) throw new Error('請輸入顯示名稱');
+
+                showLoading('準備註冊中...');
+                hideStatus();
+
+                // get create args
+                let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
+                const createArgs = await rep.json();
+
+                if (createArgs.success === false) {
+                    throw new Error(createArgs.msg || 'unknown error occured');
+                }
+
+                recursiveBase64StrToArrayBuffer(createArgs);
+
+                showLoading('請使用您的安全金鑰或生物辨識...');
+                const cred = await navigator.credentials.create(createArgs);
+
+                const authenticatorAttestationResponse = {
+                    transports: cred.response.getTransports  ? cred.response.getTransports() : null,
+                    clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
+                    attestationObject: cred.response.attestationObject ? arrayBufferToBase64(cred.response.attestationObject) : null
+                };
+
+                showLoading('驗證中...');
+                rep = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
+                    method  : 'POST',
+                    body    : JSON.stringify(authenticatorAttestationResponse),
+                    cache   : 'no-cache'
+                });
+                const response = await rep.json();
+
+                hideLoading();
+                if (response.success) {
+                    reloadServerPreview();
+                    setStatus(response.msg || '註冊成功！', 'success');
+                } else {
+                    throw new Error(response.msg);
+                }
+
+            } catch (err) {
+                hideLoading();
+                reloadServerPreview();
+                setStatus(err.message || 'unknown error occured', 'error');
+            }
+        }
+
+        async function checkRegistration() {
+            try {
+                if (!window.fetch || !navigator.credentials || !navigator.credentials.get) {
+                    throw new Error('Browser not supported.');
+                }
+
+                const userName = document.getElementById('userName').value;
+                if (!userName) throw new Error('請輸入使用者名稱');
+
+                showLoading('準備登入...');
+                hideStatus();
+
+                let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
+                const getArgs = await rep.json();
+
+                if (getArgs.success === false) {
+                    throw new Error(getArgs.msg);
+                }
+
+                recursiveBase64StrToArrayBuffer(getArgs);
+
+                showLoading('請驗證您的身份...');
+                const cred = await navigator.credentials.get(getArgs);
+
+                const authenticatorAttestationResponse = {
+                    id: cred.rawId ? arrayBufferToBase64(cred.rawId) : null,
+                    clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
+                    authenticatorData: cred.response.authenticatorData ? arrayBufferToBase64(cred.response.authenticatorData) : null,
+                    signature: cred.response.signature ? arrayBufferToBase64(cred.response.signature) : null,
+                    userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
+                };
+
+                showLoading('驗證登入中...');
+                rep = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
+                    method:'POST',
+                    body: JSON.stringify(authenticatorAttestationResponse),
+                    cache:'no-cache'
+                });
+                const response = await rep.json();
+
+                hideLoading();
+                if (response.success) {
+                    reloadServerPreview();
+                    
+                    // Transition to Authenticated State
+                    const loginForm = document.getElementById('login-flow-container');
+                    const userSection = document.getElementById('user-authenticated-section');
+                    
+                    const userName = response.userName || document.getElementById('userName').value;
+                    const displayName = response.userDisplayName || document.getElementById('userDisplayName').value;
+                    
+                    document.getElementById('auth-user-name').textContent = displayName || userName;
+                    document.getElementById('auth-user-id').textContent = '@' + userName;
+                    document.getElementById('auth-login-time').textContent = new Date().toLocaleString();
+                    document.getElementById('auth-avatar').textContent = (displayName || userName).charAt(0).toUpperCase();
+
+                    loginForm.style.display = 'none';
+                    userSection.classList.remove('hidden');
+                    
+                    setStatus('登入成功！', 'success');
+                } else {
+                    throw new Error(response.msg);
+                }
+
+            } catch (err) {
+                hideLoading();
+                reloadServerPreview();
+                setStatus(err.message || 'unknown error occured', 'error');
+            }
+        }
+
+        async function logout() {
+            try {
+                showLoading('登出中...');
+                
+                // Server-side logout
+                await window.fetch('_test/server.php?fn=logout', {method:'GET', cache:'no-cache'});
+                
+                const loginForm = document.getElementById('login-flow-container');
+                const userSection = document.getElementById('user-authenticated-section');
+
+                userSection.classList.add('hidden');
+                loginForm.style.display = 'block';
+                
+                hideStatus();
+                hideLoading();
+
+            } catch (err) {
+                hideLoading();
+                setStatus('Logout failed: ' + err.message, 'error');
+            }
+        }
+
+        function clearRegistration() {
+            if (!confirm('Are you sure you want to clear all registrations?')) return;
+            
+            showLoading('清除資料中...');
+            window.fetch('_test/server.php?fn=clearRegistrations' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
+                return response.json();
+            }).then(function(json) {
+               hideLoading();
+               if (json.success) {
+                   reloadServerPreview();
+                   setStatus(json.msg, 'success');
+               } else {
+                   throw new Error(json.msg);
+               }
+            }).catch(function(err) {
+                hideLoading();
+                reloadServerPreview();
+                setStatus(err.message || 'unknown error occured', 'error');
+            });
+        }
+
+        /**
+         * Utility Helpers
+         */
+
+        function recursiveBase64StrToArrayBuffer(obj) {
+            let prefix = '=?BINARY?B?';
+            let suffix = '?=';
+            if (typeof obj === 'object') {
+                for (let key in obj) {
+                    if (typeof obj[key] === 'string') {
+                        let str = obj[key];
+                        if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
+                            str = str.substring(prefix.length, str.length - suffix.length);
+                            let binary_string = window.atob(str);
+                            let len = binary_string.length;
+                            let bytes = new Uint8Array(len);
+                            for (let i = 0; i < len; i++) {
+                                bytes[i] = binary_string.charCodeAt(i);
+                            }
+                            obj[key] = bytes.buffer;
+                        }
+                    } else {
+                        recursiveBase64StrToArrayBuffer(obj[key]);
+                    }
+                }
+            }
+        }
+
+        function arrayBufferToBase64(buffer) {
+            let binary = '';
+            let bytes = new Uint8Array(buffer);
+            let len = bytes.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode( bytes[ i ] );
+            }
+            return window.btoa(binary);
+        }
+
+        function getGetParams() {
+            let url = '';
+            // Basic params
+            url += '&rpId=' + encodeURIComponent(location.hostname);
+            url += '&userId=' + encodeURIComponent(''); // Simple impl
+            url += '&userName=' + encodeURIComponent(document.getElementById('userName').value);
+            url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName').value);
+            
+            // Default config for simple UI
+            url += '&requireResidentKey=1';
+            url += '&userVerification=discouraged';
+            url += '&type_usb=1&type_nfc=1&type_ble=1&type_hybrid=1&type_int=1';
+            url += '&fmt_none=1&fmt_packed=1&fmt_android-key=1&fmt_apple=1&fmt_tpm=1';
+
+            return url;
+        }
+
+        function showLoading(message) {
+            const overlay = document.getElementById('loading-overlay');
+            if(overlay) {
+                document.getElementById('loading-text').textContent = message;
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loading-overlay');
+            if(overlay) overlay.classList.add('hidden');
+        }
+
+        function setStatus(message, type) {
+            const container = document.getElementById('status-container');
+            const msg = document.getElementById('status-message');
+            msg.textContent = message;
+            container.className = 'status-message status-' + type;
+            container.classList.remove('hidden');
+        }
+
+        function hideStatus() {
+            document.getElementById('status-container').classList.add('hidden');
+        }
+
+        function reloadServerPreview() {
+            // Not implemented in this simple view
+        }
+
+        window.onload = function() {
+            if (!window.isSecureContext && location.protocol !== 'https:') {                
+                location.href = location.href.replace('http://', 'https://');
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="site-header">
@@ -316,6 +651,12 @@
 
         <!-- Right Side: Authentication -->
         <div class="auth-side">
+            <!-- Loading Overlay -->
+            <div id="loading-overlay" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <p id="loading-text" style="color: var(--color-text-primary); font-weight: 500;">Please wait...</p>
+            </div>
+
             <div class="auth-container">
                 <header class="auth-header">
                     <h1>WebAuthn 登入驗證</h1>
@@ -332,8 +673,29 @@
                         <input type="text" id="userDisplayName" placeholder="例如：王小明">
                     </div>
 
-                    <button class="btn btn-primary" onclick="alert('Registration coming soon')">註冊新憑證</button>
-                    <button class="btn btn-secondary" onclick="alert('Login coming soon')">使用憑證登入</button>
+                    <button class="btn btn-primary" onclick="createRegistration()">註冊新憑證</button>
+                    <button class="btn btn-secondary" onclick="checkRegistration()">使用憑證登入</button>
+                </div>
+
+                <!-- User Authenticated Section -->
+                <div id="user-authenticated-section" class="hidden">
+                    <div class="user-section-card">
+                        <div id="auth-avatar" class="avatar-circle">U</div>
+                        <div class="user-info">
+                            <h2 id="auth-user-name">User Name</h2>
+                            <p id="auth-user-id">@userid</p>
+                        </div>
+                        
+                        <div style="background: var(--color-bg); padding: 16px; border-radius: var(--radius-md); margin-bottom: 24px;">
+                            <p style="font-size: 0.875rem; margin-bottom: 4px; color: var(--color-text-primary); font-weight: 500;">目前狀態</p>
+                            <p id="auth-login-time" class="login-meta">Login time: --</p>
+                            <p style="color: #1e7e34; font-weight: 500; margin-top: 8px;">登入成功</p>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary btn-block" onclick="logout()">
+                            登出
+                        </button>
+                    </div>
                 </div>
 
                 <div id="status-container" class="hidden">
