@@ -136,6 +136,12 @@
                               </button>
                           </div>
 
+                          <div class="text-center" style="margin-top: 15px;">
+                              <button type="button" style="background:none; border:none; color:var(--color-primary); font-size:0.75rem; cursor:pointer;" onclick="document.getElementById('preview-container').classList.toggle('hidden')">
+                                  [ Toggle Data Preview ]
+                              </button>
+                          </div>
+
                           <!-- Config Fields (Logic Hidden) -->
                           <div class="hidden">
                               <input type="text" id="rpId" value="">
@@ -168,9 +174,20 @@
                           </div>
                       </div>
                       
-                      <!-- 4. Status Messages -->
+                      <!-- Status Messaging -->
                       <div id="status-container" class="status-message hidden">
                           <p id="status-message" style="margin: 0;"></p>
+                      </div>
+
+                      <!-- Server Data Preview -->
+                      <div id="preview-container" class="hidden" style="margin-top: 25px; border-top: 1px dashed #eee; padding-top: 20px;">
+                          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                              <h4 style="font-size: 0.85rem; margin: 0; color: #666; text-transform: uppercase; letter-spacing: 1px;">Server Data</h4>
+                              <button type="button" style="background: #fce8e6; border: 1px solid #d93025; color: #d93025; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; font-weight: 600;" onclick="clearRegistration()">
+                                  Clear All
+                              </button>
+                          </div>
+                          <iframe src="_test/server.php?fn=getStoredDataHtml" id="serverPreview" style="width: 100%; height: 250px; border: 1px solid #eee; border-radius: 8px; background: #fafafa;"></iframe>
                       </div>
                   </div>
               </div>

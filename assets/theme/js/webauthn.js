@@ -64,6 +64,11 @@ const UI = {
     }
 };
 
+function reloadServerPreview() {
+    let iframe = document.getElementById('serverPreview');
+    if (iframe) iframe.src = iframe.src;
+}
+
 // Initial state check
 async function checkLoginStatus() {
     try {
@@ -126,6 +131,7 @@ async function createRegistration() {
 
         UI.hideLoading();
         if (res.success) {
+            reloadServerPreview();
             UI.setStatus(res.msg || '註冊成功！', 'success');
         } else {
             throw new Error(res.msg);
@@ -182,6 +188,7 @@ async function checkRegistration() {
 
         UI.hideLoading();
         if (res.success) {
+            reloadServerPreview();
             UI.updateAuthenticatedView(res);
             UI.setStatus('登入成功！', 'success');
         } else {
@@ -204,6 +211,26 @@ async function logout() {
     } catch (err) {
         UI.hideLoading();
         UI.setStatus('Logout failed: ' + err.message, 'error');
+    }
+}
+
+async function clearRegistration() {
+    if (!confirm('Are you sure you want to clear all registrations?')) return;
+    
+    try {
+        UI.showLoading('清除資料中...');
+        const response = await window.fetch('_test/server.php?fn=clearRegistrations' + getGetParams(), {method:'GET',cache:'no-cache'});
+        const json = await response.json();
+        UI.hideLoading();
+        if (json.success) {
+            reloadServerPreview();
+            UI.setStatus(json.msg, 'success');
+        } else {
+            throw new Error(json.msg);
+        }
+    } catch (err) {
+        UI.hideLoading();
+        UI.setStatus(err.message || 'unknown error occured', 'error');
     }
 }
 
