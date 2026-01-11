@@ -20,8 +20,8 @@ Goal: Replace the existing `index.php` structure with the themed Hero section.
 ## Phase 3: FIDO Functionality Integration
 Goal: Re-integrate the WebAuthn JavaScript logic and UI controls into the new theme.
 
-- [ ] Task: Port existing WebAuthn JavaScript logic (from current `index.php` or `_test/`) into the new page.
-- [ ] Task: Map the themed "Login" and "Register" buttons (or create new ones) to the WebAuthn JS functions.
+- [x] Task: Port existing WebAuthn JavaScript logic (from current `index.php` or `_test/`) into the new page. a4d5614
+- [x] Task: Map the themed "Login" and "Register" buttons (or create new ones) to the WebAuthn JS functions. e03fb66
 - [ ] Task: Ensure FIDO status messages and error feedback are styled and visible within the new layout.
 - [ ] Task: Conductor - User Manual Verification 'FIDO Functionality Integration' (Protocol in workflow.md)
 
