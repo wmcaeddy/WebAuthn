@@ -82,26 +82,6 @@
 
                 recursiveBase64StrToArrayBuffer(createArgs);
 
-                // On iOS Safari, the user gesture might have expired during the fetch.
-                // We provide a fallback 'Continue' button if we suspect the gesture is lost.
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    showLoading('Ready to register. Please tap "Continue" to proceed.');
-                    // Create a temporary button to re-trigger the gesture
-                    const btn = document.createElement('button');
-                    btn.textContent = 'Continue Registration';
-                    btn.className = 'btn btn-primary btn-block';
-                    btn.onclick = async () => {
-                        btn.remove();
-                        await proceedWithCreate(createArgs);
-                    };
-                    document.getElementById('status-container').innerHTML = '';
-                    document.getElementById('status-container').appendChild(btn);
-                    document.getElementById('status-container').classList.remove('hidden');
-                    hideLoading();
-                    return;
-                }
-
                 await proceedWithCreate(createArgs);
 
             } catch (err) {
@@ -169,24 +149,6 @@
                 }
 
                 recursiveBase64StrToArrayBuffer(getArgs);
-
-                // iOS User Gesture Fallback
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    showLoading('Ready to sign in. Please tap "Continue" to proceed.');
-                    const btn = document.createElement('button');
-                    btn.textContent = 'Continue Sign In';
-                    btn.className = 'btn btn-primary btn-block';
-                    btn.onclick = async () => {
-                        btn.remove();
-                        await proceedWithGet(getArgs);
-                    };
-                    document.getElementById('status-container').innerHTML = '';
-                    document.getElementById('status-container').appendChild(btn);
-                    document.getElementById('status-container').classList.remove('hidden');
-                    hideLoading();
-                    return;
-                }
 
                 await proceedWithGet(getArgs);
 

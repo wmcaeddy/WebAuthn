@@ -37,14 +37,6 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                 // replace binary base64 data with ArrayBuffer
                 recursiveBase64StrToArrayBuffer(createArgs);
 
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    if (confirm('Ready to register. Click OK to continue to authenticator.')) {
-                        await proceedWithCreate(createArgs);
-                    }
-                    return;
-                }
-
                 await proceedWithCreate(createArgs);
 
             } catch (err) {
@@ -117,14 +109,6 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
 
                 // replace binary base64 data with ArrayBuffer
                 recursiveBase64StrToArrayBuffer(getArgs);
-
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    if (confirm('Ready to sign in. Click OK to continue to authenticator.')) {
-                        await proceedWithGet(getArgs);
-                    }
-                    return;
-                }
 
                 await proceedWithGet(getArgs);
 
