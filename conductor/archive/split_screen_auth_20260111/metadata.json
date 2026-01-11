@@ -1,0 +1,8 @@
+{
+  "track_id": "split_screen_auth_20260111",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-11T15:24:00Z",
+  "updated_at": "2026-01-11T15:24:00Z",
+  "description": "Implement a split-screen layout with the authentication box on the right, keeping the current theme and ensuring mobile responsiveness."
+}
