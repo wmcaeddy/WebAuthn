@@ -59,6 +59,10 @@
                     throw new Error('Browser not supported.');
                 }
 
+                if (!window.isSecureContext) {
+                    throw new Error('WebAuthn requires a secure context (HTTPS). Please ensure you are using a secure connection.');
+                }
+
                 const userName = document.getElementById('userName').value;
                 const userDisplayName = document.getElementById('userDisplayName').value;
 
@@ -78,6 +82,37 @@
 
                 recursiveBase64StrToArrayBuffer(createArgs);
 
+                // On iOS Safari, the user gesture might have expired during the fetch.
+                // We provide a fallback 'Continue' button if we suspect the gesture is lost.
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    showLoading('Ready to register. Please tap "Continue" to proceed.');
+                    // Create a temporary button to re-trigger the gesture
+                    const btn = document.createElement('button');
+                    btn.textContent = 'Continue Registration';
+                    btn.className = 'btn btn-primary btn-block';
+                    btn.onclick = async () => {
+                        btn.remove();
+                        await proceedWithCreate(createArgs);
+                    };
+                    document.getElementById('status-container').innerHTML = '';
+                    document.getElementById('status-container').appendChild(btn);
+                    document.getElementById('status-container').classList.remove('hidden');
+                    hideLoading();
+                    return;
+                }
+
+                await proceedWithCreate(createArgs);
+
+            } catch (err) {
+                hideLoading();
+                reloadServerPreview();
+                setStatus(err.message || 'unknown error occured', 'error');
+            }
+        }
+
+        async function proceedWithCreate(createArgs) {
+            try {
                 showLoading('Waiting for authenticator...');
                 const cred = await navigator.credentials.create(createArgs);
 
@@ -88,7 +123,7 @@
                 };
 
                 showLoading('Verifying with server...');
-                rep = await window.fetch('server.php?fn=processCreate' + getGetParams(), {
+                const rep = await window.fetch('server.php?fn=processCreate' + getGetParams(), {
                     method  : 'POST',
                     body    : JSON.stringify(authenticatorAttestationResponse),
                     cache   : 'no-cache'
@@ -99,14 +134,14 @@
                 if (response.success) {
                     reloadServerPreview();
                     setStatus(response.msg || 'Registration successful', 'success');
-                } else {
-                    throw new Error(response.msg);
-                }
-
             } catch (err) {
                 hideLoading();
                 reloadServerPreview();
-                setStatus(err.message || 'unknown error occured', 'error');
+                if (err.name === 'NotAllowedError') {
+                    setStatus('Operation not allowed. On iOS, this often means the user gesture expired or NFC/Biometrics were denied. Please try again and tap "Continue" promptly.', 'error');
+                } else {
+                    setStatus(err.message || 'unknown error occured', 'error');
+                }
             }
         }
 
@@ -114,6 +149,10 @@
             try {
                 if (!window.fetch || !navigator.credentials || !navigator.credentials.get) {
                     throw new Error('Browser not supported.');
+                }
+
+                if (!window.isSecureContext) {
+                    throw new Error('WebAuthn requires a secure context (HTTPS).');
                 }
 
                 const userName = document.getElementById('userName').value;
@@ -131,6 +170,35 @@
 
                 recursiveBase64StrToArrayBuffer(getArgs);
 
+                // iOS User Gesture Fallback
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    showLoading('Ready to sign in. Please tap "Continue" to proceed.');
+                    const btn = document.createElement('button');
+                    btn.textContent = 'Continue Sign In';
+                    btn.className = 'btn btn-primary btn-block';
+                    btn.onclick = async () => {
+                        btn.remove();
+                        await proceedWithGet(getArgs);
+                    };
+                    document.getElementById('status-container').innerHTML = '';
+                    document.getElementById('status-container').appendChild(btn);
+                    document.getElementById('status-container').classList.remove('hidden');
+                    hideLoading();
+                    return;
+                }
+
+                await proceedWithGet(getArgs);
+
+            } catch (err) {
+                hideLoading();
+                reloadServerPreview();
+                setStatus(err.message || 'unknown error occured', 'error');
+            }
+        }
+
+        async function proceedWithGet(getArgs) {
+            try {
                 showLoading('Waiting for authenticator...');
                 const cred = await navigator.credentials.get(getArgs);
 
@@ -143,7 +211,7 @@
                 };
 
                 showLoading('Verifying login...');
-                rep = await window.fetch('server.php?fn=processGet' + getGetParams(), {
+                const rep = await window.fetch('server.php?fn=processGet' + getGetParams(), {
                     method:'POST',
                     body: JSON.stringify(authenticatorAttestationResponse),
                     cache:'no-cache'
@@ -176,14 +244,14 @@
                     }, 300);
 
                     setStatus('Login successful', 'success');
-                } else {
-                    throw new Error(response.msg);
-                }
-
             } catch (err) {
                 hideLoading();
                 reloadServerPreview();
-                setStatus(err.message || 'unknown error occured', 'error');
+                if (err.name === 'NotAllowedError') {
+                    setStatus('Operation not allowed. On iOS, this often means the user gesture expired or NFC/Biometrics were denied. Please try again and tap "Continue" promptly.', 'error');
+                } else {
+                    setStatus(err.message || 'unknown error occured', 'error');
+                }
             }
         }
 
@@ -404,6 +472,9 @@
                         <button type="button" class="btn btn-primary btn-block" onclick="createRegistration()">
                             New Registration
                         </button>
+                        <p style="font-size: 0.7rem; color: var(--color-text-secondary); margin-top: 8px; text-align: center;">
+                            Tip: If using NFC on iOS, stay on this page and follow the "Continue" prompts.
+                        </p>
                     </div>
 
                     <div style="margin-top: 12px;">

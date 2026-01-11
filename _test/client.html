@@ -21,6 +21,10 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                     throw new Error('Browser not supported.');
                 }
 
+                if (!window.isSecureContext) {
+                    throw new Error('WebAuthn requires a secure context (HTTPS).');
+                }
+
                 // get create args
                 let rep = await window.fetch('server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
                 const createArgs = await rep.json();
@@ -30,10 +34,27 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                     throw new Error(createArgs.msg || 'unknown error occured');
                 }
 
-                // replace binary base64 data with ArrayBuffer. a other way to do this
-                // is the reviver function of JSON.parse()
+                // replace binary base64 data with ArrayBuffer
                 recursiveBase64StrToArrayBuffer(createArgs);
 
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    if (confirm('Ready to register. Click OK to continue to authenticator.')) {
+                        await proceedWithCreate(createArgs);
+                    }
+                    return;
+                }
+
+                await proceedWithCreate(createArgs);
+
+            } catch (err) {
+                reloadServerPreview();
+                window.alert(err.message || 'unknown error occured');
+            }
+        }
+
+        async function proceedWithCreate(createArgs) {
+            try {
                 // create credentials
                 const cred = await navigator.credentials.create(createArgs);
 
@@ -45,7 +66,7 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                 };
 
                 // check auth on server side
-                rep = await window.fetch('server.php?fn=processCreate' + getGetParams(), {
+                const rep = await window.fetch('server.php?fn=processCreate' + getGetParams(), {
                     method  : 'POST',
                     body    : JSON.stringify(authenticatorAttestationResponse),
                     cache   : 'no-cache'
@@ -57,13 +78,13 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                     reloadServerPreview();
                     window.alert(authenticatorAttestationServerResponse.msg || 'registration success');
 
-                } else {
-                    throw new Error(authenticatorAttestationServerResponse.msg);
-                }
-
             } catch (err) {
                 reloadServerPreview();
-                window.alert(err.message || 'unknown error occured');
+                if (err.name === 'NotAllowedError') {
+                    window.alert('Operation not allowed. On iOS, please ensure you tap "OK" promptly to maintain the user gesture context.');
+                } else {
+                    window.alert(err.message || 'unknown error occured');
+                }
             }
         }
 
@@ -79,6 +100,10 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                     throw new Error('Browser not supported.');
                 }
 
+                if (!window.isSecureContext) {
+                    throw new Error('WebAuthn requires a secure context (HTTPS).');
+                }
+
                 // get check args
                 let rep = await window.fetch('server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
                 const getArgs = await rep.json();
@@ -88,10 +113,27 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                     throw new Error(getArgs.msg);
                 }
 
-                // replace binary base64 data with ArrayBuffer. a other way to do this
-                // is the reviver function of JSON.parse()
+                // replace binary base64 data with ArrayBuffer
                 recursiveBase64StrToArrayBuffer(getArgs);
 
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    if (confirm('Ready to sign in. Click OK to continue to authenticator.')) {
+                        await proceedWithGet(getArgs);
+                    }
+                    return;
+                }
+
+                await proceedWithGet(getArgs);
+
+            } catch (err) {
+                reloadServerPreview();
+                window.alert(err.message || 'unknown error occured');
+            }
+        }
+
+        async function proceedWithGet(getArgs) {
+            try {
                 // check credentials with hardware
                 const cred = await navigator.credentials.get(getArgs);
 
@@ -105,7 +147,7 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                 };
 
                 // send to server
-                rep = await window.fetch('server.php?fn=processGet' + getGetParams(), {
+                const rep = await window.fetch('server.php?fn=processGet' + getGetParams(), {
                     method:'POST',
                     body: JSON.stringify(authenticatorAttestationResponse),
                     cache:'no-cache'
@@ -116,13 +158,13 @@ license https://github.com/lbuchs/WebAuthn/blob/master/LICENSE MIT
                 if (authenticatorAttestationServerResponse.success) {
                     reloadServerPreview();
                     window.alert(authenticatorAttestationServerResponse.msg || 'login success');
-                } else {
-                    throw new Error(authenticatorAttestationServerResponse.msg);
-                }
-
             } catch (err) {
                 reloadServerPreview();
-                window.alert(err.message || 'unknown error occured');
+                if (err.name === 'NotAllowedError') {
+                    window.alert('Operation not allowed. On iOS, please ensure you tap "OK" promptly to maintain the user gesture context.');
+                } else {
+                    window.alert(err.message || 'unknown error occured');
+                }
             }
         }
 
