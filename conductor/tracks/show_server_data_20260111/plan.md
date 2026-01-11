@@ -10,9 +10,9 @@ Goal: Add the button and preview container with correct styling.
 - [x] Task: Verify `assets/theme/js/webauthn.js` has the necessary `togglePreview` function. c855440
 - [x] Task: Conductor - User Manual Verification 'Implementation' (Protocol in workflow.md) c855440
 
-## Phase 2: Verification
+## Phase 2: Verification [checkpoint: 3a51fba]
 Goal: Ensure functionality and style match expectations.
 
-- [ ] Task: Verify the toggle works and the iframe loads.
-- [ ] Task: Verify "Clear All" functionality.
-- [ ] Task: Conductor - User Manual Verification 'Verification' (Protocol in workflow.md)
+- [x] Task: Verify the toggle works and the iframe loads. c855440
+- [x] Task: Verify "Clear All" functionality. c855440
+- [x] Task: Conductor - User Manual Verification 'Verification' (Protocol in workflow.md) 3a51fba
