@@ -169,10 +169,11 @@
 
     /* Mobile Responsiveness (Phase 3) */
     @media (max-width: 768px) {
-        .split-hero, .split-auth { width: 100%; }
+        .split-screen-container { flex-direction: column-reverse; flex-wrap: wrap; min-height: auto; }
+        .split-hero, .split-auth { width: 100%; flex: auto; }
         .split-hero { height: 300px; } /* Fixed height for hero on mobile */
         .split-hero .banner { position: relative; } /* Reset absolute */
-        .split-auth { padding: 40px 20px; min-height: auto; background: #fff; }
+        .split-auth { padding: 40px 20px; min-height: auto; background: #fff; border-left: none; }
         .auth-card { padding: 20px 0; box-shadow: none; border: none; background: transparent; }
         .auth-header h3 { font-size: 1.6rem; }
     }
