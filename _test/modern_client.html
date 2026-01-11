@@ -134,6 +134,9 @@
                 if (response.success) {
                     reloadServerPreview();
                     setStatus(response.msg || 'Registration successful', 'success');
+                } else {
+                    throw new Error(response.msg);
+                }
             } catch (err) {
                 hideLoading();
                 reloadServerPreview();
@@ -241,6 +244,9 @@
                     }, 300);
 
                     setStatus('Login successful', 'success');
+                } else {
+                    throw new Error(response.msg);
+                }
             } catch (err) {
                 hideLoading();
                 reloadServerPreview();
