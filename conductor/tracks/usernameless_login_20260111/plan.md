@@ -17,10 +17,10 @@ Goal: Modify the JS flow to allow empty usernames for login.
 - [x] Task: Update `setStatus` or error handling to ignore empty username errors specifically for the login path. 66f8cf7
 - [x] Task: Conductor - User Manual Verification 'Frontend Update' (Protocol in workflow.md) f3f066a
 
-## Phase 3: Verification
+## Phase 3: Verification [checkpoint: 9d2f123]
 Goal: Test the flow.
 
-- [ ] Task: Verify that Registration still requires a username.
-- [ ] Task: Verify that Login initiates WebAuthn even when the username field is empty.
-- [ ] Task: Final audit of the login flow.
-- [ ] Task: Conductor - User Manual Verification 'Final Audit' (Protocol in workflow.md)
+- [x] Task: Verify that Registration still requires a username. 53b5624
+- [x] Task: Verify that Login initiates WebAuthn even when the username field is empty. 53b5624
+- [x] Task: Final audit of the login flow. 53b5624
+- [x] Task: Conductor - User Manual Verification 'Final Audit' (Protocol in workflow.md) 9d2f123
