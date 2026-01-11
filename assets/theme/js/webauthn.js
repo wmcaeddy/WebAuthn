@@ -68,7 +68,6 @@ async function checkRegistration() {
         updateUserId();
 
         const userName = document.getElementById('userName').value;
-        if (!userName) throw new Error('請輸入使用者名稱');
 
         showLoading('準備登入...');
         hideStatus();
