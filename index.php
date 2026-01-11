@@ -1,5 +1,5 @@
 <?php
-// index.php - Legacy Header/Hero with Tidy modular FIDO Login
+// index.php - Clean modular FIDO layout using latest scripting
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -37,7 +37,7 @@
         width: 100%;
         text-align: left;
         position: relative;
-        min-height: 300px;
+        min-height: 350px;
     }
     
     .auth-header h3 {
@@ -69,14 +69,20 @@
     .btn-theme-primary { background-color: var(--color-primary); color: #fff; }
     .btn-theme-primary:hover { background-color: var(--color-secondary); transform: translateY(-2px); }
     .btn-theme-secondary { background-color: #fff; color: var(--color-primary); border: 1px solid var(--color-primary); }
-    .btn-theme-secondary:hover { background-color: #fdf2f7; }
+    .btn-theme-secondary:hover { background-color: var(--color-bg-light); }
 
     .TitleB { font-size: 11px; color: #841852; font-weight:bold; }
     
-    /* Transition Helper */
     .hidden { display: none !important; }
+    
+    /* Loading overlay inside card */
+    .loading-overlay {
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(255,255,255,0.9); z-index: 10;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        border-radius: 16px;
+    }
 </style>
-
 </head>
 <body bgcolor="#f2f2f2" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
@@ -91,22 +97,20 @@
             <td width="1" height="680" rowspan="2" valign="top" background="20260111141054139/line.gif"><img src="20260111141054139/line.gif" width="1" height="100"></td>
             <td width="1005" valign="top" bgcolor="#FFFFFF">
               
-              <!-- Component: Header -->
+              <!-- Legacy Components -->
               <?php include 'components/header.php'; ?>
-              
-              <!-- Component: Hero (Slider) -->
               <?php include 'components/hero.php'; ?>
 
-              <!-- Tidy modular Auth Section -->
+              <!-- Focused FIDO Card -->
               <div class="auth-section-wrapper">
                   <div class="auth-card">
-                      <!-- Loading Overlay -->
+                      <!-- 1. The Portable Loading Overlay -->
                       <div id="loading-overlay" class="loading-overlay hidden">
                           <div class="spinner"></div>
-                          <p id="loading-text">請稍候...</p>
+                          <p id="loading-text" style="color: var(--color-primary); font-weight: 600;">請稍候...</p>
                       </div>
 
-                      <!-- State 1: Login Form (Hidden by default until checkLoginStatus) -->
+                      <!-- 2. Login Flow Container -->
                       <div id="login-flow-container" class="hidden">
                           <div class="auth-header">
                               <h3>Passkey 登入</h3>
@@ -132,26 +136,21 @@
                               </button>
                           </div>
 
-                          <!-- Hidden Configuration Fields -->
+                          <!-- Config Fields (Logic Hidden) -->
                           <div class="hidden">
                               <input type="text" id="rpId" value="">
                               <input type="text" id="userId" value="">
                               <input type="checkbox" id="requireResidentKey" checked>
-                              <input type="radio" name="uv" id="userVerification_discouraged" checked>
-                              <input type="checkbox" id="type_usb" checked>
-                              <input type="checkbox" id="type_nfc" checked>
-                              <input type="checkbox" id="type_ble" checked>
-                              <input type="checkbox" id="type_hybrid" checked>
-                              <input type="checkbox" id="type_int" checked>
-                              <input type="checkbox" id="fmt_none" checked>
-                              <input type="checkbox" id="fmt_packed" checked>
-                              <input type="checkbox" id="fmt_android-key" checked>
-                              <input type="checkbox" id="fmt_apple" checked>
-                              <input type="checkbox" id="fmt_tpm" checked>
+                              <!-- User Verification -->
+                              <input type="radio" name="uv" id="userVerification_required">
+                              <input type="radio" name="uv" id="userVerification_preferred">
+                              <input type="radio" name="uv" id="userVerification_discouraged" checked="">
+                              <input type="checkbox" id="type_usb" checked><input type="checkbox" id="type_nfc" checked><input type="checkbox" id="type_ble" checked><input type="checkbox" id="type_hybrid" checked><input type="checkbox" id="type_int" checked>
+                              <input type="checkbox" id="fmt_none" checked><input type="checkbox" id="fmt_packed" checked><input type="checkbox" id="fmt_android-key" checked><input type="checkbox" id="fmt_apple" checked><input type="checkbox" id="fmt_tpm" checked>
                           </div>
                       </div>
 
-                      <!-- State 2: Authenticated (Hidden by default until checkLoginStatus) -->
+                      <!-- 3. Authenticated State -->
                       <div id="user-authenticated-section" class="hidden">
                           <div class="user-section-card" style="text-align: center; padding: 20px 0;">
                               <div id="auth-avatar" class="avatar-circle" style="width: 80px; height: 80px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px;">U</div>
@@ -169,7 +168,7 @@
                           </div>
                       </div>
                       
-                      <!-- Status Messaging -->
+                      <!-- 4. Status Messages -->
                       <div id="status-container" class="status-message hidden">
                           <p id="status-message" style="margin: 0;"></p>
                       </div>
@@ -181,7 +180,6 @@
           </tr>
           <tr> 
             <td height="60" valign="top" bgcolor="#FFFFFF">
-              <!-- Component: Footer -->
               <?php include 'components/footer.php'; ?>
             </td>
           </tr>

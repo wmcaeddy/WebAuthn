@@ -97,7 +97,9 @@ async function createRegistration() {
         UI.hideStatus();
 
         let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
-        const createArgs = await rep.json();
+        const text = await rep.text();
+        console.log('Server response (getCreateArgs):', text);
+        const createArgs = JSON.parse(text);
 
         if (createArgs.success === false) throw new Error(createArgs.msg || 'unknown error');
 
@@ -118,7 +120,9 @@ async function createRegistration() {
             body: JSON.stringify(response),
             cache: 'no-cache'
         });
-        const res = await rep.json();
+        const resText = await rep.text();
+        console.log('Server response (processCreate):', resText);
+        const res = JSON.parse(resText);
 
         UI.hideLoading();
         if (res.success) {
@@ -147,7 +151,9 @@ async function checkRegistration() {
         UI.hideStatus();
 
         let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
-        const getArgs = await rep.json();
+        const text = await rep.text();
+        console.log('Server response (getGetArgs):', text);
+        const getArgs = JSON.parse(text);
 
         if (getArgs.success === false) throw new Error(getArgs.msg);
 
@@ -170,7 +176,9 @@ async function checkRegistration() {
             body: JSON.stringify(response),
             cache: 'no-cache'
         });
-        const res = await rep.json();
+        const resText = await rep.text();
+        console.log('Server response (processGet):', resText);
+        const res = JSON.parse(resText);
 
         UI.hideLoading();
         if (res.success) {
