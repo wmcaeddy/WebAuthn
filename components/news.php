@@ -1,11 +1,11 @@
 <section class="sec" id="news">
     <div class="container-1400">
-        <div class="g-title">
+        <div class="g-title scroll-fade-up">
             <div class="t1">NEWS EVENTS</div>
             <h2 class="t2">最新消息</h2>
         </div>
 
-        <div class="news-grid">
+        <div class="news-grid stagger-container">
             <div class="news-card">
                 <div style="position: relative;">
                     <div style="position: absolute; left: 0; top: 0; background: var(--color-secondary); color: #fff; padding: 5px 10px; text-align: center; z-index: 2;">

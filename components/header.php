@@ -14,17 +14,17 @@
   <div class="menu">
     <ul class="reset">
       <li>
-        <a href="#" title="About Us">
+        <a href="#about" title="About Us">
           <p><span>關於我們</span></p>
         </a>
       </li>
       <li>
-        <a href="#" title="News">
+        <a href="#news" title="News">
           <p><span>消息與報導</span></p>
         </a>
       </li>
       <li>
-        <a href="#" title="Solutions">
+        <a href="#brands" title="Solutions">
           <p><span>解決方案</span></p>
         </a>
       </li>

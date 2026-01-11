@@ -1,11 +1,11 @@
 <section class="sec sec-grey" id="about">
     <div class="container-1400">
-        <div class="g-title">
+        <div class="g-title scroll-fade-up">
             <div class="t1">ABOUT FAIRLINE</div>
             <h2 class="t2">關於中飛</h2>
         </div>
         
-        <div style="text-align: center; max-width: 900px; margin: 0 auto 60px;">
+        <div class="scroll-fade-up" style="text-align: center; max-width: 900px; margin: 0 auto 60px;">
             <h3 style="font-size: 1.75rem; margin-bottom: 20px; color: var(--color-dark);">中飛科技旗下代理產品線網羅各大領導品牌</h3>
             <p style="line-height: 1.8; color: #555;">
                 FIDELIS、IMPERVA、KEYSIGHT IXIA、RAPID7、SOPHOS、<br>
@@ -14,7 +14,7 @@
             </p>
         </div>
 
-        <div class="boxWrap">
+        <div class="boxWrap stagger-container">
             <div class="col-item">
                 <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 20px;">
                     <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">

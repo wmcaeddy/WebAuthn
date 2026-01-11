@@ -1,7 +1,7 @@
 <section class="hero">
     <div class="hero-content container-1400">
         <!-- Auth Card -->
-        <div class="card">
+        <div class="card scroll-fade-up">
             <header class="auth-header" style="margin-bottom: 30px; text-align: center;">
                 <h1 style="color: var(--color-primary); font-size: 1.75rem; margin-bottom: 8px;">WebAuthn 登入驗證</h1>
                 <p style="color: #666; font-size: 0.9rem;">專業的團隊, 精緻的服務</p>

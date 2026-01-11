@@ -19,6 +19,9 @@
     <!-- Modern Styles -->
     <link rel="stylesheet" href="assets/css/modern.css">
 
+    <!-- Modern Scripts -->
+    <script src="assets/js/animations.js" defer></script>
+
     <script>
         /**
          * WebAuthn Logic
