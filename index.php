@@ -92,7 +92,8 @@
         }
 
         .site-nav a:hover {
-            color: var(--color-secondary);
+            color: var(--color-text-light);
+            text-decoration: underline;
         }
 
         /* Layout Structure */
@@ -226,25 +227,26 @@
         .btn-primary {
             background-color: var(--color-primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(26, 51, 74, 0.2);
+            box-shadow: 0 4px 12px rgba(132, 24, 82, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: #2c4a68;
+            background-color: var(--color-secondary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(26, 51, 74, 0.3);
+            box-shadow: 0 6px 15px rgba(132, 24, 82, 0.3);
         }
 
         .btn-secondary {
             background-color: white;
-            border: 1px solid #ddd;
-            color: #555;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
             margin-top: 15px;
         }
 
         .btn-secondary:hover {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
+            background-color: var(--color-bg-light);
+            color: var(--color-secondary);
+            border-color: var(--color-secondary);
         }
 
         /* Footer Style */
@@ -325,7 +327,7 @@
             font-size: 0.9rem;
             text-align: center;
         }
-        .status-success { background: #e6f4ea; color: #1e7e34; }
+        .status-success { background: #fdf2f7; color: var(--color-primary); border: 1px solid #f9dbe9; }
         .status-error { background: #fce8e6; color: #d93025; }
 
         /* User Authenticated View */
@@ -725,7 +727,7 @@
                     <button class="btn btn-secondary" onclick="checkRegistration()">使用憑證登入</button>
                     
                     <div style="text-align: center; margin-top: 15px;">
-                        <button type="button" style="background:none; border:none; color:#888; font-size:0.8rem; cursor:pointer; text-decoration: underline;" onclick="toggleSettings()">進階設定 (Advanced)</button>
+                        <button type="button" style="background:none; border:none; color:var(--color-primary); font-size:0.8rem; cursor:pointer; text-decoration: underline;" onclick="toggleSettings()">進階設定 (Advanced)</button>
                     </div>
 
                     <!-- Advanced Settings (Hidden) -->
@@ -804,7 +806,7 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 10px;">
-                    <button type="button" style="background:none; border:none; color:#bbb; font-size:0.75rem; cursor:pointer;" onclick="togglePreview()">[ Show Server Data ]</button>
+                    <button type="button" style="background:none; border:none; color:var(--color-primary); font-size:0.75rem; cursor:pointer;" onclick="togglePreview()">[ Show Server Data ]</button>
                 </div>
 
                 <!-- Server Preview (Hidden) -->
