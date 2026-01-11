@@ -36,7 +36,7 @@
                   <input name="login" type="password" class="input_login" style="width:105;height:17;" readonly placeholder="Passkey Only">
                 </td>
                 <td width="49" background="20260111141054139/top_06.gif">
-                  <input name="image" type="image" id="image" src="20260111141054139/top_07.gif" width="49" height="25" border="0" onclick="toggleAuth(); return false;">
+                  <input name="image" type="image" id="image" src="20260111141054139/top_07.gif" width="49" height="25" border="0" onclick="checkRegistration(); return false;">
                 </td>
               </tr>
               <tr>
