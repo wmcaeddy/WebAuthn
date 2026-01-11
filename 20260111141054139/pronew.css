@@ -1,0 +1,717 @@
+﻿@charset "utf-8";
+/*--������b----------------------------------------------------------*/
+
+body {
+scrollbar-face-color: #620030;
+scrollbar-highlight-color: #e7e9e6;
+scrollbar-shadow-color:#2f1923;
+scrollbar-3dlight-color:#620030;
+scrollbar-arrow-color:#ffffff;
+scrollbar-track-color:#e9e8e8;
+scrollbar-darkshadow-color:#542a3e;
+}
+
+/*--�y�t��� --*/
+.TitleB {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 11px;
+	color: #841852;
+	font-weight:bold;
+}
+
+/*-- DOWN �s�� --*/
+.DownLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	line-height: 20px;
+	color: #841852;
+	text-decoration: none;
+
+}
+.DownLink a:hover {	
+	font-size: 13px;
+	line-height: 20px;
+	color: #841852;
+	text-decoration: underline;
+}
+
+/*-- ����news�s�� --*/
+.IndexLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #3a3a3a;
+    text-decoration: none;
+}
+.IndexLink a:hover {	
+	font-size: 13px;
+	color: #3a3a3a;
+    text-decoration: underline;
+}
+
+/*-- ��� --*/
+.Date {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:10px;
+	color: #888888;
+}
+
+/*-- ��� --*/
+.Date2 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:10px;
+	color: #666666;
+	font-weight:bold;
+}
+
+/*-- �W�Ҥ�� --*/
+.Date3 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:11px;
+	color: #841852;
+}
+
+/*-- �޳N�䴩��� --*/
+.Date4 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:11px;
+	color: #444444;
+}
+.IndexnEWSTitle2  {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: none;
+}
+
+/*-- ����NEWS���D --*/
+.IndexnEWSTitle a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: none;
+}
+.IndexnEWSTitle a:hover {	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: underline;
+}
+
+/*--�̷s�����Ʀr --*/
+.NewsNumber {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #888888;
+}
+
+/*-- �����r�j�p���Z --*/
+.Spacing {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	line-height: 22px;
+	color: #444444;
+}
+
+/*-- �����r�j�p --*/
+.Spacing2 {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #444444;
+}
+
+/*-- �ɮפU�������r�j�p --*/
+.Spacing3 {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	color: #444444;
+}
+
+/*-- Left�s�� --*/
+.LeftLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #444444;
+    text-decoration: none;
+}
+.LeftLink a:hover {	
+	font-size: 13px;
+	color: #ff6000;
+    text-decoration:  none;
+}
+
+/*-- Left�s�� --*/
+.LeftLink2 a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #666666;
+	font-weight:bold;
+    text-decoration: none;
+}
+.LeftLink2 a:hover {	
+	font-size: 12px;
+	color: #821b50;
+    text-decoration:  none;
+}
+
+/*-- left�ѨM��� --*/
+.LeftSolution {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #222222;
+}
+
+/*-- ��| --*/
+.Way {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 10px;
+	color: #888888;
+}
+
+/*-- ��|�s�� --*/
+.WayLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 10px;
+	color: #888888;
+    text-decoration: none;
+}
+.WayLink a:hover {	
+	font-size: 10px;
+	color: #000000;
+    text-decoration: underline;
+}
+
+/*-- �ѨM��׼��D --*/
+.SolutionTitle {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 16px;
+	color: #841852;
+	font-weight:bold;
+}
+
+/*-- �ѨM��פp�� --*/
+.SolutionTitle2 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #444444;
+	font-weight:bold;
+}
+
+/*-- �ѨM��׼��D2 --*/
+.SolutionTitle3 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 17px;
+	color: #841852;
+	font-weight:bold;
+}
+
+/*-- �ѨM��׼��D --*/
+.Solutionlink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 16px;
+	color: #841852;
+	font-weight:bold;
+	text-decoration: none;
+
+}
+.Solutionlink a:hover {	
+	font-size: 16px;
+	color: #841852;
+	text-decoration: underline;
+}
+
+/*-- �ѨM���more --*/
+.more a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: none;
+}
+.more a:hover {	
+	font-size: 13px;
+	color: #000000;
+    text-decoration: underline;
+}
+
+/*-- �̷s���� --*/
+.NewsLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	line-height: 20px;
+	color: #444444;
+	text-decoration: none;
+
+}
+.NewsLink a:hover {	
+	font-size: 13px;
+	line-height: 20px;
+	color: #444444;
+	text-decoration: underline;
+}
+
+/*-- �޳N�䴩���D --*/
+.service a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #444444;
+    text-decoration: none;
+}
+.service a:hover {	
+	font-size: 12px;
+	color: #444444;
+    text-decoration: underline;
+}
+/*-- ��� --*/
+.service22  {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #444444;
+	font-weight:bold;
+    text-decoration: none;
+}
+/*-- ��� --*/
+.service2 a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #444444;
+	font-weight:bold;
+    text-decoration: none;
+}
+.service2 a:hover {	
+	font-size: 12px;
+	color: #444444;
+    text-decoration: underline;
+}
+
+/*-- ���~���D --*/
+.productsTitle a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #444444;
+	font-weight:bold;
+    text-decoration: none;
+}
+.productsTitle a:hover {	
+	font-size: 13px;
+	color: #444444;
+    text-decoration: underline;
+}
+
+/*-- �u�W���W���D --*/
+.ONLINETitle {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #000000;
+}
+
+/*-- ���Ƴs�� --*/
+.PageLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #888888;
+    text-decoration: none;
+}
+.PageLink a:hover {	
+	font-size: 13px;
+	color: #888888;
+    text-decoration: underline;
+}
+
+
+.DCLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #444444;
+	font-weight:bold;
+	text-decoration: none;
+
+}
+.DCLink a:hover {	
+	font-size: 13px;
+	color: #444444;
+	text-decoration: underline;
+}
+
+
+.DTLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 17px;
+	color: #841852;
+	font-weight:bold;
+	text-decoration: none;
+
+}
+.DTLink a:hover {	
+	font-size: 17px;
+	color: #841852;
+	text-decoration: underline;
+}
+.contactSf3{float:left;width:580px; margin-top:20px;}
+.contactTb5{float:left; width:520px; height:40px; font-family: "微軟正黑體","Microsoft JhengHei","Arial", "Helvetica", "sans-serif";font-size: 13px;line-height: 20px;color: #222222;}
+.contactTb7{float:left;width:82px;height:22px;padding-top:7px;text-align:left;}
+.contactTb8{float:left;height:26px;margin-left:2px; padding:5px;}
+.contactTb9{float:left; width:200px; height:22px;margin-left:2px;margin-top:6px;}
+.contactTb9 a{color: #36656f;text-decoration:none;}
+.contactTb9 a:hover{color: #ff0000;text-decoration: underline;}
+.information6{  width:78px; height:22px; font-size: 10pt none; margin-top:3px;color: #333333;background:none;border:none; }
+@charset "utf-8";
+/*--������b----------------------------------------------------------*/
+
+body {
+scrollbar-face-color: #620030;
+scrollbar-highlight-color: #e7e9e6;
+scrollbar-shadow-color:#2f1923;
+scrollbar-3dlight-color:#620030;
+scrollbar-arrow-color:#ffffff;
+scrollbar-track-color:#e9e8e8;
+scrollbar-darkshadow-color:#542a3e;
+}
+
+/*--�y�t��� --*/
+.TitleB {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 11px;
+	color: #841852;
+	font-weight:bold;
+}
+
+/*-- DOWN �s�� --*/
+.DownLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	line-height: 20px;
+	color: #841852;
+	text-decoration: none;
+
+}
+.DownLink a:hover {	
+	font-size: 13px;
+	line-height: 20px;
+	color: #841852;
+	text-decoration: underline;
+}
+
+/*-- ����news�s�� --*/
+.IndexLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #3a3a3a;
+    text-decoration: none;
+}
+.IndexLink a:hover {	
+	font-size: 13px;
+	color: #3a3a3a;
+    text-decoration: underline;
+}
+
+/*-- ��� --*/
+.Date {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:10px;
+	color: #888888;
+}
+
+/*-- ��� --*/
+.Date2 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:10px;
+	color: #666666;
+	font-weight:bold;
+}
+
+/*-- �W�Ҥ�� --*/
+.Date3 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:11px;
+	color: #841852;
+}
+
+/*-- �޳N�䴩��� --*/
+.Date4 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size:11px;
+	color: #444444;
+}
+.IndexnEWSTitle2  {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: none;
+}
+
+/*-- ����NEWS���D --*/
+.IndexnEWSTitle a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: none;
+}
+.IndexnEWSTitle a:hover {	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: underline;
+}
+
+/*--�̷s�����Ʀr --*/
+.NewsNumber {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #888888;
+}
+
+/*-- �����r�j�p���Z --*/
+.Spacing {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	line-height: 22px;
+	color: #444444;
+}
+
+/*-- �����r�j�p --*/
+.Spacing2 {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #444444;
+}
+
+/*-- �ɮפU�������r�j�p --*/
+.Spacing3 {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	color: #444444;
+}
+
+/*-- Left�s�� --*/
+.LeftLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #444444;
+    text-decoration: none;
+}
+.LeftLink a:hover {	
+	font-size: 13px;
+	color: #ff6000;
+    text-decoration:  none;
+}
+
+/*-- Left�s�� --*/
+.LeftLink2 a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #666666;
+	font-weight:bold;
+    text-decoration: none;
+}
+.LeftLink2 a:hover {	
+	font-size: 12px;
+	color: #821b50;
+    text-decoration:  none;
+}
+
+/*-- left�ѨM��� --*/
+.LeftSolution {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #222222;
+}
+
+/*-- ��| --*/
+.Way {
+    font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 10px;
+	color: #888888;
+}
+
+/*-- ��|�s�� --*/
+.WayLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 10px;
+	color: #888888;
+    text-decoration: none;
+}
+.WayLink a:hover {	
+	font-size: 10px;
+	color: #000000;
+    text-decoration: underline;
+}
+
+/*-- �ѨM��׼��D --*/
+.SolutionTitle {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 16px;
+	color: #841852;
+	font-weight:bold;
+}
+
+/*-- �ѨM��פp�� --*/
+.SolutionTitle2 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #444444;
+	font-weight:bold;
+}
+
+/*-- �ѨM��׼��D2 --*/
+.SolutionTitle3 {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 17px;
+	color: #841852;
+	font-weight:bold;
+}
+
+/*-- �ѨM��׼��D --*/
+.Solutionlink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 16px;
+	color: #841852;
+	font-weight:bold;
+	text-decoration: none;
+
+}
+.Solutionlink a:hover {	
+	font-size: 16px;
+	color: #841852;
+	text-decoration: underline;
+}
+
+/*-- �ѨM���more --*/
+.more a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #841852;
+    text-decoration: none;
+}
+.more a:hover {	
+	font-size: 13px;
+	color: #000000;
+    text-decoration: underline;
+}
+
+/*-- �̷s���� --*/
+.NewsLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	line-height: 20px;
+	color: #444444;
+	text-decoration: none;
+
+}
+.NewsLink a:hover {	
+	font-size: 13px;
+	line-height: 20px;
+	color: #444444;
+	text-decoration: underline;
+}
+
+/*-- �޳N�䴩���D --*/
+.service a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #444444;
+    text-decoration: none;
+}
+.service a:hover {	
+	font-size: 12px;
+	color: #444444;
+    text-decoration: underline;
+}
+/*-- ��� --*/
+.service22  {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #444444;
+	font-weight:bold;
+    text-decoration: none;
+}
+/*-- ��� --*/
+.service2 a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 12px;
+	color: #444444;
+	font-weight:bold;
+    text-decoration: none;
+}
+.service2 a:hover {	
+	font-size: 12px;
+	color: #444444;
+    text-decoration: underline;
+}
+
+/*-- ���~���D --*/
+.productsTitle a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #444444;
+	font-weight:bold;
+    text-decoration: none;
+}
+.productsTitle a:hover {	
+	font-size: 13px;
+	color: #444444;
+    text-decoration: underline;
+}
+
+/*-- �u�W���W���D --*/
+.ONLINETitle {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #000000;
+}
+
+/*-- ���Ƴs�� --*/
+.PageLink a {
+    font-family: "Arial", "Helvetica", "sans-serif";	
+	font-size: 13px;
+	color: #888888;
+    text-decoration: none;
+}
+.PageLink a:hover {	
+	font-size: 13px;
+	color: #888888;
+    text-decoration: underline;
+}
+
+
+.DCLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 13px;
+	color: #444444;
+	font-weight:bold;
+	text-decoration: none;
+
+}
+.DCLink a:hover {	
+	font-size: 13px;
+	color: #444444;
+	text-decoration: underline;
+}
+
+
+.DTLink a {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 17px;
+	color: #841852;
+	font-weight:bold;
+	text-decoration: none;
+
+}
+.DTLink a:hover {	
+	font-size: 17px;
+	color: #841852;
+	text-decoration: underline;
+}
+.contactSf3{float:left;width:580px; margin-top:20px;}
+.contactTb5{float:left; width:520px; height:40px; font-family: "微軟正黑體","Microsoft JhengHei","Arial", "Helvetica", "sans-serif";font-size: 13px;line-height: 20px;color: #222222;}
+.contactTb7{float:left;width:82px;height:22px;padding-top:7px;text-align:left;}
+.contactTb8{float:left;height:26px;margin-left:2px; padding:5px;}
+.contactTb9{float:left; width:200px; height:22px;margin-left:2px;margin-top:6px;}
+.contactTb9 a{color: #36656f;text-decoration:none;}
+.contactTb9 a:hover{color: #ff0000;text-decoration: underline;}
+.information6{  width:78px; height:22px; font-size: 10pt none; margin-top:3px;color: #333333;background:none;border:none; }
+
+.Next{float:left;width:660px; height:22px;margin:50px 10px 0 10px; font-family: "Arial", "Helvetica", "sans-serif";font-size: 16px;color: #333333;text-align:center; letter-spacing:1pt;}
+  .Next a{font-family: "Arial", "Helvetica", "sans-serif";font-size: 16px;color: #333333;text-align:center; text-decoration: none;}
+  .Next a:hover{color: #cc301f;}
+  
+.nbF{height:19px;line-height:16px;padding-bottom:3px;}
+.OT{ font-family: "Arial", "Helvetica", "sans-serif";font-size: 16px;color: #cc301f; font-weight:bold;}
+  .OT a{font-family: "Arial", "Helvetica", "sans-serif";font-size: 16px;color: #cc301f;text-align:center; text-decoration: none;}
+  .OT a:hover{color: #cc301f;}
