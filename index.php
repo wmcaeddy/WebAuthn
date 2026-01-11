@@ -1,5 +1,5 @@
 <?php
-// index.php - Legacy Header/Hero with Focused FIDO Login
+// index.php - Legacy Header/Hero with Tidy modular FIDO Login
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -20,13 +20,12 @@
 <link href="20260111141054139/showcut.css" rel="stylesheet" type="text/css">
 
 <style>
-    /* Scoped styling for the focused auth card */
     .auth-section-wrapper {
         padding: 80px 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #fdf2f7; /* Light ProNew tint */
+        background: #fdf2f7;
     }
     
     .auth-card {
@@ -37,6 +36,8 @@
         max-width: 480px;
         width: 100%;
         text-align: left;
+        position: relative;
+        min-height: 300px;
     }
     
     .auth-header h3 {
@@ -52,7 +53,6 @@
         margin-bottom: 30px;
     }
 
-    /* Override legacy styles for consistent buttons */
     .btn-theme {
         padding: 15px;
         border-radius: 6px;
@@ -71,8 +71,10 @@
     .btn-theme-secondary { background-color: #fff; color: var(--color-primary); border: 1px solid var(--color-primary); }
     .btn-theme-secondary:hover { background-color: #fdf2f7; }
 
-    /* Adjust legacy elements */
     .TitleB { font-size: 11px; color: #841852; font-weight:bold; }
+    
+    /* Transition Helper */
+    .hidden { display: none !important; }
 </style>
 
 </head>
@@ -95,15 +97,17 @@
               <!-- Component: Hero (Slider) -->
               <?php include 'components/hero.php'; ?>
 
-              <!-- Focused FIDO Login Card Section -->
+              <!-- Tidy modular Auth Section -->
               <div class="auth-section-wrapper">
                   <div class="auth-card">
+                      <!-- Loading Overlay -->
                       <div id="loading-overlay" class="loading-overlay hidden">
                           <div class="spinner"></div>
                           <p id="loading-text">請稍候...</p>
                       </div>
 
-                      <div id="login-flow-container">
+                      <!-- State 1: Login Form (Hidden by default until checkLoginStatus) -->
+                      <div id="login-flow-container" class="hidden">
                           <div class="auth-header">
                               <h3>Passkey 登入</h3>
                               <p>使用您的安全金鑰或生物辨識進行驗證</p>
@@ -128,25 +132,17 @@
                               </button>
                           </div>
 
-                          <!-- Hidden Configuration Fields for WebAuthn Logic -->
+                          <!-- Hidden Configuration Fields -->
                           <div class="hidden">
                               <input type="text" id="rpId" value="">
                               <input type="text" id="userId" value="">
                               <input type="checkbox" id="requireResidentKey" checked>
-                              
-                              <!-- User Verification -->
-                              <input type="radio" name="uv" id="userVerification_required">
-                              <input type="radio" name="uv" id="userVerification_preferred">
                               <input type="radio" name="uv" id="userVerification_discouraged" checked>
-
-                              <!-- Authenticator Types -->
                               <input type="checkbox" id="type_usb" checked>
                               <input type="checkbox" id="type_nfc" checked>
                               <input type="checkbox" id="type_ble" checked>
                               <input type="checkbox" id="type_hybrid" checked>
                               <input type="checkbox" id="type_int" checked>
-
-                              <!-- Attestation Formats -->
                               <input type="checkbox" id="fmt_none" checked>
                               <input type="checkbox" id="fmt_packed" checked>
                               <input type="checkbox" id="fmt_android-key" checked>
@@ -155,18 +151,25 @@
                           </div>
                       </div>
 
-                      <!-- Authenticated State -->
+                      <!-- State 2: Authenticated (Hidden by default until checkLoginStatus) -->
                       <div id="user-authenticated-section" class="hidden">
-                          <div class="user-section-card" style="text-align: center;">
+                          <div class="user-section-card" style="text-align: center; padding: 20px 0;">
                               <div id="auth-avatar" class="avatar-circle" style="width: 80px; height: 80px; background-color: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px;">U</div>
                               <div class="user-info">
-                                  <h4 id="auth-user-name" style="margin-bottom: 5px;">User Name</h4>
-                                  <p id="auth-user-id" style="color: #777; font-size: 0.9rem; margin-bottom: 25px;">@userid</p>
+                                  <h4 id="auth-user-name" style="color: var(--color-primary); margin-bottom: 5px; font-weight: 700;">User Name</h4>
+                                  <p id="auth-user-id" style="color: #777; font-size: 0.9rem; margin-bottom: 30px;">@userid</p>
                               </div>
+                              
+                              <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #eee;">
+                                  <p style="font-size: 0.85rem; color: #2c3e50; font-weight: 600; margin-bottom: 5px;">驗證成功</p>
+                                  <p id="auth-login-time" style="font-size: 0.75rem; color: #999; margin: 0;">登入時間: --</p>
+                              </div>
+
                               <button type="button" class="btn-theme btn-theme-secondary" onclick="logout()">登出 (Logout)</button>
                           </div>
                       </div>
                       
+                      <!-- Status Messaging -->
                       <div id="status-container" class="status-message hidden">
                           <p id="status-message" style="margin: 0;"></p>
                       </div>

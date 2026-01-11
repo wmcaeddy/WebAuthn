@@ -152,6 +152,20 @@ try {
     }
 
     // ------------------------------------
+    // check login status
+    // ------------------------------------
+    } else if ($fn === 'checkLogin') {
+        $return = new stdClass();
+        $return->success = isset($_SESSION['userName']);
+        if ($return->success) {
+            $return->userName = $_SESSION['userName'];
+            $return->userDisplayName = $_SESSION['userDisplayName'] ?? '';
+            $return->userId = $_SESSION['userId'] ?? '';
+        }
+        header('Content-Type: application/json');
+        print(json_encode($return));
+
+    // ------------------------------------
     // request for create arguments
     // ------------------------------------
 
@@ -285,6 +299,11 @@ try {
             $return->userName = $reg->userName;
             $return->userDisplayName = $reg->userDisplayName;
             $return->userId = $reg->userId;
+            
+            // Save to session
+            $_SESSION['userName'] = $reg->userName;
+            $_SESSION['userDisplayName'] = $reg->userDisplayName;
+            $_SESSION['userId'] = $reg->userId;
         }
 
         header('Content-Type: application/json');
@@ -310,7 +329,10 @@ try {
     // ------------------------------------
     } else if ($fn === 'logout') {
         $_SESSION['challenge'] = null;
-        // Optionally clear other session data if needed
+        $_SESSION['userName'] = null;
+        $_SESSION['userDisplayName'] = null;
+        $_SESSION['userId'] = null;
+        session_destroy();
         
         $return = new stdClass();
         $return->success = true;

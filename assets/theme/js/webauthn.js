@@ -1,6 +1,84 @@
 /**
- * WebAuthn Logic - Updated & Synchronized with Master
+ * WebAuthn Logic - Tidy & Modernized
  */
+
+// UI State Management
+const UI = {
+    loginForm: () => document.getElementById('login-flow-container'),
+    userSection: () => document.getElementById('user-authenticated-section'),
+    loadingOverlay: () => document.getElementById('loading-overlay'),
+    loadingText: () => document.getElementById('loading-text'),
+    statusContainer: () => document.getElementById('status-container'),
+    statusMessage: () => document.getElementById('status-message'),
+    
+    showLoading: (msg) => {
+        const overlay = UI.loadingOverlay();
+        const text = UI.loadingText();
+        if (overlay && text) {
+            text.textContent = msg;
+            overlay.classList.remove('hidden');
+        }
+    },
+    
+    hideLoading: () => {
+        const overlay = UI.loadingOverlay();
+        if (overlay) overlay.classList.add('hidden');
+    },
+    
+    setStatus: (msg, type) => {
+        const container = UI.statusContainer();
+        const text = UI.statusMessage();
+        if (!container || !text) return;
+        
+        text.textContent = msg;
+        container.className = `status-message status-${type}`;
+        container.classList.remove('hidden');
+        
+        // Optional auto-hide for success
+        if (type === 'success') {
+            setTimeout(() => container.classList.add('hidden'), 5000);
+        }
+    },
+    
+    hideStatus: () => {
+        const container = UI.statusContainer();
+        if (container) container.classList.add('hidden');
+    },
+    
+    updateAuthenticatedView: (user) => {
+        const nameEl = document.getElementById('auth-user-name');
+        const idEl = document.getElementById('auth-user-id');
+        const avatarEl = document.getElementById('auth-avatar');
+        
+        if (nameEl) nameEl.textContent = user.userDisplayName || user.userName;
+        if (idEl) idEl.textContent = '@' + user.userName;
+        if (avatarEl) avatarEl.textContent = (user.userDisplayName || user.userName).charAt(0).toUpperCase();
+        
+        UI.loginForm().classList.add('hidden');
+        UI.userSection().classList.remove('hidden');
+    },
+    
+    showLoginForm: () => {
+        UI.userSection().classList.add('hidden');
+        UI.loginForm().classList.remove('hidden');
+    }
+};
+
+// Initial state check
+async function checkLoginStatus() {
+    try {
+        const rep = await window.fetch('_test/server.php?fn=checkLogin', {cache: 'no-cache'});
+        const res = await rep.json();
+        if (res.success) {
+            UI.updateAuthenticatedView(res);
+        } else {
+            UI.showLoginForm();
+        }
+    } catch (err) {
+        console.error('Failed to check login status', err);
+        UI.showLoginForm();
+    }
+}
 
 async function createRegistration() {
     try {
@@ -8,74 +86,50 @@ async function createRegistration() {
             throw new Error('Browser not supported.');
         }
 
-        if (!window.isSecureContext) {
-            throw new Error('WebAuthn requires a secure context (HTTPS).');
-        }
-
         updateUserId();
-
         const userName = document.getElementById('userName').value;
         const userDisplayName = document.getElementById('userDisplayName').value;
 
         if (!userName) throw new Error('請輸入使用者名稱');
         if (!userDisplayName) throw new Error('請輸入顯示名稱');
 
-        showLoading('準備註冊中...');
-        hideStatus();
+        UI.showLoading('準備註冊中...');
+        UI.hideStatus();
 
-        // get create args
         let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
         const createArgs = await rep.json();
 
-        if (createArgs.success === false) {
-            throw new Error(createArgs.msg || 'unknown error occured');
-        }
+        if (createArgs.success === false) throw new Error(createArgs.msg || 'unknown error');
 
         recursiveBase64StrToArrayBuffer(createArgs);
 
-        await proceedWithCreate(createArgs);
-
-    } catch (err) {
-        hideLoading();
-        reloadServerPreview();
-        setStatus(err.message || 'unknown error occured', 'error');
-    }
-}
-
-async function proceedWithCreate(createArgs) {
-    try {
-        showLoading('請使用您的安全金鑰或生物辨識...');
+        UI.showLoading('請使用您的安全金鑰或生物辨識...');
         const cred = await navigator.credentials.create(createArgs);
 
-        const authenticatorAttestationResponse = {
+        const response = {
             transports: cred.response.getTransports  ? cred.response.getTransports() : null,
             clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
             attestationObject: cred.response.attestationObject ? arrayBufferToBase64(cred.response.attestationObject) : null
         };
 
-        showLoading('驗證中...');
-        const rep = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
-            method  : 'POST',
-            body    : JSON.stringify(authenticatorAttestationResponse),
-            cache   : 'no-cache'
+        UI.showLoading('驗證中...');
+        rep = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
+            method: 'POST',
+            body: JSON.stringify(response),
+            cache: 'no-cache'
         });
-        const response = await rep.json();
+        const res = await rep.json();
 
-        hideLoading();
-        if (response.success) {
-            reloadServerPreview();
-            setStatus(response.msg || '註冊成功！', 'success');
+        UI.hideLoading();
+        if (res.success) {
+            UI.setStatus(res.msg || '註冊成功！', 'success');
         } else {
-            throw new Error(response.msg);
+            throw new Error(res.msg);
         }
+
     } catch (err) {
-        hideLoading();
-        reloadServerPreview();
-        if (err.name === 'NotAllowedError') {
-            setStatus('操作取消或逾時。在 iOS 上，這通常意味著手勢逾時或 NFC/生物辨識被拒絕。請再試一次並儘快操作。', 'error');
-        } else {
-            setStatus(err.message || 'unknown error occured', 'error');
-        }
+        UI.hideLoading();
+        UI.setStatus(err.name === 'NotAllowedError' ? '操作取消或逾時。' : (err.message || 'unknown error'), 'error');
     }
 }
 
@@ -85,42 +139,24 @@ async function checkRegistration() {
             throw new Error('Browser not supported.');
         }
 
-        if (!window.isSecureContext) {
-            throw new Error('WebAuthn requires a secure context (HTTPS).');
-        }
-
         updateUserId();
-
         const userName = document.getElementById('userName').value;
-        if (!userName) throw new Error('請輸入使用者名稱');
+        // userName is optional for resident keys, but we often require it for non-resident flow
 
-        showLoading('準備登入...');
-        hideStatus();
+        UI.showLoading('準備登入...');
+        UI.hideStatus();
 
         let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
         const getArgs = await rep.json();
 
-        if (getArgs.success === false) {
-            throw new Error(getArgs.msg);
-        }
+        if (getArgs.success === false) throw new Error(getArgs.msg);
 
         recursiveBase64StrToArrayBuffer(getArgs);
 
-        await proceedWithGet(getArgs);
-
-    } catch (err) {
-        hideLoading();
-        reloadServerPreview();
-        setStatus(err.message || 'unknown error occured', 'error');
-    }
-}
-
-async function proceedWithGet(getArgs) {
-    try {
-        showLoading('請驗證您的身份...');
+        UI.showLoading('請驗證您的身份...');
         const cred = await navigator.credentials.get(getArgs);
 
-        const authenticatorAttestationResponse = {
+        const response = {
             id: cred.rawId ? arrayBufferToBase64(cred.rawId) : null,
             clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
             authenticatorData: cred.response.authenticatorData ? arrayBufferToBase64(cred.response.authenticatorData) : null,
@@ -128,96 +164,42 @@ async function proceedWithGet(getArgs) {
             userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
         };
 
-        showLoading('驗證登入中...');
-        const rep = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
-            method:'POST',
-            body: JSON.stringify(authenticatorAttestationResponse),
-            cache:'no-cache'
+        UI.showLoading('驗證登入中...');
+        rep = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
+            method: 'POST',
+            body: JSON.stringify(response),
+            cache: 'no-cache'
         });
-        const response = await rep.json();
+        const res = await rep.json();
 
-        hideLoading();
-        if (response.success) {
-            reloadServerPreview();
-            
-            const loginForm = document.getElementById('login-flow-container');
-            const userSection = document.getElementById('user-authenticated-section');
-            
-            const userName = response.userName || document.getElementById('userName').value;
-            const displayName = response.userDisplayName || document.getElementById('userDisplayName').value;
-            
-            if (document.getElementById('auth-user-name')) {
-                document.getElementById('auth-user-name').textContent = displayName || userName;
-            }
-            if (document.getElementById('auth-user-id')) {
-                document.getElementById('auth-user-id').textContent = '@' + userName;
-            }
-            if (document.getElementById('auth-login-time')) {
-                document.getElementById('auth-login-time').textContent = new Date().toLocaleString();
-            }
-            if (document.getElementById('auth-avatar')) {
-                document.getElementById('auth-avatar').textContent = (displayName || userName).charAt(0).toUpperCase();
-            }
-
-            if (loginForm) loginForm.style.display = 'none';
-            if (userSection) userSection.classList.remove('hidden');
-            
-            setStatus('登入成功！', 'success');
+        UI.hideLoading();
+        if (res.success) {
+            UI.updateAuthenticatedView(res);
+            UI.setStatus('登入成功！', 'success');
         } else {
-            throw new Error(response.msg);
+            throw new Error(res.msg);
         }
+
     } catch (err) {
-        hideLoading();
-        reloadServerPreview();
-        if (err.name === 'NotAllowedError') {
-            setStatus('操作取消或逾時。', 'error');
-        } else {
-            setStatus(err.message || 'unknown error occured', 'error');
-        }
+        UI.hideLoading();
+        UI.setStatus(err.name === 'NotAllowedError' ? '操作取消或逾時。' : (err.message || 'unknown error'), 'error');
     }
 }
 
 async function logout() {
     try {
-        showLoading('登出中...');
+        UI.showLoading('登出中...');
         await window.fetch('_test/server.php?fn=logout', {method:'GET', cache:'no-cache'});
-        
-        const loginForm = document.getElementById('login-flow-container');
-        const userSection = document.getElementById('user-authenticated-section');
-
-        if (userSection) userSection.classList.add('hidden');
-        if (loginForm) loginForm.style.display = 'block';
-        
-        hideStatus();
-        hideLoading();
-
+        UI.showLoginForm();
+        UI.hideStatus();
+        UI.hideLoading();
     } catch (err) {
-        hideLoading();
-        setStatus('Logout failed: ' + err.message, 'error');
+        UI.hideLoading();
+        UI.setStatus('Logout failed: ' + err.message, 'error');
     }
 }
 
-function clearRegistration() {
-    if (!confirm('Are you sure you want to clear all registrations?')) return;
-    
-    showLoading('清除資料中...');
-    window.fetch('_test/server.php?fn=clearRegistrations' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
-        return response.json();
-    }).then(function(json) {
-       hideLoading();
-       if (json.success) {
-           reloadServerPreview();
-           setStatus(json.msg, 'success');
-       } else {
-           throw new Error(json.msg);
-       }
-    }).catch(function(err) {
-        hideLoading();
-        reloadServerPreview();
-        setStatus(err.message || 'unknown error occured', 'error');
-    });
-}
-
+// Utility Helpers
 function recursiveBase64StrToArrayBuffer(obj) {
     let prefix = '=?BINARY?B?';
     let suffix = '?=';
@@ -228,11 +210,8 @@ function recursiveBase64StrToArrayBuffer(obj) {
                 if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
                     str = str.substring(prefix.length, str.length - suffix.length);
                     let binary_string = window.atob(str);
-                    let len = binary_string.length;
-                    let bytes = new Uint8Array(len);
-                    for (let i = 0; i < len; i++) {
-                        bytes[i] = binary_string.charCodeAt(i);
-                    }
+                    let bytes = new Uint8Array(binary_string.length);
+                    for (let i = 0; i < binary_string.length; i++) bytes[i] = binary_string.charCodeAt(i);
                     obj[key] = bytes.buffer;
                 }
             } else {
@@ -245,102 +224,49 @@ function recursiveBase64StrToArrayBuffer(obj) {
 function arrayBufferToBase64(buffer) {
     let binary = '';
     let bytes = new Uint8Array(buffer);
-    let len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
-    }
+    for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
     return window.btoa(binary);
 }
 
 function updateUserId() {
     const username = document.getElementById('userName').value;
     const useridField = document.getElementById('userId');
-    if (!username || !useridField) { 
-        if (useridField) useridField.value = ''; 
-        return; 
-    }
+    if (!username || !useridField) { if (useridField) useridField.value = ''; return; }
     let hex = '';
-    for(let i=0;i<username.length;i++) { hex += ''+username.charCodeAt(i).toString(16); }
+    for(let i=0;i<username.length;i++) hex += username.charCodeAt(i).toString(16);
     useridField.value = hex;
 }
 
 function getGetParams() {
     let url = '';
-    const rpIdField = document.getElementById('rpId');
-    const userIdField = document.getElementById('userId');
-    const userNameField = document.getElementById('userName');
-    const userDisplayNameField = document.getElementById('userDisplayName');
-    const requireResidentKeyField = document.getElementById('requireResidentKey');
+    const fields = ['rpId', 'userId', 'userName', 'userDisplayName'];
+    fields.forEach(f => {
+        const el = document.getElementById(f);
+        if (el) url += `&${f}=${encodeURIComponent(el.value)}`;
+    });
     
-    url += '&rpId=' + encodeURIComponent((rpIdField ? rpIdField.value : '') || location.hostname);
-    url += '&userId=' + encodeURIComponent(userIdField ? userIdField.value : '');
-    url += '&userName=' + encodeURIComponent(userNameField ? userNameField.value : '');
-    url += '&userDisplayName=' + encodeURIComponent(userDisplayNameField ? userDisplayNameField.value : '');
-    url += '&requireResidentKey=' + (requireResidentKeyField && requireResidentKeyField.checked ? '1' : '0');
+    const rk = document.getElementById('requireResidentKey');
+    if (rk) url += `&requireResidentKey=${rk.checked ? '1' : '0'}`;
     
-    const uv_req = document.getElementById('userVerification_required');
-    const uv_pref = document.getElementById('userVerification_preferred');
-    const uv_disc = document.getElementById('userVerification_discouraged');
-    
-    if (uv_req && uv_req.checked) url += '&userVerification=required';
-    else if (uv_pref && uv_pref.checked) url += '&userVerification=preferred';
-    else if (uv_disc && uv_disc.checked) url += '&userVerification=discouraged';
+    const uv = document.querySelector('input[name="uv"]:checked');
+    if (uv) url += `&userVerification=${uv.id.replace('userVerification_', '')}`;
     
     ['usb', 'nfc', 'ble', 'hybrid', 'int'].forEach(t => { 
-        const el = document.getElementById('type_' + t);
-        if (el && el.checked) url += '&type_' + t + '=1'; 
+        if (document.getElementById(`type_${t}`)?.checked) url += `&type_${t}=1`; 
     });
     ['none', 'packed', 'android-key', 'apple', 'tpm'].forEach(f => { 
-        const el = document.getElementById('fmt_' + f);
-        if (el && el.checked) url += '&fmt_' + f + '=1'; 
+        if (document.getElementById(`fmt_${f}`)?.checked) url += `&fmt_${f}=1`; 
     });
     return url;
 }
 
-function showLoading(message) {
-    const overlay = document.getElementById('loading-overlay');
-    const text = document.getElementById('loading-text');
-    if(overlay) {
-        if (text) text.textContent = message;
-        overlay.classList.remove('hidden');
-    }
-}
-
-function hideLoading() {
-    const overlay = document.getElementById('loading-overlay');
-    if(overlay) overlay.classList.add('hidden');
-}
-
-function setStatus(message, type) {
-    const container = document.getElementById('status-container');
-    const msg = document.getElementById('status-message');
-    if (!container || !msg) return;
-    
-    msg.textContent = message;
-    container.className = 'status-message status-' + type;
-    container.style.display = 'block';
-    container.classList.remove('hidden');
-}
-
-function hideStatus() {
-    const container = document.getElementById('status-container');
-    if (container) {
-        container.classList.add('hidden');
-        container.style.display = 'none';
-    }
-}
-
-function reloadServerPreview() {
-    let iframe = document.getElementById('serverPreview');
-    if (iframe) iframe.src = iframe.src;
-}
-
-window.onload = function() {
+// Auto-run on load
+window.addEventListener('load', () => {
     if (!window.isSecureContext && location.protocol !== 'https:') {                
         location.href = location.href.replace('http://', 'https://');
     }
     const rpIdField = document.getElementById('rpId');
-    if(rpIdField) {
-        rpIdField.value = location.hostname;
-    }
-}
+    if(rpIdField) rpIdField.value = location.hostname;
+    
+    checkLoginStatus();
+});
