@@ -414,7 +414,7 @@ try {
                 $html .= '<div class="data-card">';
                 $html .= '<div class="card-header">';
                 $html .= '<span class="user-badge">' . htmlspecialchars($reg->userName) . '</span>';
-                $html .= '<button class="btn-danger" style="background: #fce8e6; border: 1px solid #d93025; padding: 4px 12px; border-radius: 4px; color: #d93025; font-size: 0.75rem;" onclick="confirmDelete('\'' . $credIdHex . '\'')">Delete</button>';
+                $html .= '<button class="btn-danger" style="background: #fce8e6; border: 1px solid #d93025; padding: 4px 12px; border-radius: 4px; color: #d93025; font-size: 0.75rem;" onclick="confirmDelete(\'' . $credIdHex . '\')">Delete</button>';
                 $html .= '</div>';
                 
                 foreach ($reg as $key => $value) {
