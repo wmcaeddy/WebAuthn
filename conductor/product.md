@@ -15,3 +15,4 @@ A modern, user-friendly implementation of the WebAuthn (FIDO2) server library, f
 ## Key Features
 *   **Mobile-First Design:** A seamless, responsive layout optimized for mobile devices and "hybrid" passkey authentication (e.g., scanning QR codes).
 *   **Modern UX:** Simplified flows for registering new credentials and authenticating with existing ones.
+*   **Themed Landing Page:** A polished landing page that integrates WebAuthn authentication directly into the Fairline brand's visual theme, featuring a high-fidelity Hero section and a clean, centered authentication card.
