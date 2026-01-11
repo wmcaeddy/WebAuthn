@@ -319,7 +319,8 @@ try {
     // delete single registration
     // ------------------------------------
     } else if ($fn === 'deleteRegistration') {
-        $credentialIdHex = filter_input(INPUT_GET, 'credentialId', FILTER_SANITIZE_SPECIAL_CHARS);
+        $credentialIdHex = filter_input(INPUT_GET, 'credentialId', FILTER_UNSAFE_RAW);
+        $success = false;
         
         if ($credentialIdHex) {
             $registrations = loadRegistrations($registrationsFile);
@@ -337,6 +338,7 @@ try {
             if ($deleted) {
                 saveRegistrations($registrationsFile, $newRegistrations);
                 $msg = 'Registration deleted.';
+                $success = true;
             } else {
                 $msg = 'Registration not found.';
             }
@@ -344,8 +346,13 @@ try {
             $msg = 'No credential ID provided.';
         }
 
-        // Redirect back to the HTML view
-        header('Location: server.php?fn=getStoredDataHtml');
+        if (isset($_GET['ajax'])) {
+            header('Content-Type: application/json');
+            print json_encode(['success' => $success, 'msg' => $msg]);
+        } else {
+            // Redirect back to the HTML view for standard browser requests
+            header('Location: server.php?fn=getStoredDataHtml');
+        }
         exit;
 
     // ------------------------------------
@@ -372,9 +379,19 @@ try {
                 .user-badge { background: #eef6ff; color: var(--color-primary); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
             </style>
             <script>
-                function confirmDelete(credentialId) {
+                async function confirmDelete(credentialId) {
                     if (confirm("Are you sure you want to delete this registration?")) {
-                        window.location.href = "server.php?fn=deleteRegistration&credentialId=" + credentialId;
+                        try {
+                            const response = await fetch("server.php?fn=deleteRegistration&ajax=1&credentialId=" + credentialId);
+                            const json = await response.json();
+                            if (json.success) {
+                                window.location.reload();
+                            } else {
+                                alert("Error: " + json.msg);
+                            }
+                        } catch (err) {
+                            alert("Request failed: " + err.message);
+                        }
                     }
                 }
                 
@@ -397,7 +414,7 @@ try {
                 $html .= '<div class="data-card">';
                 $html .= '<div class="card-header">';
                 $html .= '<span class="user-badge">' . htmlspecialchars($reg->userName) . '</span>';
-                $html .= '<button class="btn-danger" onclick="confirmDelete(\\' . $credIdHex . '\")">Delete</button>';
+                $html .= '<button class="btn-danger" style="background: #fce8e6; border: 1px solid #d93025; padding: 4px 12px; border-radius: 4px; color: #d93025; font-size: 0.75rem;" onclick="confirmDelete('\'' . $credIdHex . '\'')">Delete</button>';
                 $html .= '</div>';
                 
                 foreach ($reg as $key => $value) {
