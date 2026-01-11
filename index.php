@@ -188,6 +188,19 @@
     }
     .hidden { display: none !important; }
 
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .auth-card {
+            padding: 30px 20px;
+        }
+        .auth-header h3 {
+            font-size: 1.5rem;
+        }
+        .fido-auth-section {
+            padding: 60px 0;
+        }
+    }
+
     /* Advanced Settings Styles */
     #advanced-settings {
         margin-top: 20px;
