@@ -24,9 +24,9 @@ Goal: Ensure the layout stacks correctly on small screens.
 - [x] Task: Adjust mobile-specific padding and margins for the auth card to ensure a clean mobile UX. 4df002a
 - [x] Task: Conductor - User Manual Verification 'Mobile Responsiveness' (Protocol in workflow.md) f1e28db
 
-## Phase 4: Verification and Polish
+## Phase 4: Verification and Polish [checkpoint: 7b0f602]
 Goal: Final audit of functionality and visual integrity.
 
-- [ ] Task: Verify that all FIDO JS logic (Registration/Login) targets correctly in the new DOM structure.
-- [ ] Task: Final audit of responsiveness and asset loads.
-- [ ] Task: Conductor - User Manual Verification 'Final Polish' (Protocol in workflow.md)
+- [x] Task: Verify that all FIDO JS logic (Registration/Login) targets correctly in the new DOM structure. 1dd6cc1
+- [x] Task: Final audit of responsiveness and asset loads. 1dd6cc1
+- [x] Task: Conductor - User Manual Verification 'Final Polish' (Protocol in workflow.md) 7b0f602
