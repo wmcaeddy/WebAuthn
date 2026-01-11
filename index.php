@@ -16,6 +16,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <!-- Modern Styles -->
+    <link rel="stylesheet" href="assets/css/modern.css">
+
     <style>
         :root {
             --color-primary: #1a334a;
@@ -668,19 +671,7 @@
     </script>
 </head>
 <body>
-    <header class="site-header">
-        <a href="./" class="site-logo">
-            FAIRLINE
-            <span>中飛科技股份有限公司</span>
-        </a>
-        <nav class="site-nav">
-            <ul>
-                <li><a href="#">關於我們</a></li>
-                <li><a href="#">解決方案</a></li>
-                <li><a href="#">聯絡我們</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include 'components/header.php'; ?>
 
     <div class="page-wrapper">
         <!-- Left Side: Branding -->
@@ -804,7 +795,7 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 10px;">
-                    <button type="button" style="background:none; border:none; color:#bbb; font-size:0.75rem; cursor:pointer;" onclick="togglePreview()">[ Show Server Data ]</button>
+                    <button type="button" style="background:none; border:none; color:#bbb; font-size:0.75rem; cursor:pointer;" onclick="toggleSettings()">[ Show Server Data ]</button>
                 </div>
 
                 <!-- Server Preview (Hidden) -->
@@ -817,13 +808,7 @@
                 </div>
             </div>
 
-            <footer class="site-footer">
-                <div class="footer-links">
-                    <a href="#">網站地圖</a>
-                    <a href="#">隱私權政策</a>
-                </div>
-                <p>Copyright © Fairline Technology co., ltd. All rights Reserved.</p>
-            </footer>
+            <?php include 'components/footer.php'; ?>
         </div>
     </div>
 </body>
