@@ -2,9 +2,22 @@
 @font-face { font-family: "Poppins"; src: url(""); src: url("poppins.woff2") format("woff2"), url("poppins.woff") format("woff"), url("poppins.ttf") format("truetype"), url("") format("svg"), url("") format("embedded-opentype"); font-weight: normal; font-style: normal; }
 @font-face { font-family: "Poppins"; src: url(""); src: url("Poppins-Bold.woff2") format("woff2"), url("Poppins-Bold.woff") format("woff"), url("Poppins-Bold.ttf") format("truetype"), url("") format("svg"), url("") format("embedded-opentype"); font-weight: bold; font-style: normal; }
 
+:root {
+  --color-primary: #841852; /* ProNew Maroon */
+  --color-secondary: #620030; /* ProNew Dark Maroon */
+  --color-accent: #cc301f; /* ProNew Red Accent */
+  --color-bg-light: #fdf2f7; /* Light Maroon Tint */
+  --color-text-dark: #222222;
+  --color-text-muted: #777777;
+  --font-main: "Arial", "Helvetica", "Microsoft JhengHei", sans-serif;
+  --shadow-card: 0 30px 60px rgba(0,0,0,0.08);
+  --radius-lg: 16px;
+  --radius-md: 6px;
+}
+
 /*reset */
 html { font-size: 16px; }
-body { width: 100%; font-size: 1rem; line-height: 2; font-family: "Poppins", "Microsoft JhengHei", sans-serif; -webkit-text-size-adjust: none; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { width: 100%; font-size: 1rem; line-height: 2; font-family: var(--font-main); -webkit-text-size-adjust: none; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 html, body { height: 100%; margin: 0; }
 a, a:visited, a:hover, a:focus, a:active { text-decoration: none; outline: none; }
 *:focus, *:active { outline: 0; }

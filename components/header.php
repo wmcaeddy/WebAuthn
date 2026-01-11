@@ -7,32 +7,22 @@
   <div class="menu showrole scroll-fade-left scroll-view" data-scroll-view="init">
     <ul class="reset">
       <li>
-        <a href="#about" title="">
+        <a href="#about" title="關於正新">
           <p data-tit="ABOUT US"><span>關於正新</span></p>
         </a>
       </li>
       <li>
-        <a href="#news" title="">
+        <a href="#news" title="消息與報導">
           <p data-tit="NEWS EVENTS"><span>消息與報導</span></p>
         </a>
       </li>
       <li>
-        <a href="#brands" title="">
+        <a href="#brands" title="解決方案">
           <p data-tit="SOLUTION"><span>解決方案</span></p>
         </a>
       </li>
-      <li>
-        <a href="#" title="">
-          <p data-tit="MOESPO"><span>共契專區</span></p>
-        </a>
-      </li>
-      <li>
-        <a href="#" title="">
-          <p data-tit="DOWNLOAD"><span>下載專區</span></p>
-        </a>
-      </li>
       <li class="contact">
-        <a href="#" title="">
+        <a href="#contact" title="聯絡我們">
           <i class="fa fa-envelope" aria-hidden="true"></i>
           <p data-tit="CONTACT"><span>聯絡我們</span></p>
         </a>

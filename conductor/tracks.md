@@ -35,4 +35,15 @@ This file tracks all major tracks for the project. Each track has its own detail
 ---
 
 ## [x] Track: Align Username and User ID for Consistent Passkey Selection
+
 *Link: [./conductor/tracks/align_user_ids_20260111/](./conductor/tracks/align_user_ids_20260111/)*
+
+
+
+---
+
+
+
+## [ ] Track: Implement a combined modular layout with ProNew branding and a portable FIDO login card.
+
+*Link: [./conductor/tracks/combined_layout_20260111/](./conductor/tracks/combined_layout_20260111/)*

@@ -6,8 +6,8 @@
         </div>
         
         <div class="scroll-fade-up" style="text-align: center; max-width: 900px; margin: 0 auto 60px;">
-            <h3 style="font-size: 1.75rem; margin-bottom: 20px; color: var(--color-dark);">正新電腦專精於軟體保護與資訊安全技術</h3>
-            <p style="line-height: 1.8; color: #555;">
+            <h3 style="font-size: 1.75rem; margin-bottom: 20px; color: var(--color-text-dark);">正新電腦專精於軟體保護與資訊安全技術</h3>
+            <p style="line-height: 1.8; color: var(--color-text-muted);">
                 Keypro、軟體反盜版、軟體保護、軟體鎖、硬體鎖、軟體加密、保護鎖、<br>
                 動態密碼鎖、網路認證、身份認證、智慧卡、資訊安全、個資防護、雲端安全模組。<br>
                 整合產品、技術與人才，提供最適合客戶需求且完善的整合性解決方案。
@@ -24,7 +24,7 @@
                         <i class="fa fa-shield-alt"></i>
                     </div>
                 </div>
-                <h3>基礎架構</h3>
+                <h3>資安防護</h3>
             </div>
             <div class="col-item">
                 <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 20px;">
@@ -32,10 +32,10 @@
                         <rect x="5" y="5" width="110" height="110" fill="none" stroke="var(--color-secondary)" stroke-width="1" stroke-dasharray="10 5"/>
                     </svg>
                     <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-size: 2.5rem;">
-                        <i class="fa fa-layer-group"></i>
+                        <i class="fa fa-key"></i>
                     </div>
                 </div>
-                <h3>應用層安全</h3>
+                <h3>軟體授權</h3>
             </div>
             <div class="col-item">
                 <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 20px;">
@@ -43,10 +43,10 @@
                         <rect x="5" y="5" width="110" height="110" fill="none" stroke="var(--color-secondary)" stroke-width="1" stroke-dasharray="10 5"/>
                     </svg>
                     <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-size: 2.5rem;">
-                        <i class="fa fa-database"></i>
+                        <i class="fa fa-id-card"></i>
                     </div>
                 </div>
-                <h3>資料安防</h3>
+                <h3>身份認證</h3>
             </div>
             <div class="col-item">
                 <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 20px;">
@@ -54,10 +54,10 @@
                         <rect x="5" y="5" width="110" height="110" fill="none" stroke="var(--color-secondary)" stroke-width="1" stroke-dasharray="10 5"/>
                     </svg>
                     <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-size: 2.5rem;">
-                        <i class="fa fa-cogs"></i>
+                        <i class="fa fa-cloud"></i>
                     </div>
                 </div>
-                <h3>整合式管理</h3>
+                <h3>雲端安全</h3>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer" id="contact">
   <div class="info">
     <div class="container-1400">
       <div class="left-box">
@@ -9,7 +9,7 @@
           </div>
           <div class="content">
             <p><a href="tel:0226581818"><span>+886-2-2658-1818</span></a></p>
-            <p>11492台北市內湖區瑞光路583巷32號5樓</p>
+            <p>11492 台北市內湖區瑞光路 583 巷 32 號 5 樓</p>
           </div>
         </div>
       </div>
