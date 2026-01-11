@@ -9,13 +9,13 @@ Goal: Organize and migrate all theme-related assets to the project structure.
 - [x] Task: Verify all asset paths and ensure they are accessible via the web server. 181c102
 - [x] Task: Conductor - User Manual Verification 'Asset Preparation' (Protocol in workflow.md) 7a41245
 
-## Phase 2: Core Layout Migration
+## Phase 2: Core Layout Migration [checkpoint: 1918965]
 Goal: Replace the existing `index.php` structure with the themed Hero section.
 
 - [x] Task: Extract the main HTML structure and "Hero" section from `20260111055348006/index.html`. 699fd50
 - [x] Task: Update `index.php` with the new HTML structure, including `<head>` links for CSS and scripts. 699fd50
 - [x] Task: Remove unnecessary static sections (About, Features, etc.) identified in the spec. 699fd50
-- [ ] Task: Conductor - User Manual Verification 'Core Layout Migration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Core Layout Migration' (Protocol in workflow.md) 1918965
 
 ## Phase 3: FIDO Functionality Integration
 Goal: Re-integrate the WebAuthn JavaScript logic and UI controls into the new theme.
