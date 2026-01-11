@@ -156,7 +156,8 @@ try {
     // ------------------------------------
 
     if ($fn === 'getCreateArgs') {
-        $createArgs = $WebAuthn->getCreateArgs(\hex2bin($userId), $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification, $crossPlatformAttachment);
+        // Use userName directly as the binary source for userId to ensure human-readable identities on tokens.
+        $createArgs = $WebAuthn->getCreateArgs($userName, $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification, $crossPlatformAttachment);
 
         header('Content-Type: application/json');
         print(json_encode($createArgs));
@@ -181,15 +182,17 @@ try {
             }
 
         } else {
-            foreach ($registrations as $reg) {
-                if ($reg->userId === $userId) {
-                    $ids[] = $reg->credentialId;
+            if ($userName) {
+                foreach ($registrations as $reg) {
+                    if ($reg->userName === $userName) {
+                        $ids[] = $reg->credentialId;
+                    }
                 }
-            }
 
-            if (count($ids) === 0) {
-                error_log("WebAuthn: No registrations matched userId: " . $userId);
-                throw new Exception('no registrations found for userId ' . $userId);
+                if (count($ids) === 0) {
+                    error_log("WebAuthn: No registrations matched userName: " . $userName);
+                    throw new Exception('no registrations found for userName ' . $userName);
+                }
             }
         }
 
@@ -215,7 +218,7 @@ try {
         $data = $WebAuthn->processCreate($clientDataJSON, $attestationObject, $challenge, $userVerification === 'required', true, false);
 
         // add user infos
-        $data->userId = $userId;
+        $data->userId = $userId ?: bin2hex($userName);
         $data->userName = $userName;
         $data->userDisplayName = $userDisplayName;
         //set Null to 0
@@ -267,8 +270,8 @@ try {
         }
 
         // if we have resident key, we have to verify that the userHandle is the provided userId at registration
-        if ($requireResidentKey && $userHandle !== hex2bin($reg->userId)) {
-            throw new \Exception('userId doesnt match (is ' . bin2hex($userHandle) . ' but expect ' . $reg->userId . ')');
+        if ($requireResidentKey && $userHandle !== $reg->userName) {
+            throw new \Exception('userId doesnt match (is ' . $userHandle . ' but expect ' . $reg->userName . ')');
         }
 
         // process the get request. throws WebAuthnException if it fails

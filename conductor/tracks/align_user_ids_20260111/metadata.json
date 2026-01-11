@@ -1,0 +1,8 @@
+{
+  "track_id": "align_user_ids_20260111",
+  "type": "bug",
+  "status": "in_progress",
+  "created_at": "2026-01-11T18:45:27Z",
+  "updated_at": "2026-01-11T20:45:00Z",
+  "description": "Align Username and User ID to ensure human-readable identities are stored on FIDO tokens."
+}

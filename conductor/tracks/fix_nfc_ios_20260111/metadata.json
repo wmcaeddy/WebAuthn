@@ -1,0 +1,8 @@
+{
+  "track_id": "fix_nfc_ios_20260111",
+  "type": "bug",
+  "status": "new",
+  "created_at": "2026-01-11T12:00:00Z",
+  "updated_at": "2026-01-11T12:00:00Z",
+  "description": "i failed to rregister a FIDO token through NFC, it shows the request is not allowed by the user agent or the paltform in the currtent contenxt, possibly because the user denied permission. check for me"
+}
