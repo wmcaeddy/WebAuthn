@@ -1,0 +1,43 @@
+<!doctype html><html lang="en" translate="no"><head><meta charset="utf-8"/><meta name="google" content="notranslate"/><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#000000"/><meta name="description" content="China Airline Loyalty Portal"/><link rel="shortcut icon" href="/favicon.ico" type="image/ico"/><link rel="stylesheet" href="/style/css/font-awesome-5.13.0.min.css"><link href="/style/css/font-awesome.min.css" rel="stylesheet"><title>China Airlines</title><script src="//www.google.com/recaptcha/api.js"></script><link rel="icon" href="/favicon.ico"></head><body class=""><script src="/scripts/jquery-3.6.0.min.js"></script><div id="root"></div><style id="bootstrap-style"></style><style id="main-style"></style><style id="main-style-overide"></style><style id="theme-style"></style><script src="/scripts/popper.min.js"></script><script src="/scripts/bootstrap.min.js"></script><script>window.module = {};</script><script>window.confetti = module.exports;</script><script src="/scripts/confetti.min.js"></script><script src="/scripts/gsap.min.js" crossorigin="anonymous"></script><script src="/scripts/slick.js"></script><script>var canvas1Settings = {
+      target: 'mycanvas',
+      max: 600,
+      "props": ["circle", "square", "triangle", "line"],
+      "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]],
+      clock: 55
+    };
+    $(window).scroll(function () {
+      window.pageYOffset > 70 ? $(".header__top-menu").addClass("falcon") : $(".header__top-menu").removeClass("falcon");
+    })</script><script>$(document).ready(function () {
+      // $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      });
+    });
+
+    var dateRange = false;
+
+    document.onclick = function (event) {
+      if (event?.target?.parentElement?.className?.includes("p-calendar")) {
+        if (event?.target?.id == "category-date-range-id") {
+          dateRange = true;
+        } else {
+          dateRange = false;
+        }
+      }
+
+      if (dateRange) {
+        const $highlights = $(".p-datepicker-calendar tbody tr td span.p-highlight");
+        $highlights.removeClass("start end in-range"); // Reset all classes first
+
+        const count = $highlights.length;
+
+        if (count === 1) {
+          $highlights.eq(0).addClass("start"); // Only start, no end
+        } else if (count > 1) {
+          $highlights.eq(0).addClass("start");
+          $highlights.eq(count - 1).addClass("end");
+          $highlights.slice(1, -1).addClass("in-range"); // Items between
+        }
+      }
+    };</script><script src="/runtime.36a35cf56abd3bfcd0c3.js"></script><script src="/npm.mportal.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.primereact.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.babel.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-dom.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-router-dom.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.webpack.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.moment.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.axios.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.crypto-js.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-redux.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-i18next.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.jap-js.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-transition-group.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.primeicons.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.html-dom-parser.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.html-react-parser.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.i18next-http-backend.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-property.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-router.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.dom-helpers.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.jwt-decode.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.prop-types.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.buffer.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.primeflex.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.css-loader.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.fbjs.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react-is.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.react.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.scheduler.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.loadable.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.base64-js.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.check-prop-types.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.cross-fetch.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.email-validator.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.history.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.hoist-non-react-statics.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.html-parse-stringify.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.i18next-browser-languagedetector.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.i18next.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.ieee754.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.inline-style-parser.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.isarray.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.jsonpath-plus.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.object-assign.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.os-browserify.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.path-to-regexp.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.process.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.redux-devtools-extension.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.redux-thunk.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.redux.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.regenerator-runtime.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.resolve-pathname.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.setimmediate.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.style-loader.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.style-to-object.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.timers-browserify.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.tiny-invariant.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.value-equal.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/npm.void-elements.36a35cf56abd3bfcd0c3.bundle.js"></script><script src="/index.36a35cf56abd3bfcd0c3.bundle.js"></script></body></html>
