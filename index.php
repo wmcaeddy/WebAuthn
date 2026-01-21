@@ -25,6 +25,16 @@
     }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     
+    body { background-color: #f8f8f8; color: #333; font-family: "Poppins", "Noto Sans TC", sans-serif; }
+    .layout { min-height: 100vh; display: flex; flex-direction: column; }
+    #page { flex: 1; padding: 40px 0; }
+    .formLogin-container { 
+        background-color: #fff; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
     /* Notification style override */
     #status-container {
         position: fixed; bottom: 20px; right: 20px; z-index: 10000;
@@ -44,6 +54,20 @@
     }
     .user-info h2 { font-size: 1.5rem; margin-bottom: 8px; color: #343434; }
     .user-info p { font-size: 1rem; color: #666; margin-bottom: 32px; }
+
+    /* List 3 cols styles for benefits */
+    .list-3-cols { display: flex; font-size: 1rem; flex-wrap: wrap; margin: 20px auto; width: 100%; padding-left: 0; }
+    .list-3-cols__item { 
+        position: relative; margin: 0 0 18px; line-height: 1.75rem; padding-left: 25px; 
+        list-style: none; width: 100%; color: #555;
+    }
+    .list-3-cols__item::before { 
+        content: ""; position: absolute; width: 8px; height: 8px; 
+        background-color: #a37c3c; border-radius: 50%; left: 5px; top: 10px; 
+    }
+    @media (min-width: 760px) {
+        .list-3-cols__item { width: 50%; }
+    }
 </style>
 </head>
 <body>
@@ -55,12 +79,13 @@
         </div>
 
         <div class="layout">
-            <header id="header" class="eNQVmN">
+            <header id="header" class="partials__ReusedHeader-sc-13o1y4p-0 Header__HeaderContainer-sc-9vacri-0 eNQVmN">
                 <div class="header-first">
                     <div class="header-first-left">
                         <span class="ml-2">銀河娛樂集團旗下成員</span>
                         <a href="#" class="header-first-left__link">星際酒店</a>
                         <a href="#" class="header-first-left__link">澳門百老匯</a>
+                        <a href="#" class="header-first-left__link">銀河國際會議中心</a>
                     </div>
                     <div class="header-first-right">
                         <ul class="header-first-right__list">
@@ -72,9 +97,55 @@
                         </ul>
                     </div>
                 </div>
-                <div class="HeaderLogo__Container-sc-torv75-0 fIWwZa">
-                    <div class="logoContainer">
-                        <a href="/" class="bigLogo"><img src="assets/theme/images/gm_revwhite_tc_1_251125.png" alt="Galaxy Macau" class="cpRCiS"></a>
+                <div class="HeaderSecond__Container-sc-hfrld3-0 iyagoH">
+                    <div class="header-second">
+                        <div class="header-second-tabs">
+                            <div class="HeaderMenu__Container-sc-1qkci8u-0 evkpuI">
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
+                                    <div class="menu-toggle menuItem__menuItem"><a href="#">最新優惠</a></div>
+                                </div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
+                                    <div class="menu-toggle menuItem__menuItem"><a href="#">酒店住宿</a></div>
+                                </div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
+                                    <div class="menu-toggle menuItem__menuItem"><a href="#">餐　飲</a></div>
+                                </div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
+                                    <div class="menu-toggle menuItem__menuItem"><a href="#">購　物</a></div>
+                                </div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
+                                    <div class="menu-toggle menuItem__menuItem"><a href="#">精彩體驗</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="HeaderLogo__Container-sc-torv75-0 fIWwZa">
+                            <div class="logoContainer">
+                                <a href="/" class="bigLogo"><img src="assets/theme/images/gm_revwhite_tc_1_251125.png" alt="Galaxy Macau" class="cpRCiS"></a>
+                            </div>
+                        </div>
+                        <div class="header-second-hotel">
+                            <div class="BookingHotelsTab__Container-sc-k98pmj-0 hLhzew HeaderSecond__BookingWidgetTab-sc-hfrld3-4 cIbHBf">
+                                <div class="hotel-form">
+                                    <div class="HotelSelect__Container-sc-1ebk9e2-0 jwKePn BookingHotelsTab__HotelsSelect-sc-k98pmj-1 hzFAsK">
+                                        <div class="hotel-select">
+                                            <div class="hotel-btn">
+                                                <img class="hotel-icon" src="assets/theme/images/bookingbar-icon1.12d7d4801102ed7d3a57.png" alt="icon">
+                                                <div class="hotel-name">選擇酒店</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="DoubleDatePicker__Container-sc-11xv73i-0 BookingHotelsTab__DatePicker-sc-k98pmj-3 jhxdJx">
+                                        <div class="doubleDate-select">
+                                            <div class="doubleDate-btn">
+                                                <img class="doubleDate-icon" src="assets/theme/images/bookingbar-icon2.be211e66eb18ed9a2b81.png" alt="icon">
+                                                <div class="doubleDate-name">選擇日期</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="styled__BookNativeLink-sc-tit157-16 cGZQEf bookBtn" href="#">立即預訂</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -92,8 +163,9 @@
                                 </h3>
                                 <p class="formLogin-left-description">
                                     <img class="formLogin-left-icon" alt="" src="assets/theme/images/icon-enjoy.09264fc967c127554341.svg">
-                                    <span id="auth-desc">登入使用您的通行密鑰 (Passkey)</span>
+                                    <span id="auth-desc">登入預訂指定酒店*立減更多</span>
                                 </p>
+                                <p style="font-size: 0.75rem; color: #666; margin-bottom: 20px;">*適用於澳門安達仕酒店、「百老匯酒店」、「銀河酒店」、澳門大倉酒店</p>
                                 
                                 <div class="login-container">
                                     <form id="auth-form" class="TabLoginByEmail-form" onsubmit="return false;">
@@ -121,6 +193,9 @@
                                             </button>
                                         </div>
                                     </form>
+                                    <div class="formLogin-form-forget mt-4 text-center">
+                                        <a class="text-yellow-750 hover:underline" href="#">忘記密碼</a>
+                                    </div>
                                 </div>
 
                                 <div class="formLogin-form">
@@ -128,7 +203,7 @@
                                         <div class="fSxUpu small-h3-line"></div>
                                         <span id="toggle-prompt" class="gHHdZC">還未加入?</span>
                                     </h3>
-                                    <p id="toggle-desc" class="formLogin-right-info">註冊帳號，體驗 FIDO2 安全登錄</p>
+                                    <p id="toggle-desc" class="formLogin-right-info">註冊帳號，即享額外精彩禮遇</p>
                                     <div class="formLogin-form-create">
                                         <button id="auth-toggle-btn" class="border border-yellow-750 text-yellow-750 text-xl px-4 py-3 hover:text-white hover:bg-yellow-750 transition-colors min-w-[200px]" type="button">
                                             創建帳號
@@ -166,20 +241,26 @@
                         <!-- Right Side Info -->
                         <div class="formLogin-right">
                             <div class="formLogin-right-container">
-                                <h2 class="bBFmiX"><p>WebAuthn 演示</p></h2>
+                                <h2 class="bBFmiX"><p>直接於官網預訂享受</p></h2>
                                 <div class="ckeditor__CKEditorText-sc-1hdgwz8-0 fpExem text__value">
-                                    <p>此頁面演示了如何集成 FIDO2/WebAuthn 以實現無密碼登錄。您可以使用生物識別技術（如 TouchID/FaceID）或外部安全密鑰。</p>
-                                    <br>
-                                    <p><strong>技術特點：</strong></p>
-                                    <ul style="list-style: disc; padding-left: 20px; margin-top: 10px;">
-                                        <li>無密碼認證</li>
-                                        <li>抗釣魚攻擊</li>
-                                        <li>現代瀏覽器原生支持</li>
+                                    <ul class="list-3-cols">
+                                        <li class="list-3-cols__item">官網保證房價最優</li>
+                                        <li class="list-3-cols__item">優先升級客房</li>
+                                        <li class="list-3-cols__item">靈活退改條款</li>
+                                        <li class="list-3-cols__item">獲取銀河獎賞積分</li>
                                     </ul>
+                                    <div class="flex flex-wrap justify-between mt-8 opacity-80">
+                                        <img src="assets/theme/images/hotel_galaxy_4c_tc_251125.png" alt="Galaxy" style="height: 30px; margin-bottom: 10px;">
+                                        <img src="assets/theme/images/logo-hotel-okura-macau-tc.png" alt="Okura" style="height: 30px; margin-bottom: 10px;">
+                                        <img src="assets/theme/images/logo-banyantree-macau-tc.png" alt="Banyan Tree" style="height: 30px; margin-bottom: 10px;">
+                                        <img src="assets/theme/images/logo-jw-marriott-macau-tc.png" alt="JW" style="height: 30px; margin-bottom: 10px;">
+                                        <img src="assets/theme/images/logo-the-ritzcarlton-macau.png" alt="Ritz" style="height: 30px; margin-bottom: 10px;">
+                                        <img src="assets/theme/images/Andaz logo TC - 501x500.png" alt="Andaz" style="height: 30px; margin-bottom: 10px;">
+                                    </div>
                                     <br>
-                                    <div class="flex justify-center">
-                                        <button type="button" class="text-yellow-750 hover:underline" onclick="toggleDebug()">
-                                            調試工具
+                                    <div class="flex justify-center border-t border-gray-200 pt-4 mt-4">
+                                        <button type="button" class="text-xs text-gray-400 hover:text-yellow-750 transition-colors" onclick="toggleDebug()">
+                                            WebAuthn 調試工具
                                         </button>
                                     </div>
                                 </div>
