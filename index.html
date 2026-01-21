@@ -1,460 +1,248 @@
+<!DOCTYPE html><html lang="tc" style="--background: #004433; --primary: #266A62; --white: #FFFFFF; --text-primary: #004433; --text-secondary: #266A62; --footer-bg: #001E1E; font-size: 16px; --aliyun-zoom-ratio: 1; --aliyun-imgbox-height: 200px;" data-scrapbook-source="https://supremecard.sjmresorts.com/tc/sign-in" data-scrapbook-create="20260121123520374"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>登入 | 澳娛綜合至尊卡 | 澳娛綜合</title>
+<style>@import"assets/sjm/css2.css";:root{--base-color:#a8996e;--text-default:#3f4644;--heading-color:#043;--font-body:"Poppins","Noto Sans TC","Noto Sans SC","Noto Sans JP","Noto Sans KR","Segoe UI","Helvetica Neue","Arial","PingFang SC","Microsoft YaHei","Hiragino Kaku Gothic Pro","Meiryo","Malgun Gothic",sans-serif;--font-heading:"Petrona","Noto Serif TC","Noto Serif SC","Noto Serif JP","Noto Serif KR","Georgia","Times New Roman","SongtiSC","SimSun","PMingLiU","MingLiU","Hiragino Mincho ProN","MS Mincho","Batang","Apple SD Gothic Neo",serif;--title-font-weight:200;--title-line-height:1.3;--font-poppins:var(--font-body);--font-noto-tc:"Noto Sans TC",sans-serif;--font-noto-sc:"Noto Sans SC",sans-serif;--font-noto-kr:"Noto Sans KR",var(--font-serif-cn);--font-noto-jp:"Noto Sans JP",var(--font-serif-cn)}body,html{font-size:16px;height:100%;margin:0;overflow-x:hidden;padding:0;width:100%}body{color:var(--text-default);font-optical-sizing:auto;font-size:1rem;font-weight:400;line-height:2;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}h1,h2,h3,h4,h5{color:var(--heading-color);font-family:var(--font-heading);font-weight:var(--title-font-weight);line-height:var(--title-line-height);margin:1.5em 0 .5em}h1{font-size:2rem}@media only screen and (min-width:1025px){h1{font-size:2.5rem}}h2{font-size:1.6rem}@media only screen and (min-width:1025px){h2{font-size:2rem}}h3{font-size:1.4rem}@media only screen and (min-width:1025px){h3{font-size:1.6rem}}h4{font-size:1.2rem}@media only screen and (min-width:1025px){h4{font-size:1.4rem}}h5{font-size:1.2rem}.title-font{color:var(--heading-color);font-family:var(--font-heading);font-weight:var(--title-font-weight);line-height:var(--title-line-height)}html[lang=en]{font-family:var(--font-body)!important}html[lang=tc]{font-family:var(--font-noto-tc)!important}html[lang=sc]{font-family:var(--font-noto-sc)!important}</style>
+<style>
+    /* FIDO Card Scoped Styles (Original GitHub Style) */
+    .auth-container {
+        width: 100%;
+        max-width: 480px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        padding: 32px;
+        position: relative;
+        margin: 0 auto;
+        text-align: left;
+    }
+    .tabs-nav { display: flex; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px; }
+    .tab-link { padding: 12px 20px; color: #666; font-size: 0.9375rem; font-weight: 500; border-bottom: 2px solid transparent; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .tab-link.active { color: #266A62; border-bottom-color: #266A62; }
+    .fido-form-group { margin-bottom: 16px; }
+    .fido-label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 4px; color: #1a1a1a; }
+    .fido-input { font-family: inherit; font-size: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; width: 100%; outline: none; transition: border-color 0.2s ease; }
+    .fido-input:focus { border-color: #266A62; }
+    .loading-overlay { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; z-index: 10; backdrop-filter: blur(4px); }
+    .spinner { width: 48px; height: 48px; border: 4px solid #e0e0e0; border-top-color: #266A62; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-message { padding: 16px; border-radius: 8px; font-size: 0.9375rem; margin-top: 24px; border: 1px solid transparent; text-align: center; }
+    .status-success { background-color: #f0fdf4; color: #28a745; border-color: #bbf7d0; }
+    .status-error { background-color: #fef2f2; color: #dc3545; border-color: #fecaca; }
+    .hidden { display: none !important; }
+</style>
+<script>
+    async function createRegistration() {
+        try {
+            if (!window.fetch || !navigator.credentials || !navigator.credentials.create) throw new Error('您的瀏覽器不支援 WebAuthn。');
+            const userName = document.getElementById('userName').value;
+            const userDisplayName = document.getElementById('userDisplayName').value || userName;
+            if (!userName) throw new Error('請輸入使用者名稱');
+            showLoading('準備註冊中...'); hideStatus();
+            let rep = await window.fetch('_test/server.php?fn=getCreateArgs&rpId='+encodeURIComponent(location.hostname)+'&userName='+encodeURIComponent(userName)+'&userDisplayName='+encodeURIComponent(userDisplayName)+'&requireResidentKey=1&userVerification=preferred', {method:'GET', cache:'no-cache'});
+            const createArgs = await rep.json();
+            if (createArgs.success === false) throw new Error(createArgs.msg || '未知錯誤');
+            recursiveBase64StrToArrayBuffer(createArgs);
+            const cred = await navigator.credentials.create(createArgs);
+            const response = await window.fetch('_test/server.php?fn=processCreate', {
+                method: 'POST',
+                body: JSON.stringify({
+                    transports: cred.response.getTransports ? cred.response.getTransports() : null,
+                    clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
+                    attestationObject: arrayBufferToBase64(cred.response.attestationObject)
+                })
+            });
+            const res = await response.json();
+            hideLoading();
+            if (res.success) { setStatus('註冊成功！', 'success'); }
+            else throw new Error(res.msg);
+        } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+    }
 
-// index.php - SJM Resorts themed FIDO Login
-
-<!DOCTYPE html>
-<html lang="tc" style="--background: #004433; --primary: #266A62; --white: #FFFFFF; --text-primary: #004433; --text-secondary: #266A62; --footer-bg: #001E1E; font-size: 16px; --aliyun-zoom-ratio: 1; --aliyun-imgbox-height: 200px;">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>登入 | 澳娛綜合至尊卡 | 澳娛綜合</title>
-    
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="assets/sjm/entry.8yEfdrjw.css">
-    <link rel="stylesheet" href="assets/sjm/index.xxpO8LUT.css">
-    <link rel="stylesheet" href="assets/sjm/index.CId7Jd-p.css">
-    <link rel="stylesheet" href="assets/sjm/select.QKF3iHbi.css">
-    <link rel="stylesheet" href="assets/sjm/close.uw2Q-UTh.css">
-    <link rel="stylesheet" href="assets/sjm/submitBtn.BCOZDXK-.css">
-    <link rel="stylesheet" href="assets/sjm/voiceCodePopup.DRYr25P8.css">
-    <link rel="stylesheet" href="assets/sjm/index.Bfg89hHM.css">
-    <link rel="stylesheet" href="assets/sjm/index.CFEfzbRg.css">
-    <link rel="stylesheet" href="assets/sjm/sign-in.oRMuIlNL.css">
-    <link rel="stylesheet" href="assets/sjm/main.css">
-
-    <style>
-        @import url("assets/sjm/css2.css");
-        :root {
-            --base-color: #a8996e;
-            --text-default: #3f4644;
-            --heading-color: #043;
-            --font-body: "Poppins", "Noto Sans TC", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", sans-serif;
-            --font-heading: "Petrona", serif;
-        }
-        body {
-            font-family: var(--font-body);
-            background-color: #f7f6f0;
-            margin: 0;
-        }
-        .hidden { display: none !important; }
-        
-        /* FIDO specific overrides */
-        .status-message {
-            margin-top: 20px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            text-align: center;
-        }
-        .status-success { background-color: #e6f4ea; color: #1e7e34; border: 1px solid #c2e7d1; }
-        .status-error { background-color: #fce8e6; color: #d93025; border: 1px solid #f9d2ce; }
-        
-        .loading-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.8);
-            z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .spinner {
-            width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #266A62;
-            border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .advanced-settings-toggle {
-            cursor: pointer; color: var(--primary); font-size: 12px; text-decoration: underline; margin-top: 10px; display: block;
-        }
-        
-        #advanced-settings {
-            background: #fff; padding: 20px; border-radius: 12px; margin-top: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee;
-            text-align: left;
-        }
-        .config-group h5 { font-size: 13px; margin-bottom: 10px; color: #666; }
-        .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 5px; }
-        
-        /* Authenticated State */
-        .user-section-card { text-align: center; padding: 40px 20px; }
-        .avatar-circle {
-            width: 80px; height: 80px; background-color: var(--primary); color: white;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 32px; font-weight: bold; margin: 0 auto 20px;
-        }
-    </style>
-
-    <script>
-        // FIDO Logic
-        async function createRegistration() {
-            try {
-                if (!window.fetch || !navigator.credentials || !navigator.credentials.create) {
-                    throw new Error('您的瀏覽器不支援 WebAuthn。');
-                }
-                updateUserId();
-                const userName = document.getElementById('userName').value;
-                const userDisplayName = document.getElementById('userDisplayName').value || userName;
-                if (!userName) throw new Error('請輸入使用者名稱');
-
-                showLoading('準備註冊中...');
-                hideStatus();
-
-                let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
-                const createArgs = await rep.json();
-                if (createArgs.success === false) throw new Error(createArgs.msg || '未知錯誤');
-
-                recursiveBase64StrToArrayBuffer(createArgs);
-                showLoading('請依照瀏覽器指示使用您的安全金鑰或生物辨識...');
-                const cred = await navigator.credentials.create(createArgs);
-
-                const authenticatorAttestationResponse = {
-                    transports: cred.response.getTransports  ? cred.response.getTransports() : null,
-                    clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
-                    attestationObject: cred.response.attestationObject ? arrayBufferToBase64(cred.response.attestationObject) : null
-                };
-
-                showLoading('正在向伺服器驗證...');
-                rep = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
-                    method  : 'POST',
-                    body    : JSON.stringify(authenticatorAttestationResponse),
-                    cache   : 'no-cache'
-                });
-                const response = await rep.json();
-
-                hideLoading();
-                if (response.success) {
-                    reloadServerPreview();
-                    setStatus(response.msg || '註冊成功！', 'success');
-                } else {
-                    throw new Error(response.msg);
-                }
-            } catch (err) {
-                hideLoading();
-                setStatus(err.message || '發生未知錯誤', 'error');
-            }
-        }
-
-        async function checkRegistration() {
-            try {
-                if (!window.fetch || !navigator.credentials || !navigator.credentials.get) {
-                    throw new Error('您的瀏覽器不支援 WebAuthn。');
-                }
-                updateUserId();
-                showLoading('準備登入...');
-                hideStatus();
-
-                let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
-                const getArgs = await rep.json();
-                if (getArgs.success === false) throw new Error(getArgs.msg);
-
-                recursiveBase64StrToArrayBuffer(getArgs);
-                showLoading('請驗證您的身份...');
-                const cred = await navigator.credentials.get(getArgs);
-
-                const authenticatorAttestationResponse = {
-                    id: cred.rawId ? arrayBufferToBase64(cred.rawId) : null,
-                    clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
-                    authenticatorData: cred.response.authenticatorData ? arrayBufferToBase64(cred.response.authenticatorData) : null,
-                    signature: cred.response.signature ? arrayBufferToBase64(cred.response.signature) : null,
+    async function checkRegistration() {
+        try {
+            showLoading('準備登入...'); hideStatus();
+            let rep = await window.fetch('_test/server.php?fn=getGetArgs&rpId='+encodeURIComponent(location.hostname)+'&userVerification=preferred', {method:'GET',cache:'no-cache'});
+            const getArgs = await rep.json();
+            if (getArgs.success === false) throw new Error(getArgs.msg);
+            recursiveBase64StrToArrayBuffer(getArgs);
+            const cred = await navigator.credentials.get(getArgs);
+            const response = await window.fetch('_test/server.php?fn=processGet', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id: arrayBufferToBase64(cred.rawId),
+                    clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
+                    authenticatorData: arrayBufferToBase64(cred.response.authenticatorData),
+                    signature: arrayBufferToBase64(cred.response.signature),
                     userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
-                };
+                })
+            });
+            const res = await response.json();
+            hideLoading();
+            if (res.success) {
+                document.getElementById('login-flow-container').classList.add('hidden');
+                document.getElementById('user-authenticated-section').classList.remove('hidden');
+                document.getElementById('auth-user-name').textContent = res.userDisplayName || res.userName;
+                document.getElementById('auth-user-id').textContent = '@' + res.userName;
+                setStatus('登入成功！', 'success');
+            } else throw new Error(res.msg);
+        } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+    }
 
-                showLoading('正在驗證登入...');
-                rep = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
-                    method:'POST',
-                    body: JSON.stringify(authenticatorAttestationResponse),
-                    cache:'no-cache'
-                });
-                const response = await rep.json();
-
-                hideLoading();
-                if (response.success) {
-                    const loginForm = document.getElementById('login-flow-container');
-                    const userSection = document.getElementById('user-authenticated-section');
-                    
-                    const userName = response.userName || document.getElementById('userName').value;
-                    const displayName = response.userDisplayName || userName;
-                    
-                    document.getElementById('auth-user-name').textContent = displayName;
-                    document.getElementById('auth-user-id').textContent = '@' + userName;
-                    document.getElementById('auth-login-time').textContent = new Date().toLocaleString();
-                    document.getElementById('auth-avatar').textContent = displayName.charAt(0).toUpperCase();
-
-                    loginForm.classList.add('hidden');
-                    userSection.classList.remove('hidden');
-                    
-                    setStatus('登入成功！', 'success');
-                } else {
-                    throw new Error(response.msg);
-                }
-            } catch (err) {
-                hideLoading();
-                setStatus(err.message || '發生未知錯誤', 'error');
-            }
-        }
-
-        async function logout() {
-            showLoading('登出中...');
-            await window.fetch('_test/server.php?fn=logout', {method:'GET', cache:'no-cache'});
-            location.reload();
-        }
-
-        function recursiveBase64StrToArrayBuffer(obj) {
-            let prefix = '=?BINARY?B?';
-            let suffix = '?=';
-            if (typeof obj === 'object') {
-                for (let key in obj) {
-                    if (typeof obj[key] === 'string') {
-                        let str = obj[key];
-                        if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
-                            str = str.substring(prefix.length, str.length - suffix.length);
-                            let binary_string = window.atob(str);
-                            let len = binary_string.length;
-                            let bytes = new Uint8Array(len);
-                            for (let i = 0; i < len; i++) {
-                                bytes[i] = binary_string.charCodeAt(i);
-                            }
-                            obj[key] = bytes.buffer;
-                        }
-                    } else {
-                        recursiveBase64StrToArrayBuffer(obj[key]);
+    function recursiveBase64StrToArrayBuffer(obj) {
+        let prefix = '=?BINARY?B?'; let suffix = '?=';
+        if (typeof obj === 'object') {
+            for (let key in obj) {
+                if (typeof obj[key] === 'string') {
+                    let str = obj[key];
+                    if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
+                        str = str.substring(prefix.length, str.length - suffix.length);
+                        let binary_string = window.atob(str);
+                        let bytes = new Uint8Array(binary_string.length);
+                        for (let i = 0; i < binary_string.length; i++) bytes[i] = binary_string.charCodeAt(i);
+                        obj[key] = bytes.buffer;
                     }
-                }
+                } else recursiveBase64StrToArrayBuffer(obj[key]);
             }
         }
-
-        function arrayBufferToBase64(buffer) {
-            let binary = '';
-            let bytes = new Uint8Array(buffer);
-            let len = bytes.byteLength;
-            for (let i = 0; i < len; i++) {
-                binary += String.fromCharCode( bytes[ i ] );
-            }
-            return window.btoa(binary);
-        }
-
-        function updateUserId() {
-            const username = document.getElementById('userName').value;
-            const useridField = document.getElementById('userId');
-            if (!username || !useridField) return;
-            let hex = '';
-            for(let i=0;i<username.length;i++) { hex += ''+username.charCodeAt(i).toString(16); }
-            useridField.value = hex;
-        }
-
-        function getGetParams() {
-            let url = '';
-            url += '&rpId=' + encodeURIComponent(location.hostname);
-            url += '&userId=' + encodeURIComponent(document.getElementById('userId')?.value || '');
-            url += '&userName=' + encodeURIComponent(document.getElementById('userName')?.value || '');
-            url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName')?.value || '');
-            url += '&requireResidentKey=1';
-            url += '&userVerification=preferred';
-            return url;
-        }
-
-        function showLoading(message) {
-            document.getElementById('loading-overlay').classList.remove('hidden');
-            document.getElementById('loading-text').textContent = message;
-        }
-
-        function hideLoading() {
-            document.getElementById('loading-overlay').classList.add('hidden');
-        }
-
-        function setStatus(message, type) {
-            const container = document.getElementById('status-container');
-            const msg = document.getElementById('status-message');
-            msg.textContent = message;
-            container.className = 'status-message status-' + type;
-            container.classList.remove('hidden');
-        }
-
-        function hideStatus() {
-            document.getElementById('status-container').classList.add('hidden');
-        }
-
-        function switchAuthMode(mode) {
-            const regGroup = document.getElementById('registration-fields');
-            const signBtn = document.getElementById('signin-btn');
-            const regBtn = document.getElementById('register-btn');
-            const tabs = document.querySelectorAll('.tabs span');
-            
-            tabs.forEach(t => t.classList.remove('active'));
-            if (mode === 'signin') {
-                regGroup.classList.add('hidden');
-                regBtn.classList.add('hidden');
-                signBtn.classList.remove('hidden');
-                tabs[0].classList.add('active');
-            } else {
-                regGroup.classList.remove('hidden');
-                regBtn.classList.remove('hidden');
-                signBtn.classList.add('hidden');
-                tabs[1].classList.add('active');
-            }
-        }
-
-        function toggleSettings() {
-            const el = document.getElementById('advanced-settings');
-            el.classList.toggle('hidden');
-        }
-        function togglePreview() {
-            const el = document.getElementById('preview-container');
-            el.classList.toggle('hidden');
-        }
-        function reloadServerPreview() {
-            const el = document.getElementById('serverPreview');
-            if (el) el.src = el.src;
-        }
-    </script>
+    }
+    function arrayBufferToBase64(buffer) {
+        let binary = ''; let bytes = new Uint8Array(buffer);
+        for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+        return window.btoa(binary);
+    }
+    function showLoading(msg) { document.getElementById('loading-overlay').classList.remove('hidden'); document.getElementById('loading-text').textContent = msg; }
+    function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
+    function setStatus(msg, type) { const c = document.getElementById('status-container'); document.getElementById('status-message').className = 'status-message status-' + type; document.getElementById('status-message').textContent = msg; c.classList.remove('hidden'); }
+    function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
+    function switchTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden')); document.querySelectorAll('.tab-link').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.remove('hidden'); event.currentTarget.classList.add('active'); }
+    async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
+</script>
+<link rel="stylesheet" href="assets/sjm/entry.8yEfdrjw.css">
+<link rel="stylesheet" href="assets/sjm/index.xxpO8LUT.css">
+<link rel="stylesheet" href="assets/sjm/index.CId7Jd-p.css">
+<link rel="stylesheet" href="assets/sjm/select.QKF3iHbi.css">
+<link rel="stylesheet" href="assets/sjm/close.uw2Q-UTh.css">
+<link rel="stylesheet" href="assets/sjm/submitBtn.BCOZDXK-.css">
+<link rel="stylesheet" href="assets/sjm/voiceCodePopup.DRYr25P8.css">
+<link rel="stylesheet" href="assets/sjm/index.Bfg89hHM.css">
+<link rel="stylesheet" href="assets/sjm/index.CFEfzbRg.css">
+<link rel="stylesheet" href="assets/sjm/sign-in.oRMuIlNL.css">
+<link type="text/css" rel="stylesheet" href="assets/sjm/main.css" media="all">
 </head>
-<body>
-    <div id="loading-overlay" class="loading-overlay hidden">
-        <div class="spinner"></div>
-        <p id="loading-text">請稍候...</p>
-    </div>
-
-    <div id="__nuxt">
+<body class="el-popup-parent--hidden">
+    <div id="app" data-v-app="">
         <div data-v-0ad70c51="" class="main-box">
-            <header data-v-b3d31542="" data-v-0ad70c51="" class="global-header relative z-[100]" id="header">
-                <div data-v-b3d31542="" class="headerTop hidden lg:px-10 lg:flex lg:h-[40px] overflow-hidden transition-all duration-500" style="height: 40px;">
-                    <div data-v-b3d31542="" class="headerTop-content">
-                        <div data-v-b3d31542="" class="leftContent">
-                            <div data-v-b3d31542="" class="properties-menu">
-                                <div data-v-b3d31542="" class="text-[13px] leading-[23px]">澳娛综合項目</div>
-                                <i data-v-b3d31542="" class="el-icon arrow-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M831.872 340.864 512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"></path></svg></i>
+            <header data-v-b3d31542="" class="global-header relative z-[100]" id="header">
+                <div data-v-b3d31542="" class="headerTop hidden lg:px-10 lg:flex lg:h-[40px] overflow-hidden transition-all duration-500" style="height: 40px; background: #001e1e;">
+                    <div data-v-b3d31542="" class="headerTop-content flex justify-between items-center max-w-[1320px] mx-auto w-full h-full text-white">
+                        <div data-v-b3d31542="" class="leftContent flex items-center">
+                            <div data-v-b3d31542="" class="properties-menu flex items-center cursor-pointer">
+                                <div data-v-b3d31542="" class="css-1cplu2d">澳娛综合項目</div>
+                                <i data-v-b3d31542="" class="el-icon ml-2"><svg width="12" height="12" viewBox="0 0 1024 1024"><path fill="currentColor" d="M831.872 340.864 512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"></path></svg></i>
                             </div>
                         </div>
-                        <div data-v-b3d31542="" class="rightContent">
-                            <div data-v-b3d31542="" class="language">繁 <img data-v-b3d31542="" src="assets/sjm/icon-world.png" class="icon-world"></div>
+                        <div data-v-b3d31542="" class="rightContent flex items-center">
+                            <div data-v-b3d31542="" class="language flex items-center cursor-pointer text-[13px]">繁 <img data-v-b3d31542="" src="assets/sjm/icon-world.png" class="ml-2 w-3 h-3"></div>
                         </div>
                     </div>
                 </div>
-                <div data-v-b3d31542="" class="headerBottom fixed top-0 z-10 w-full transition-all duration-500 translate-y-[0px] lg:px-10 lg:translate-y-[40px]">
-                    <div data-v-b3d31542="" class="header-bottom-content css-q2ifcv">
+                <div data-v-b3d31542="" class="headerBottom fixed top-0 z-10 w-full transition-all duration-500 bg-[#05221a] lg:translate-y-[40px]">
+                    <div data-v-b3d31542="" class="header-bottom-content flex justify-between items-center h-[99px] max-w-[1320px] mx-auto px-10">
                         <div data-v-b3d31542="" class="header-img">
                             <img data-v-b3d31542="" src="assets/sjm/GJJbluMSof1754903212160_logo-supreme-card-white.png" alt="logo" class="h-[45px]">
-                        </div>
-                        <div data-v-b3d31542="" class="hidden lg:block">
-                            <div data-v-b3d31542="" class="right lg:text-[16px] lg:leading-[20px] tracking-[0.32px] uppercase active-text" style="color: #fff;">
-                                <span data-v-b3d31542="" class="joins lg:block lg:mr-[28px] px-[4px] hover-underline cursor-pointer">加入我們</span>
-                                <span data-v-b3d31542="" class="sign lg:block px-[4px] hover-underline cursor-pointer">登入</span>
-                            </div>
                         </div>
                     </div>
                 </div>
             </header>
-
-            <div data-v-0ad70c51="" class="main-content" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding-top: 100px;">
-                <div data-v-0ad70c51="" class="form-container" style="width: 100%; max-width: 500px; padding: 20px;">
-                    
-                    <div id="login-flow-container" data-v-0ad70c51="" class="input-form shadow-lg" style="background: #fff; border-radius: 24px; padding: 40px;">
-                        <div data-v-0ad70c51="" class="text-center mb-8">
-                            <h2 data-v-0ad70c51="" class="text-container-title title-font text-[26px] mb-2" style="color: var(--primary);">至尊卡登入</h2>
-                            <p data-v-0ad70c51="" class="text-[#505050] text-[14px]">歡迎！請登入以獲享澳娛綜合獨家禮遇。</p>
-                        </div>
-
-                        <div data-v-0ad70c51="" class="tabs mb-8 flex justify-center gap-8" style="color: var(--primary); font-weight: 600;">
-                            <span data-v-0ad70c51="" class="active mr-[24px]" onclick="switchAuthMode('signin')">Passkey 登入</span>
-                            <span data-v-0ad70c51="" class="" onclick="switchAuthMode('register')">新帳號註冊</span>
-                        </div>
-
-                        <div id="status-container" class="hidden mb-4">
-                            <p id="status-message"></p>
-                        </div>
-
-                        <form data-v-0ad70c51="" onsubmit="return false;">
-                            <div data-v-0ad70c51="" class="form-group mb-6">
-                                <label data-v-cd173ddd="" class="label block mb-2 ml-4 text-[14px]" style="color: var(--primary); font-weight: 600;">使用者名稱</label>
-                                <div data-v-cd173ddd="" class="el-input el-input--large">
-                                    <div class="el-input__wrapper" style="border-radius: 100px; height: 46px; padding: 0 24px;">
-                                        <input class="el-input__inner" type="text" id="userName" placeholder="請輸入使用者名稱" autocomplete="username">
-                                    </div>
-                                </div>
-                                <input type="hidden" id="userId">
+            <main data-v-0ad70c51="" class="main-content">
+                <div data-v-0ad70c51="" class="main-top">
+                    <div data-v-0ad70c51="" class="text-container">
+                        <h2 data-v-0ad70c51="" class="text-container-title title-font lg:text-[32px] lg:pt-[60px] lg:pb-[20px] text-[26px] pt-[24px] pb-[16px]"><p>登入</p></h2>
+                        <p data-v-0ad70c51="" class="text-container-main leading-[24px] mb-[20px] text-[14px] sm:text-[16px] sm:mb-[40px]"><p>歡迎！請登入以獲享澳娛綜合獨家禮遇。</p></p>
+                    </div>
+                </div>
+                <div data-v-0ad70c51="" class="form-container">
+                    <div data-v-0ad70c51="" class="form-containers px-[16px] py-[32px] sm:py-[40px] sm:px-[80px] lg:py-[60px] lg:px-[80px]">
+                        <!-- FIDO Card Integration -->
+                        <div class="auth-container">
+                            <div id="loading-overlay" class="loading-overlay hidden">
+                                <div class="spinner"></div>
+                                <p id="loading-text">請稍候...</p>
                             </div>
 
-                            <div id="registration-fields" class="hidden">
-                                <div data-v-0ad70c51="" class="form-group mb-6">
-                                    <label data-v-cd173ddd="" class="label block mb-2 ml-4 text-[14px]" style="color: var(--primary); font-weight: 600;">顯示名稱</label>
-                                    <div data-v-cd173ddd="" class="el-input el-input--large">
-                                        <div class="el-input__wrapper" style="border-radius: 100px; height: 46px; padding: 0 24px;">
-                                            <input class="el-input__inner" type="text" id="userDisplayName" placeholder="請輸入顯示名稱">
+                            <div id="login-flow-container">
+                                <nav class="tabs-nav">
+                                    <div class="tab-link active" onclick="switchTab('tab-auth')">身份驗證</div>
+                                    <div class="tab-link" onclick="switchTab('tab-config')">進階設定</div>
+                                </nav>
+
+                                <div id="tab-auth" class="tab-content">
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">使用者名稱</label>
+                                        <input type="text" id="userName" class="fido-input" placeholder="例如: user123">
+                                    </div>
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">顯示名稱</label>
+                                        <input type="text" id="userDisplayName" class="fido-input" placeholder="例如: 陳大文">
+                                    </div>
+                                    <button data-v-03aab72e="" type="button" class="submit-button2 animation-enabled" style="margin-top: 30px; width: 100%;" onclick="checkRegistration()">
+                                        <div data-v-03aab72e="">使用 Passkey 登入</div>
+                                        <svg data-v-03aab72e="" class="button-arrow" width="16" height="16"><path data-v-03aab72e="" d="M14.706 8.706c.39-.39.39-1.025 0-1.415l-5-5a1.002 1.002 0 0 0-1.415 1.415L11.588 7H2a.999.999 0 1 0 0 2h9.584l-3.29 3.294a1.001 1.001 0 0 0 1.415 1.415l5-5z"></path></svg>
+                                    </button>
+                                    <button data-v-03aab72e="" type="button" class="sub-btn1 animation-enabled" style="margin-top: 12px; width: 100%;" onclick="createRegistration()">
+                                        <div data-v-03aab72e="">註冊新 Passkey</div>
+                                        <svg data-v-03aab72e="" class="button-arrow" width="16" height="16"><path data-v-03aab72e="" d="M14.706 8.706c.39-.39.39-1.025 0-1.415l-5-5a1.002 1.002 0 0 0-1.415 1.415L11.588 7H2a.999.999 0 1 0 0 2h9.584l-3.29 3.294a1.001 1.001 0 0 0 1.415 1.415l5-5z"></path></svg>
+                                    </button>
+                                </div>
+
+                                <div id="tab-config" class="tab-content hidden">
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">證明格式</label>
+                                        <div style="display: flex; gap: 16px;">
+                                            <label style="font-size:14px; display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_none" checked> None</label>
+                                            <label style="font-size:14px; display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_packed" checked> Packed</label>
                                         </div>
                                     </div>
+                                    <button data-v-03aab72e="" type="button" class="sub-btn1 animation-enabled" style="width: 100%;" onclick="reloadServerPreview()">
+                                        <div data-v-03aab72e="">刷新資料預覽</div>
+                                    </button>
                                 </div>
                             </div>
 
-                            <div data-v-0ad70c51="" class="mt-8">
-                                <button id="signin-btn" data-v-03aab72e="" type="button" class="submit-button2 animation-enabled w-full" onclick="checkRegistration()">
-                                    <div data-v-03aab72e="">使用 Passkey 登入</div>
-                                    <svg data-v-03aab72e="" class="button-arrow" width="16" height="16"><path data-v-03aab72e="" d="M14.706 8.706c.39-.39.39-1.025 0-1.415l-5-5a1.002 1.002 0 0 0-1.415 1.415L11.588 7H2a.999.999 0 1 0 0 2h9.584l-3.29 3.294a1.001 1.001 0 0 0 1.415 1.415l5-5z"></path></svg>
-                                </button>
-                                <button id="register-btn" data-v-03aab72e="" type="button" class="submit-button2 animation-enabled w-full hidden" onclick="createRegistration()">
-                                    <div data-v-03aab72e="">註冊新 Passkey</div>
-                                    <svg data-v-03aab72e="" class="button-arrow" width="16" height="16"><path data-v-03aab72e="" d="M14.706 8.706c.39-.39.39-1.025 0-1.415l-5-5a1.002 1.002 0 0 0-1.415 1.415L11.588 7H2a.999.999 0 1 0 0 2h9.584l-3.29 3.294a1.001 1.001 0 0 0 1.415 1.415l5-5z"></path></svg>
+                            <div id="user-authenticated-section" class="hidden" style="text-align: center;">
+                                <div style="width:80px; height:80px; background:#266A62; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:bold; margin:0 auto 20px;">U</div>
+                                <h2 id="auth-user-name" class="title-font" style="font-size:24px;">User</h2>
+                                <p id="auth-user-id" style="color:#666;">@userid</p>
+                                <button data-v-03aab72e="" type="button" class="sub-btn1 animation-enabled" style="margin-top:32px; width: 100%;" onclick="logout()">
+                                    <div data-v-03aab72e="">登出</div>
                                 </button>
                             </div>
-                        </form>
 
-                        <div data-v-0ad70c51="" class="mt-6 text-center">
-                            <a class="advanced-settings-toggle" onclick="toggleSettings()">進階設定</a>
-                            <div id="advanced-settings" class="hidden">
-                                <div class="config-group">
-                                    <h5>驗證格式</h5>
-                                    <div class="checkbox-item"><input type="checkbox" id="fmt_none" checked><label for="fmt_none">None</label></div>
-                                    <div class="checkbox-item"><input type="checkbox" id="fmt_packed" checked><label for="fmt_packed">Packed</label></div>
-                                </div>
-                                <button type="button" style="color: #d93025; border: 1px solid #d93025; background: transparent; padding: 4px 8px; border-radius: 4px; font-size: 12px;" onclick="togglePreview()">切換資料預覽</button>
+                            <div id="status-container" class="hidden">
+                                <div id="status-message"></div>
                             </div>
                         </div>
+                        <div data-v-0ad70c51="" class="sign-in-link">尚未加入？立即<span data-v-0ad70c51="" class="heres cursor-pointer underline">按此</span>加入成為澳娛綜合至尊卡會員。</div>
                     </div>
-
-                    <!-- Authenticated Section -->
-                    <div id="user-authenticated-section" data-v-0ad70c51="" class="input-form shadow-lg hidden" style="background: #fff; border-radius: 24px; padding: 40px;">
-                        <div class="user-section-card">
-                            <div id="auth-avatar" class="avatar-circle">U</div>
-                            <div class="user-info">
-                                <h2 id="auth-user-name" class="title-font text-[24px]" style="color: var(--primary);">User Name</h2>
-                                <p id="auth-user-id" class="text-[#777]">@userid</p>
-                            </div>
-                            
-                            <div style="background: #f7f6f0; padding: 20px; border-radius: 12px; margin: 24px 0;">
-                                <p style="font-size: 14px; margin-bottom: 4px; color: var(--primary); font-weight: 600;">會話進行中</p>
-                                <p id="auth-login-time" style="font-size: 12px; color: #999;">登入時間: --</p>
-                            </div>
-
-                            <button data-v-03aab72e="" type="button" class="submit-button2 animation-enabled w-full" onclick="logout()">
-                                <div data-v-03aab72e="">登出</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Preview Container -->
-                    <div id="preview-container" class="hidden mt-8">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-[16px] font-bold">伺服器資料預覽</h3>
-                            <button type="button" class="text-[12px] text-red-500" onclick="clearRegistration()">清除所有註冊</button>
-                        </div>
-                        <iframe src="_test/server.php?fn=getStoredDataHtml" id="serverPreview" style="width: 100%; height: 300px; border: 1px solid #ddd; border-radius: 12px;"></iframe>
-                    </div>
-
                 </div>
-            </div>
-
-            <footer data-v-ce58d66b="" class="main-bottom mt-auto">
-                <div data-v-ce58d66b="" class="css-q2ifcv_logo">
-                    <div data-v-ce58d66b="" class="footer_brands py-8 mx-auto flex flex-col items-center">
-                        <img data-v-ce58d66b="" src="assets/sjm/7jcNEosm2P1767321339567_SJM-Logo_TC_T-gold_L-gold-website.png" alt="logo" class="w-[250px] mb-8">
-                        <div data-v-ce58d66b="" class="flex flex-wrap justify-center gap-4 opacity-75">
-                            <img data-v-ce58d66b="" src="assets/sjm/Q8S9IwmDyE1767321379880_logo-glp-gold-color.png" class="h-8">
-                            <img data-v-ce58d66b="" src="assets/sjm/9a9dnIdCSg1767321406081_logo-gl-gold-color.png" class="h-8">
-                            <img data-v-ce58d66b="" src="assets/sjm/THBSW7EBxL1767321556362_logo-ponte16-gold.png" class="h-8">
+            </main>
+            <footer data-v-ce58d66b="" class="main-bottom bg-[#001e1e]">
+                <div data-v-ce58d66b="" class="css-q2ifcv_logo py-[40px] sm:py-[60px] lg:py-[80px]">
+                    <div data-v-ce58d66b="" class="flex flex-col items-center">
+                        <img data-v-ce58d66b="" src="assets/sjm/7jcNEosm2P1767321339567_SJM-Logo_TC_T-gold_L-gold-website.png" class="w-[240px] mb-[40px]">
+                        <div data-v-ce58d66b="" class="flex flex-wrap justify-center gap-x-[32px] gap-y-[24px] mb-[40px] opacity-80">
+                            <img data-v-ce58d66b="" src="assets/sjm/Q8S9IwmDyE1767321379880_logo-glp-gold-color.png" class="h-[32px]">
+                            <img data-v-ce58d66b="" src="assets/sjm/9a9dnIdCSg1767321406081_logo-gl-gold-color.png" class="h-[32px]">
+                            <img data-v-ce58d66b="" src="assets/sjm/qFZMImi58c1767321441136_logo-hl-gold.png" class="h-[32px]">
+                            <img data-v-ce58d66b="" src="assets/sjm/34gguiprOr1767321528008_logo-jai-alai-oceanus-gold.png" class="h-[32px]">
+                            <img data-v-ce58d66b="" src="assets/sjm/THBSW7EBxL1767321556362_logo-ponte16-gold.png" class="h-[32px]">
+                            <img data-v-ce58d66b="" src="assets/sjm/Or6DWYwmB91767321692371_logo-kampek-market-gold-vertical.png" class="h-[32px]">
+                            <img data-v-ce58d66b="" src="assets/sjm/gptAH89cco1767321836162_larc-logo-gold.png" class="h-[32px]">
                         </div>
-                    </div>
-                    <div data-v-ce58d66b="" class="main-foot text-[12px] text-white opacity-60 text-center py-8 border-t border-white/10">
-                        <p>©2026 澳娛綜合。保留所有權利。</p>
+                        <div data-v-ce58d66b="" class="text-[#a8996e] text-[12px] text-center">©2026 澳娛綜合。保留所有權利。</div>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-</body>
-</html>
+</body></html>
