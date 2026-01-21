@@ -68,6 +68,9 @@
     @media (min-width: 760px) {
         .list-3-cols__item { width: 50%; }
     }
+    
+    /* Footer refinement */
+    .FooterLogoContainer-LinkedImage img { max-width: 100%; height: auto; }
 </style>
 </head>
 <body>
@@ -89,11 +92,13 @@
                     </div>
                     <div class="header-first-right">
                         <ul class="header-first-right__list">
+                            <li class="header-first-right__item"><i class="fab fa-weixin mr-2"></i>微信小程序</li>
                             <li class="header-first-right__item"><i class="fas fa-map-marker-alt mr-2"></i>交通指南</li>
                             <li class="header-first-right__item header-first-right__item_user">
                                 <i class="fas fa-user-circle mr-2"></i>
                                 <a href="javascript:void(0)" id="header-login-link">登錄</a>&nbsp;|&nbsp;<a href="javascript:void(0)" id="header-join-link">加入</a>
                             </li>
+                            <li class="header-first-right__item"><i class="fas fa-globe mr-2"></i>Language</li>
                         </ul>
                     </div>
                 </div>
@@ -101,26 +106,21 @@
                     <div class="header-second">
                         <div class="header-second-tabs">
                             <div class="HeaderMenu__Container-sc-1qkci8u-0 evkpuI">
-                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
-                                    <div class="menu-toggle menuItem__menuItem"><a href="#">最新優惠</a></div>
-                                </div>
-                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
-                                    <div class="menu-toggle menuItem__menuItem"><a href="#">酒店住宿</a></div>
-                                </div>
-                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
-                                    <div class="menu-toggle menuItem__menuItem"><a href="#">餐　飲</a></div>
-                                </div>
-                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
-                                    <div class="menu-toggle menuItem__menuItem"><a href="#">購　物</a></div>
-                                </div>
-                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container">
-                                    <div class="menu-toggle menuItem__menuItem"><a href="#">精彩體驗</a></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">最新優惠</a></div></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">酒店住宿</a></div></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">餐　飲</a></div></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">購　物</a></div></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">精彩體驗</a></div></div>
+                            </div>
+                            <div class="HeaderLogo__Container-sc-torv75-0 fIWwZa">
+                                <div class="logoContainer">
+                                    <a href="/" class="bigLogo"><img src="assets/theme/images/gm_revwhite_tc_1_251125.png" alt="Galaxy Macau" class="cpRCiS"></a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="HeaderLogo__Container-sc-torv75-0 fIWwZa">
-                            <div class="logoContainer">
-                                <a href="/" class="bigLogo"><img src="assets/theme/images/gm_revwhite_tc_1_251125.png" alt="Galaxy Macau" class="cpRCiS"></a>
+                            <div class="HeaderMenu__Container-sc-1qkci8u-0 evkpuI">
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">門票及表演</a></div></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">會議及活動</a></div></div>
+                                <div class="HeaderMenuItem__Container-sc-1ta9iu3-0 bDklmS menuItem-container"><div class="menu-toggle menuItem__menuItem"><a href="#">工銀澳門銀河信用卡</a></div></div>
                             </div>
                         </div>
                         <div class="header-second-hotel">
@@ -171,9 +171,9 @@
                                     <form id="auth-form" class="TabLoginByEmail-form" onsubmit="return false;">
                                         <div class="Textfield-root">
                                             <label class="Textfield-field">
-                                                <div class="Textfield-icon"><i class="fas fa-user"></i></div>
+                                                <div class="Textfield-icon"><i class="fas fa-envelope"></i></div>
                                                 <div class="Textfield-inputWrapper">
-                                                    <input type="text" id="userName" name="userName" placeholder="用戶名稱" class="Textfield-input" required pattern="[0-9a-zA-Z]{2,}">
+                                                    <input type="text" id="userName" name="userName" placeholder="請填寫你的電郵地址" class="Textfield-input" required pattern="[0-9a-zA-Z@.]{2,}">
                                                 </div>
                                             </label>
                                         </div>
@@ -258,6 +258,7 @@
                                         <img src="assets/theme/images/Andaz logo TC - 501x500.png" alt="Andaz" style="height: 30px; margin-bottom: 10px;">
                                     </div>
                                     <br>
+                                    <p style="font-size: 0.75rem; color: #666;">*僅適用於「銀河酒店」。受條款及細則約束。</p>
                                     <div class="flex justify-center border-t border-gray-200 pt-4 mt-4">
                                         <button type="button" class="text-xs text-gray-400 hover:text-yellow-750 transition-colors" onclick="toggleDebug()">
                                             WebAuthn 調試工具
@@ -282,6 +283,27 @@
             </div>
 
             <footer class="byCIhE gkMYuH">
+                <div class="FooterLogoContainer__Root-sc-sy8r13-0 jxuqMI FooterLogoContainer-root">
+                    <div class="FooterLogoContainer-row FooterLogoContainer-row1">
+                        <div class="FooterLogoContainer-grid1">
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/StarWorldMacau-Color.png" alt="StarWorld Hotel"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/gm_4c_tc_1_251125_(2).png" alt="Galaxy Macau"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/BroadwayMacau-Color.png" alt="Broadway Macau"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/gicc_4c_tc_1_251125.png" alt="GICC"></div>
+                        </div>
+                    </div>
+                    <div class="FooterLogoContainer-row">
+                        <div class="FooterLogoContainer-grid2">
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/logo-banyantree-macau-tc.png" alt="Banyan Tree"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/hotel_galaxy_4c_tc_251125.png" alt="Galaxy Hotel"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/logo-hotel-okura-macau-tc.png" alt="Hotel Okura"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/logo-jw-marriott-macau-tc.png" alt="JW Marriott"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/logo-the-ritzcarlton-macau.png" alt="The Ritz-Carlton"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/ga_4c_tc_1_251125.png" alt="Galaxy Arena"></div>
+                            <div class="FooterLogoContainer-LinkedImage"><img src="assets/theme/images/gp_4c_tc_1_251125.png" alt="Galaxy Promenade"></div>
+                        </div>
+                    </div>
+                </div>
                 <footer class="footer-link">
                     <a href="#" class="footer-bottomLink">網站地圖</a>
                     <a href="#" class="footer-bottomLink">隱私政策</a>
