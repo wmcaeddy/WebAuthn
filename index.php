@@ -32,6 +32,20 @@
     .status-success { background-color: #f0fdf4; color: #28a745; border-color: #bbf7d0; }
     .status-error { background-color: #fef2f2; color: #dc3545; border-color: #fecaca; }
     .hidden { display: none !important; }
+
+    /* Footer Branding Robust Styles */
+    .footer_brands { display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .footer_brands-list { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; width: 100%; }
+    .footer_brands-item { width: 33.33%; max-width: 100px; display: flex; align-items: center; justify-content: center; padding: 10px; }
+    .footer_brands-item img { width: 100%; height: auto; object-contain: contain; }
+    .footer_line { width: 1px; height: 80px; background: rgba(255,255,255,0.3); margin: 0 40px; display: none; }
+    
+    @media (min-width: 1024px) {
+        .footer_brands { flex-direction: row; justify-content: center; padding: 0 40px; }
+        .footer_brands-list { flex-wrap: nowrap; justify-content: flex-start; width: auto; }
+        .footer_brands-item { width: auto; max-width: 120px; padding: 0 10px; }
+        .footer_line { display: block; }
+    }
 </style>
     <script>
         async function createRegistration() {
@@ -310,39 +324,37 @@
                     </div>
                 </div>
             </main>
-            <footer data-v-ce58d66b="" class="main-bottom bg-[#001e1e]">
-                <div data-v-ce58d66b="" class="css-q2ifcv_logo py-[40px] sm:py-[60px] lg:py-[80px]">
-                    <div data-v-ce58d66b="" class="border-none footer_brands pt-4 sm:pt-6 mx-auto flex flex-col md:flex md:items-center md:justify-center lg:pb-6 border-b-[1px] border-[#E5E7EB] lg:flex lg:items-center lg:flex-row lg:justify-evenly">
-                        <div data-v-ce58d66b="">
-                            <img data-v-ce58d66b="" src="assets/sjm/7jcNEosm2P1767321339567_SJM-Logo_TC_T-gold_L-gold-website.png" alt="_logo" class="mx-auto mb-2 w-[251px] object-contain sm:!mb-4 lg:!mb-0 lg:w-[300px] cursor-pointer">
+            <footer data-v-ce58d66b="" class="main-bottom bg-[#001e1e] py-[40px] sm:py-[60px] lg:py-[80px]">
+                <div data-v-ce58d66b="" class="footer_brands">
+                    <div data-v-ce58d66b="">
+                        <img data-v-ce58d66b="" src="assets/sjm/7jcNEosm2P1767321339567_SJM-Logo_TC_T-gold_L-gold-website.png" alt="_logo" style="width: 250px; height: auto;" class="cursor-pointer">
+                    </div>
+                    <div data-v-ce58d66b="" class="footer_line"></div>
+                    <div data-v-ce58d66b="" class="footer_brands-list">
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/Q8S9IwmDyE1767321379880_logo-glp-gold-color.png" alt="" class="cursor-pointer">
                         </div>
-                        <div data-v-ce58d66b="" class="line w-[1px] h-[100px] bg-[#fff] hidden lg:block"></div>
-                        <div data-v-ce58d66b="" class="footer_brands-list mx-auto flex max-w-[332px] flex-wrap justify-center pb-4 sm:max-w-max sm:pb-6 md:max-w-[900px] gap-4 lg:m-0 lg:max-w-[1200px] lg:justify-start lg:!gap-0 lg:pb-0 MuiBox-root css-fp4ath">
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/Q8S9IwmDyE1767321379880_logo-glp-gold-color.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/9a9dnIdCSg1767321406081_logo-gl-gold-color.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/qFZMImi58c1767321441136_logo-hl-gold.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/34gguiprOr1767321528008_logo-jai-alai-oceanus-gold.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/gptAH89cco1767321836162_larc-logo-gold.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/THBSW7EBxL1767321556362_logo-ponte16-gold.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
-                            <div data-v-ce58d66b="" class="footer_brands-item w-1/3 max-w-[100px] lg:max-w-[150px] aspect-square flex items-center justify-center p-2">
-                                <img data-v-ce58d66b="" src="assets/sjm/Or6DWYwmB91767321692371_logo-kampek-market-gold-vertical.png" alt="" class="max-w-full max-h-full object-contain cursor-pointer">
-                            </div>
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/9a9dnIdCSg1767321406081_logo-gl-gold-color.png" alt="" class="cursor-pointer">
+                        </div>
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/qFZMImi58c1767321441136_logo-hl-gold.png" alt="" class="cursor-pointer">
+                        </div>
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/34gguiprOr1767321528008_logo-jai-alai-oceanus-gold.png" alt="" class="cursor-pointer">
+                        </div>
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/gptAH89cco1767321836162_larc-logo-gold.png" alt="" class="cursor-pointer">
+                        </div>
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/THBSW7EBxL1767321556362_logo-ponte16-gold.png" alt="" class="cursor-pointer">
+                        </div>
+                        <div data-v-ce58d66b="" class="footer_brands-item">
+                            <img data-v-ce58d66b="" src="assets/sjm/Or6DWYwmB91767321692371_logo-kampek-market-gold-vertical.png" alt="" class="cursor-pointer">
                         </div>
                     </div>
-                    <div data-v-ce58d66b="" class="py-10 text-[#a8996e] text-[12px] text-center">©2026 澳娛綜合。保留所有權利。</div>
                 </div>
+                <div data-v-ce58d66b="" class="py-10 text-[#a8996e] text-[12px] text-center">©2026 澳娛綜合。保留所有權利。</div>
             </footer>
         </div>
     </div>
