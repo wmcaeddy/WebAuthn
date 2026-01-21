@@ -33,93 +33,116 @@
     .status-error { background-color: #fef2f2; color: #dc3545; border-color: #fecaca; }
     .hidden { display: none !important; }
 </style>
-<script>
-    async function createRegistration() {
-        try {
-            if (!window.fetch || !navigator.credentials || !navigator.credentials.create) throw new Error('您的瀏覽器不支援 WebAuthn。');
-            const userName = document.getElementById('userName').value;
-            const userDisplayName = document.getElementById('userDisplayName').value || userName;
-            if (!userName) throw new Error('請輸入使用者名稱');
-            showLoading('準備註冊中...'); hideStatus();
-            let rep = await window.fetch('_test/server.php?fn=getCreateArgs&rpId='+encodeURIComponent(location.hostname)+'&userName='+encodeURIComponent(userName)+'&userDisplayName='+encodeURIComponent(userDisplayName)+'&requireResidentKey=1&userVerification=preferred', {method:'GET', cache:'no-cache'});
-            const createArgs = await rep.json();
-            if (createArgs.success === false) throw new Error(createArgs.msg || '未知錯誤');
-            recursiveBase64StrToArrayBuffer(createArgs);
-            const cred = await navigator.credentials.create(createArgs);
-            const response = await window.fetch('_test/server.php?fn=processCreate', {
-                method: 'POST',
-                body: JSON.stringify({
-                    transports: cred.response.getTransports ? cred.response.getTransports() : null,
-                    clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
-                    attestationObject: arrayBufferToBase64(cred.response.attestationObject)
-                })
-            });
-            const res = await response.json();
-            hideLoading();
-            if (res.success) { setStatus('註冊成功！', 'success'); }
-            else throw new Error(res.msg);
-        } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
-    }
+    <script>
+        async function createRegistration() {
+            try {
+                if (!window.fetch || !navigator.credentials || !navigator.credentials.create) throw new Error('您的瀏覽器不支援 WebAuthn。');
+                const userName = document.getElementById('userName').value;
+                const userDisplayName = document.getElementById('userDisplayName').value || userName;
+                if (!userName) throw new Error('請輸入使用者名稱');
+                showLoading('準備註冊中...'); hideStatus();
+                
+                let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
+                const createArgs = await rep.json();
+                if (createArgs.success === false) throw new Error(createArgs.msg || '未知錯誤');
+                recursiveBase64StrToArrayBuffer(createArgs);
+                const cred = await navigator.credentials.create(createArgs);
+                const response = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        transports: cred.response.getTransports ? cred.response.getTransports() : null,
+                        clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
+                        attestationObject: arrayBufferToBase64(cred.response.attestationObject)
+                    })
+                });
+                const res = await response.json();
+                hideLoading();
+                if (res.success) { setStatus('註冊成功！', 'success'); }
+                else throw new Error(res.msg);
+            } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+        }
 
-    async function checkRegistration() {
-        try {
-            showLoading('準備登入...'); hideStatus();
-            let rep = await window.fetch('_test/server.php?fn=getGetArgs&rpId='+encodeURIComponent(location.hostname)+'&userVerification=preferred', {method:'GET',cache:'no-cache'});
-            const getArgs = await rep.json();
-            if (getArgs.success === false) throw new Error(getArgs.msg);
-            recursiveBase64StrToArrayBuffer(getArgs);
-            const cred = await navigator.credentials.get(getArgs);
-            const response = await window.fetch('_test/server.php?fn=processGet', {
-                method: 'POST',
-                body: JSON.stringify({
-                    id: arrayBufferToBase64(cred.rawId),
-                    clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
-                    authenticatorData: arrayBufferToBase64(cred.response.authenticatorData),
-                    signature: arrayBufferToBase64(cred.response.signature),
-                    userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
-                })
-            });
-            const res = await response.json();
-            hideLoading();
-            if (res.success) {
-                document.getElementById('login-flow-container').classList.add('hidden');
-                document.getElementById('user-authenticated-section').classList.remove('hidden');
-                document.getElementById('auth-user-name').textContent = res.userDisplayName || res.userName;
-                document.getElementById('auth-user-id').textContent = '@' + res.userName;
-                setStatus('登入成功！', 'success');
-            } else throw new Error(res.msg);
-        } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
-    }
+        async function checkRegistration() {
+            try {
+                showLoading('準備登入...'); hideStatus();
+                let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
+                const getArgs = await rep.json();
+                if (getArgs.success === false) throw new Error(getArgs.msg);
+                recursiveBase64StrToArrayBuffer(getArgs);
+                const cred = await navigator.credentials.get(getArgs);
+                const response = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        id: arrayBufferToBase64(cred.rawId),
+                        clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
+                        authenticatorData: arrayBufferToBase64(cred.response.authenticatorData),
+                        signature: arrayBufferToBase64(cred.response.signature),
+                        userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
+                    })
+                });
+                const res = await response.json();
+                hideLoading();
+                if (res.success) {
+                    document.getElementById('login-flow-container').classList.add('hidden');
+                    document.getElementById('user-authenticated-section').classList.remove('hidden');
+                    document.getElementById('auth-user-name').textContent = res.userDisplayName || res.userName;
+                    document.getElementById('auth-user-id').textContent = '@' + res.userName;
+                    setStatus('登入成功！', 'success');
+                } else throw new Error(res.msg);
+            } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+        }
 
-    function recursiveBase64StrToArrayBuffer(obj) {
-        let prefix = '=?BINARY?B?'; let suffix = '?=';
-        if (typeof obj === 'object') {
-            for (let key in obj) {
-                if (typeof obj[key] === 'string') {
-                    let str = obj[key];
-                    if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
-                        str = str.substring(prefix.length, str.length - suffix.length);
-                        let binary_string = window.atob(str);
-                        let bytes = new Uint8Array(binary_string.length);
-                        for (let i = 0; i < binary_string.length; i++) bytes[i] = binary_string.charCodeAt(i);
-                        obj[key] = bytes.buffer;
-                    }
-                } else recursiveBase64StrToArrayBuffer(obj[key]);
+        function getGetParams() {
+            let url = '';
+            url += '&rpId=' + encodeURIComponent(location.hostname);
+            url += '&userName=' + encodeURIComponent(document.getElementById('userName').value);
+            url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName').value);
+            url += '&requireResidentKey=' + (document.getElementById('requireResidentKey').checked ? '1' : '0');
+
+            if (document.getElementById('uv_required').checked) url += '&userVerification=required';
+            else if (document.getElementById('uv_preferred').checked) url += '&userVerification=preferred';
+            else if (document.getElementById('uv_discouraged').checked) url += '&userVerification=discouraged';
+
+            ['usb', 'nfc', 'ble', 'hybrid', 'int'].forEach(t => {
+                if (document.getElementById('type_' + t) && document.getElementById('type_' + t).checked) url += '&type_' + t + '=1';
+            });
+
+            ['none', 'packed', 'android-key', 'apple', 'tpm'].forEach(f => {
+                if (document.getElementById('fmt_' + f) && document.getElementById('fmt_' + f).checked) url += '&fmt_' + f + '=1';
+            });
+
+            return url;
+        }
+
+        function recursiveBase64StrToArrayBuffer(obj) {
+            let prefix = '=?BINARY?B?'; let suffix = '?=';
+            if (typeof obj === 'object') {
+                for (let key in obj) {
+                    if (typeof obj[key] === 'string') {
+                        let str = obj[key];
+                        if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
+                            str = str.substring(prefix.length, str.length - suffix.length);
+                            let binary_string = window.atob(str);
+                            let bytes = new Uint8Array(binary_string.length);
+                            for (let i = 0; i < binary_string.length; i++) bytes[i] = binary_string.charCodeAt(i);
+                            obj[key] = bytes.buffer;
+                        }
+                    } else recursiveBase64StrToArrayBuffer(obj[key]);
+                }
             }
         }
-    }
-    function arrayBufferToBase64(buffer) {
-        let binary = ''; let bytes = new Uint8Array(buffer);
-        for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
-        return window.btoa(binary);
-    }
-    function showLoading(msg) { document.getElementById('loading-overlay').classList.remove('hidden'); document.getElementById('loading-text').textContent = msg; }
-    function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
-    function setStatus(msg, type) { const c = document.getElementById('status-container'); document.getElementById('status-message').className = 'status-message status-' + type; document.getElementById('status-message').textContent = msg; c.classList.remove('hidden'); }
-    function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
-    function switchTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden')); document.querySelectorAll('.tab-link').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.remove('hidden'); event.currentTarget.classList.add('active'); }
-    async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
-</script>
+        function arrayBufferToBase64(buffer) {
+            let binary = ''; let bytes = new Uint8Array(buffer);
+            for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+            return window.btoa(binary);
+        }
+        function showLoading(msg) { document.getElementById('loading-overlay').classList.remove('hidden'); document.getElementById('loading-text').textContent = msg; }
+        function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
+        function setStatus(msg, type) { const c = document.getElementById('status-container'); document.getElementById('status-message').className = 'status-message status-' + type; document.getElementById('status-message').textContent = msg; c.classList.remove('hidden'); }
+        function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
+        function switchTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden')); document.querySelectorAll('.tab-link').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.remove('hidden'); event.currentTarget.classList.add('active'); }
+        async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
+    </script>
 <link rel="stylesheet" href="assets/sjm/entry.8yEfdrjw.css">
 <link rel="stylesheet" href="assets/sjm/index.xxpO8LUT.css">
 <link rel="stylesheet" href="assets/sjm/index.CId7Jd-p.css">
@@ -198,14 +221,45 @@
                                     </button>
                                 </div>
 
-                                <div id="tab-config" class="tab-content hidden">
+                                <div id="tab-config" class="tab-content hidden" style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
                                     <div class="fido-form-group">
-                                        <label class="fido-label">證明格式</label>
-                                        <div style="display: flex; gap: 16px;">
-                                            <label style="font-size:14px; display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_none" checked> None</label>
-                                            <label style="font-size:14px; display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_packed" checked> Packed</label>
+                                        <div style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                            <input type="checkbox" id="requireResidentKey" checked>
+                                            <label for="requireResidentKey">可發現式憑據 (Passkeys)</label>
                                         </div>
                                     </div>
+
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">使用者驗證 (User Verification)</label>
+                                        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="radio" id="uv_required" name="uv"> Required</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="radio" id="uv_preferred" name="uv" checked> Preferred</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="radio" id="uv_discouraged" name="uv"> Discouraged</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">驗證器類型 (Authenticator Types)</label>
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 14px;">
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_usb" checked> USB</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_nfc" checked> NFC</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_ble" checked> BLE</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_hybrid" checked> Hybrid</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_int" checked> Internal</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">證明格式 (Attestation Formats)</label>
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 14px;">
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_none" checked> None</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_packed" checked> Packed</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_android-key" checked> Android Key</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_apple" checked> Apple</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_tpm" checked> TPM</label>
+                                        </div>
+                                    </div>
+                                    
                                     <button data-v-03aab72e="" type="button" class="sub-btn1 animation-enabled" style="width: 100%;" onclick="reloadServerPreview()">
                                         <div data-v-03aab72e="">刷新資料預覽</div>
                                     </button>

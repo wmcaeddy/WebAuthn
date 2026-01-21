@@ -1,3 +1,6 @@
+<?php
+// index.php - SJM Resorts FIDO Login (Authentic SJM Theme + Original FIDO Card)
+?>
 <!DOCTYPE html><html lang="tc" style="--background: #004433; --primary: #266A62; --white: #FFFFFF; --text-primary: #004433; --text-secondary: #266A62; --footer-bg: #001E1E; font-size: 16px; --aliyun-zoom-ratio: 1; --aliyun-imgbox-height: 200px;" data-scrapbook-source="https://supremecard.sjmresorts.com/tc/sign-in" data-scrapbook-create="20260121123520374"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>登入 | 澳娛綜合至尊卡 | 澳娛綜合</title>
@@ -38,12 +41,13 @@
             const userDisplayName = document.getElementById('userDisplayName').value || userName;
             if (!userName) throw new Error('請輸入使用者名稱');
             showLoading('準備註冊中...'); hideStatus();
-            let rep = await window.fetch('_test/server.php?fn=getCreateArgs&rpId='+encodeURIComponent(location.hostname)+'&userName='+encodeURIComponent(userName)+'&userDisplayName='+encodeURIComponent(userDisplayName)+'&requireResidentKey=1&userVerification=preferred', {method:'GET', cache:'no-cache'});
+            
+            let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
             const createArgs = await rep.json();
             if (createArgs.success === false) throw new Error(createArgs.msg || '未知錯誤');
             recursiveBase64StrToArrayBuffer(createArgs);
             const cred = await navigator.credentials.create(createArgs);
-            const response = await window.fetch('_test/server.php?fn=processCreate', {
+            const response = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
                 method: 'POST',
                 body: JSON.stringify({
                     transports: cred.response.getTransports ? cred.response.getTransports() : null,
@@ -61,12 +65,12 @@
     async function checkRegistration() {
         try {
             showLoading('準備登入...'); hideStatus();
-            let rep = await window.fetch('_test/server.php?fn=getGetArgs&rpId='+encodeURIComponent(location.hostname)+'&userVerification=preferred', {method:'GET',cache:'no-cache'});
+            let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
             const getArgs = await rep.json();
             if (getArgs.success === false) throw new Error(getArgs.msg);
             recursiveBase64StrToArrayBuffer(getArgs);
             const cred = await navigator.credentials.get(getArgs);
-            const response = await window.fetch('_test/server.php?fn=processGet', {
+            const response = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
                 method: 'POST',
                 body: JSON.stringify({
                     id: arrayBufferToBase64(cred.rawId),
@@ -86,6 +90,28 @@
                 setStatus('登入成功！', 'success');
             } else throw new Error(res.msg);
         } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+    }
+
+    function getGetParams() {
+        let url = '';
+        url += '&rpId=' + encodeURIComponent(location.hostname);
+        url += '&userName=' + encodeURIComponent(document.getElementById('userName').value);
+        url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName').value);
+        url += '&requireResidentKey=' + (document.getElementById('requireResidentKey').checked ? '1' : '0');
+
+        if (document.getElementById('uv_required').checked) url += '&userVerification=required';
+        else if (document.getElementById('uv_preferred').checked) url += '&userVerification=preferred';
+        else if (document.getElementById('uv_discouraged').checked) url += '&userVerification=discouraged';
+
+        ['usb', 'nfc', 'ble', 'hybrid', 'int'].forEach(t => {
+            if (document.getElementById('type_' + t) && document.getElementById('type_' + t).checked) url += '&type_' + t + '=1';
+        });
+
+        ['none', 'packed', 'android-key', 'apple', 'tpm'].forEach(f => {
+            if (document.getElementById('fmt_' + f) && document.getElementById('fmt_' + f).checked) url += '&fmt_' + f + '=1';
+        });
+
+        return url;
     }
 
     function recursiveBase64StrToArrayBuffer(obj) {
@@ -195,14 +221,45 @@
                                     </button>
                                 </div>
 
-                                <div id="tab-config" class="tab-content hidden">
+                                <div id="tab-config" class="tab-content hidden" style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
                                     <div class="fido-form-group">
-                                        <label class="fido-label">證明格式</label>
-                                        <div style="display: flex; gap: 16px;">
-                                            <label style="font-size:14px; display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_none" checked> None</label>
-                                            <label style="font-size:14px; display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_packed" checked> Packed</label>
+                                        <div style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                            <input type="checkbox" id="requireResidentKey" checked>
+                                            <label for="requireResidentKey">可發現式憑據 (Passkeys)</label>
                                         </div>
                                     </div>
+
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">使用者驗證 (User Verification)</label>
+                                        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="radio" id="uv_required" name="uv"> Required</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="radio" id="uv_preferred" name="uv" checked> Preferred</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="radio" id="uv_discouraged" name="uv"> Discouraged</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">驗證器類型 (Authenticator Types)</label>
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 14px;">
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_usb" checked> USB</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_nfc" checked> NFC</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_ble" checked> BLE</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_hybrid" checked> Hybrid</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="type_int" checked> Internal</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="fido-form-group">
+                                        <label class="fido-label">證明格式 (Attestation Formats)</label>
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 14px;">
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_none" checked> None</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_packed" checked> Packed</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_android-key" checked> Android Key</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_apple" checked> Apple</label>
+                                            <label style="display: flex; align-items: center; gap: 4px;"><input type="checkbox" id="fmt_tpm" checked> TPM</label>
+                                        </div>
+                                    </div>
+                                    
                                     <button data-v-03aab72e="" type="button" class="sub-btn1 animation-enabled" style="width: 100%;" onclick="reloadServerPreview()">
                                         <div data-v-03aab72e="">刷新資料預覽</div>
                                     </button>
