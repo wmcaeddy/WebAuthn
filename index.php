@@ -140,10 +140,19 @@
         function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
         function setStatus(msg, type) { const c = document.getElementById('status-container'); document.getElementById('status-message').className = 'status-message status-' + type; document.getElementById('status-message').textContent = msg; c.classList.remove('hidden'); }
         function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
-        function switchTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden')); document.querySelectorAll('.tab-link').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.remove('hidden'); event.currentTarget.classList.add('active'); }
-        async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
-    </script>
-<link rel="stylesheet" href="assets/sjm/entry.8yEfdrjw.css">
+            function switchTab(id) { document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden')); document.querySelectorAll('.tab-link').forEach(e => e.classList.remove('active')); document.getElementById(id).classList.remove('hidden'); event.currentTarget.classList.add('active'); }
+            function reloadServerPreview() { const f = document.getElementById('serverPreview'); if (f) f.src = f.src; }
+            function clearRegistration() {
+                if (!confirm('您確定要清除所有註冊資料嗎？')) return;
+                showLoading('正在清除資料...');
+                window.fetch('_test/server.php?fn=clearRegistrations', {method:'GET',cache:'no-cache'}).then(res => res.json()).then(json => {
+                    hideLoading();
+                    if (json.success) { reloadServerPreview(); setStatus(json.msg, 'success'); }
+                    else throw new Error(json.msg);
+                }).catch(err => { hideLoading(); setStatus(err.message, 'error'); });
+            }
+            async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
+        </script><link rel="stylesheet" href="assets/sjm/entry.8yEfdrjw.css">
 <link rel="stylesheet" href="assets/sjm/index.xxpO8LUT.css">
 <link rel="stylesheet" href="assets/sjm/index.CId7Jd-p.css">
 <link rel="stylesheet" href="assets/sjm/select.QKF3iHbi.css">
@@ -219,6 +228,12 @@
                                         <div data-v-03aab72e="">註冊新 Passkey</div>
                                         <svg data-v-03aab72e="" class="button-arrow" width="16" height="16"><path data-v-03aab72e="" d="M14.706 8.706c.39-.39.39-1.025 0-1.415l-5-5a1.002 1.002 0 0 0-1.415 1.415L11.588 7H2a.999.999 0 1 0 0 2h9.584l-3.29 3.294a1.001 1.001 0 0 0 1.415 1.415l5-5z"></path></svg>
                                     </button>
+
+                                    <div style="text-align: center; margin-top: 24px;">
+                                        <button type="button" class="sub-btn1" style="font-size: 0.75rem; padding: 4px 12px; width: auto; min-height: 0;" onclick="document.getElementById('preview-container').classList.toggle('hidden')">
+                                            顯示/隱藏用戶管理
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div id="tab-config" class="tab-content hidden" style="max-height: 400px; overflow-y: auto; padding-right: 8px;">
@@ -279,6 +294,18 @@
                                 <div id="status-message"></div>
                             </div>
                         </div>
+
+                        <!-- User Management / Server Data Preview -->
+                        <div id="preview-container" class="auth-container hidden" style="max-width: 100%; margin-top: 24px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h3 class="title-font" style="font-size: 1.1rem; margin: 0; color: #266A62;">用戶管理預覽</h3>
+                                <button type="button" class="sub-btn1" style="font-size: 0.75rem; padding: 4px 12px; width: auto; min-height: 0; color: #dc3545; border-color: #dc3545;" onclick="clearRegistration()">
+                                    清除所有資料
+                                </button>
+                            </div>
+                            <iframe src="_test/server.php?fn=getStoredDataHtml" id="serverPreview" style="width: 100%; height: 350px; border: 1px solid #e0e0e0; border-radius: 8px;"></iframe>
+                        </div>
+
                         <div data-v-0ad70c51="" class="sign-in-link">尚未加入？立即<span data-v-0ad70c51="" class="heres cursor-pointer underline">按此</span>加入成為澳娛綜合至尊卡會員。</div>
                     </div>
                 </div>
