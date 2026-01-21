@@ -1,0 +1,8 @@
+{
+  "track_id": "galaxy_theme_integration_20260121",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-21T10:00:00Z",
+  "updated_at": "2026-01-21T10:00:00Z",
+  "description": "Transform the FIDO2 demo into a branded Galaxy Macau experience, moving the primary interface to the root index.php."
+}
