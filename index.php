@@ -4,7 +4,7 @@
 <!DOCTYPE html><html lang="tc" style="--background: #004433; --primary: #266A62; --white: #FFFFFF; --text-primary: #004433; --text-secondary: #266A62; --footer-bg: #001E1E; font-size: 16px; --aliyun-zoom-ratio: 1; --aliyun-imgbox-height: 200px;" data-scrapbook-source="https://supremecard.sjmresorts.com/tc/sign-in" data-scrapbook-create="20260121123520374"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>登入 | 澳娛綜合至尊卡 | 澳娛綜合</title>
-<style>@import"assets/sjm/css2.css";:root{--base-color:#a8996e;--text-default:#3f4644;--heading-color:#043;--font-body:"Poppins","Noto Sans TC","Noto Sans SC","Noto Sans JP","Noto Sans KR","Segoe UI","Helvetica Neue","Arial","PingFang SC","Microsoft YaHei","Hiragino Kaku Gothic Pro","Meiryo","Malgun Gothic",sans-serif;--font-heading:"Petrona","Noto Serif TC","Noto Serif SC","Noto Serif JP","Noto Serif KR","Georgia","Times New Roman","SongtiSC","SimSun","PMingLiU","MingLiU","Hiragino Mincho ProN","MS Mincho","Batang","Apple SD Gothic Neo",serif;--title-font-weight:200;--title-line-height:1.3;--font-poppins:var(--font-body);--font-noto-tc:"Noto Sans TC",sans-serif;--font-noto-sc:"Noto Sans SC",sans-serif;--font-noto-kr:"Noto Sans KR",var(--font-serif-cn);--font-noto-jp:"Noto Sans JP",var(--font-serif-cn)}body,html{font-size:16px;height:100%;margin:0;overflow-x:hidden;padding:0;width:100%}body{color:var(--text-default);font-optical-sizing:auto;font-size:1rem;font-weight:400;line-height:2;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}h1,h2,h3,h4,h5{color:var(--heading-color);font-family:var(--font-heading);font-weight:var(--title-font-weight);line-height:var(--title-line-height);margin:1.5em 0 .5em}h1{font-size:2rem}@media only screen and (min-width:1025px){h1{font-size:2.5rem}}h2{font-size:1.6rem}@media only screen and (min-width:1025px){h2{font-size:2rem}}h3{font-size:1.4rem}@media only screen and (min-width:1025px){h3{font-size:1.6rem}}h4{font-size:1.2rem}@media only screen and (min-width:1025px){h4{font-size:1.4rem}}h5{font-size:1.2rem}.title-font{color:var(--heading-color);font-family:var(--font-heading);font-weight:var(--title-font-weight);line-height:var(--title-line-height)}html[lang=en]{font-family:var(--font-body)!important}html[lang=tc]{font-family:var(--font-noto-tc)!important}html[lang=sc]{font-family:var(--font-noto-sc)!important}</style>
+<style>@import"assets/sjm/css2.css";:root{--base-color:#a8996e;--text-default:#3f4644;--heading-color:#043;--font-body:"Poppins","Noto Sans TC","Noto Sans SC","Noto Sans JP","Noto Sans KR","Segoe UI","Helvetica Neue","Arial","PingFang SC","Microsoft YaHei","Hiragino Kaku Gothic Pro","Meiryo","Malgun Gothic",sans-serif;--font-heading:"Petrona","Noto Serif TC","Noto Serif SC","Noto Serif JP","Noto Serif KR","Georgia","Times New Roman","SongtiSC","SimSun","PMingLiU","MingLiU","Hiragino Mincho ProN","MS Mincho","Batang","Apple SD Gothic Neo",serif;--title-font-weight:200;--title-line-height:1.3;--font-poppins:var(--font-body);--font-noto-tc:"Noto Sans TC",sans-serif;--font-noto-sc:"Noto Sans SC",sans-serif;--font-noto-kr:"Noto Sans KR",var(--font-serif-cn);--font-noto-jp:"Noto Sans JP",var(--font-serif-cn)}body,html{font-size:16px;height:auto;min-height:100%;margin:0;padding:0;width:100%;overflow-x:hidden;}body{color:var(--text-default);font-optical-sizing:auto;font-size:1rem;font-weight:400;line-height:2;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-y:auto;background-color:#f7f6f0;}.title-font{color:var(--heading-color);font-family:var(--font-heading);font-weight:var(--title-font-weight);line-height:var(--title-line-height)}html[lang=en]{font-family:var(--font-body)!important}html[lang=tc]{font-family:var(--font-noto-tc)!important}html[lang=sc]{font-family:var(--font-noto-sc)!important}</style>
 <style>
     /* FIDO Card Scoped Styles (Original GitHub Style) */
     .auth-container {
@@ -18,20 +18,31 @@
         margin: 0 auto;
         text-align: left;
     }
+    @media (max-width: 640px) {
+        .auth-container { padding: 20px; border-radius: 8px; box-shadow: none; border: 1px solid #eee; }
+        .main-content { padding: 0 16px !important; }
+    }
     .tabs-nav { display: flex; border-bottom: 1px solid #e0e0e0; margin-bottom: 24px; }
     .tab-link { padding: 12px 20px; color: #666; font-size: 0.9375rem; font-weight: 500; border-bottom: 2px solid transparent; flex: 1; text-align: center; cursor: pointer; transition: all 0.2s; }
     .tab-link.active { color: #266A62; border-bottom-color: #266A62; }
     .fido-form-group { margin-bottom: 16px; }
     .fido-label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 4px; color: #1a1a1a; }
-    .fido-input { font-family: inherit; font-size: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; width: 100%; outline: none; transition: border-color 0.2s ease; }
+    .fido-input { font-family: inherit; font-size: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s ease; }
     .fido-input:focus { border-color: #266A62; }
     .loading-overlay { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; z-index: 10; backdrop-filter: blur(4px); }
     .spinner { width: 48px; height: 48px; border: 4px solid #e0e0e0; border-top-color: #266A62; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .status-message { padding: 16px; border-radius: 8px; font-size: 0.9375rem; margin-top: 24px; border: 1px solid transparent; text-align: center; }
+    .status-message { padding: 16px; border-radius: 8px; font-size: 0.9375rem; margin-top: 24px; border: 1px solid transparent; text-align: center; word-break: break-all; }
     .status-success { background-color: #f0fdf4; color: #28a745; border-color: #bbf7d0; }
     .status-error { background-color: #fef2f2; color: #dc3545; border-color: #fecaca; }
     .hidden { display: none !important; }
+
+    /* Layout Scoped Styles */
+    .main-box { min-height: 100vh; display: flex; flex-direction: column; }
+    .main-content { flex: 1; padding-top: 140px !important; }
+    @media (max-width: 1023px) {
+        .main-content { padding-top: 100px !important; }
+    }
 
     /* Footer Branding Robust Styles */
     .footer_brands { display: flex; flex-direction: column; align-items: center; width: 100%; }
@@ -178,7 +189,7 @@
 <link rel="stylesheet" href="assets/sjm/sign-in.oRMuIlNL.css">
 <link type="text/css" rel="stylesheet" href="assets/sjm/main.css" media="all">
 </head>
-<body class="el-popup-parent--hidden">
+<body class="">
     <div id="app" data-v-app="">
         <div data-v-0ad70c51="" class="main-box">
             <header data-v-b3d31542="" class="global-header relative z-[100]" id="header">
