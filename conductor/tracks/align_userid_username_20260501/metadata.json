@@ -1,8 +1,0 @@
-{
-  "track_id": "align_userid_username_20260501",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-05-01T10:15:00Z",
-  "updated_at": "2026-05-01T10:15:00Z",
-  "description": "Align the internal userId with the human-readable userName so that users can easily identify their stored private keys on their authenticators across different platforms."
-}
