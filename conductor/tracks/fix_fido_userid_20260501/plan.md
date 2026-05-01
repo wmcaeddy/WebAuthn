@@ -19,9 +19,9 @@
     - [x] Update implementation to ensure cross-platform compatibility.
 - [x] Task: Conductor - User Manual Verification 'Standardizing User Identification' (Protocol in workflow.md)
 
-## Phase 3: Frontend Alignment and Final Verification
+## Phase 3: Frontend Alignment and Final Verification [checkpoint: 05cddd7]
 - [x] Task: Refactor frontend clients to strictly adhere to the standardized `userId` flow.
     - [x] Write unit tests for frontend `userId` processing.
     - [x] Update `_test/modern_client.html` and `_test/client.html` to handle standardized IDs.
 - [x] Task: Perform end-to-end manual verification on Windows and iPhone using the same hardware token.
-- [~] Task: Conductor - User Manual Verification 'Frontend Alignment and Final Verification' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Frontend Alignment and Final Verification' (Protocol in workflow.md)
