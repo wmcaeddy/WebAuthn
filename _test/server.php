@@ -48,6 +48,20 @@ try {
         }
     }
 
+    /**
+     * Helper to get a consistent userId (User Handle) for a given userName.
+     * If the user already has a registration, returns their existing userId.
+     * Otherwise, generates a new random 16-byte hex string.
+     */
+    function getUserHandle($userName, $registrations) {
+        foreach ($registrations as $reg) {
+            if ($reg->userName === $userName && !empty($reg->userId)) {
+                return $reg->userId;
+            }
+        }
+        return bin2hex(random_bytes(16));
+    }
+
     // read get argument and post body
     $fn = filter_input(INPUT_GET, 'fn');
     $requireResidentKey = !!filter_input(INPUT_GET, 'requireResidentKey');
@@ -156,8 +170,14 @@ try {
     // ------------------------------------
 
     if ($fn === 'getCreateArgs') {
-        // Use userName directly as the binary source for userId to ensure human-readable identities on tokens.
-        $createArgs = $WebAuthn->getCreateArgs($userName, $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification, $crossPlatformAttachment);
+        $registrations = loadRegistrations($registrationsFile);
+        $userHandle = getUserHandle($userName, $registrations);
+
+        // Save userHandle to session to ensure consistency during processCreate
+        $_SESSION['userHandle'] = $userHandle;
+
+        // Use the decoded binary userHandle for the WebAuthn user.id
+        $createArgs = $WebAuthn->getCreateArgs(hex2bin($userHandle), $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification, $crossPlatformAttachment);
 
         header('Content-Type: application/json');
         print(json_encode($createArgs));
@@ -218,13 +238,13 @@ try {
         $data = $WebAuthn->processCreate($clientDataJSON, $attestationObject, $challenge, $userVerification === 'required', true, false);
 
         // add user infos
-        $data->userId = $userId ?: bin2hex($userName);
+        $registrations = loadRegistrations($registrationsFile);
+        $data->userId = $_SESSION['userHandle'] ?? getUserHandle($userName, $registrations);
         $data->userName = $userName;
         $data->userDisplayName = $userDisplayName;
         //set Null to 0
         $data->signatureCounter ??= 0;
 
-        $registrations = loadRegistrations($registrationsFile);
         $registrations[] = $data;
         saveRegistrations($registrationsFile, $registrations);
 
@@ -270,8 +290,8 @@ try {
         }
 
         // if we have resident key, we have to verify that the userHandle is the provided userId at registration
-        if ($requireResidentKey && $userHandle !== $reg->userName) {
-            throw new \Exception('userId doesnt match (is ' . $userHandle . ' but expect ' . $reg->userName . ')');
+        if ($requireResidentKey && bin2hex($userHandle) !== $reg->userId) {
+            throw new \Exception('userId doesnt match (is ' . bin2hex($userHandle) . ' but expect ' . $reg->userId . ')');
         }
 
         // process the get request. throws WebAuthnException if it fails

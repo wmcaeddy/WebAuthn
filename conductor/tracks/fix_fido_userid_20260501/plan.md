@@ -11,13 +11,13 @@
 - [x] Task: Conductor - User Manual Verification 'Investigation & Root Cause Analysis' (Protocol in workflow.md)
 
 ## Phase 2: Standardizing User Identification
-- [ ] Task: Design and implement a consistent `userId` management logic in the backend.
-    - [ ] Write unit tests for the new `userId` generation and retrieval logic.
-    - [ ] Implement standardized `userId` management in `src/` or `_test/server.php`.
-- [ ] Task: Ensure `userId` is correctly exposed and handled for different platform requirements (e.g., base64url encoding).
-    - [ ] Write tests for `userId` encoding/decoding.
-    - [ ] Update implementation to ensure cross-platform compatibility.
-- [ ] Task: Conductor - User Manual Verification 'Standardizing User Identification' (Protocol in workflow.md)
+- [x] Task: Design and implement a consistent `userId` management logic in the backend.
+    - [x] Write unit tests for the new `userId` generation and retrieval logic.
+    - [x] Implement standardized `userId` management in `src/` or `_test/server.php`.
+- [x] Task: Ensure `userId` is correctly exposed and handled for different platform requirements (e.g., base64url encoding).
+    - [x] Write tests for `userId` encoding/decoding.
+    - [x] Update implementation to ensure cross-platform compatibility.
+- [~] Task: Conductor - User Manual Verification 'Standardizing User Identification' (Protocol in workflow.md)
 
 ## Phase 3: Frontend Alignment and Final Verification
 - [ ] Task: Refactor frontend clients to strictly adhere to the standardized `userId` flow.
