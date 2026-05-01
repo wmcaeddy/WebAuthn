@@ -10,14 +10,14 @@
 - [x] Task: Develop a manual reproduction checklist for cross-platform failure to confirm the mismatch.
 - [x] Task: Conductor - User Manual Verification 'Investigation & Root Cause Analysis' (Protocol in workflow.md)
 
-## Phase 2: Standardizing User Identification
+## Phase 2: Standardizing User Identification [checkpoint: c9d8ac7]
 - [x] Task: Design and implement a consistent `userId` management logic in the backend.
     - [x] Write unit tests for the new `userId` generation and retrieval logic.
     - [x] Implement standardized `userId` management in `src/` or `_test/server.php`.
 - [x] Task: Ensure `userId` is correctly exposed and handled for different platform requirements (e.g., base64url encoding).
     - [x] Write tests for `userId` encoding/decoding.
     - [x] Update implementation to ensure cross-platform compatibility.
-- [~] Task: Conductor - User Manual Verification 'Standardizing User Identification' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Standardizing User Identification' (Protocol in workflow.md)
 
 ## Phase 3: Frontend Alignment and Final Verification
 - [ ] Task: Refactor frontend clients to strictly adhere to the standardized `userId` flow.
