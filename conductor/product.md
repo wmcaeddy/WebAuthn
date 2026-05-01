@@ -9,7 +9,7 @@ A modern, user-friendly implementation of the WebAuthn (FIDO2) server library, f
 
 ## Core Goals
 *   **Refactor Client:** Transform the existing `_test` client into a modern, responsive application.
-*   **Robust Backend:** Maintain the integrity and compliance of the existing PHP WebAuthn server library.
+*   **Robust Backend:** Maintain the integrity and compliance of the existing PHP WebAuthn server library, ensuring consistent cross-platform user identification.
 *   **Standalone Page:** Deliver a polished "Login with Passkey" page that serves as a high-quality example or integration point.
 
 ## Key Features
