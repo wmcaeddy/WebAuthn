@@ -1,14 +1,14 @@
 # Implementation Plan: Fix Cross-Platform Authentication Failure (UserId Alignment)
 
-## Phase 1: Investigation & Root Cause Analysis
-- [x] Task: Audit server-side userId generation and persistence logic.
+## Phase 1: Investigation & Root Cause Analysis [checkpoint: 81c682d]
+- [x] Task: Audit server-side `userId` generation and persistence logic.
     - [x] Analyze `src/` for `userId` mapping and generation.
     - [x] Analyze `_test/server.php` for session and storage handling of user IDs.
 - [x] Task: Audit client-side `userId` handling during registration and login.
     - [x] Inspect `_test/modern_client.html` for `userId` parameter passing and encoding.
     - [x] Inspect `_test/client.html` for legacy `userId` handling.
 - [x] Task: Develop a manual reproduction checklist for cross-platform failure to confirm the mismatch.
-- [~] Task: Conductor - User Manual Verification 'Investigation & Root Cause Analysis' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Investigation & Root Cause Analysis' (Protocol in workflow.md)
 
 ## Phase 2: Standardizing User Identification
 - [ ] Task: Design and implement a consistent `userId` management logic in the backend.
