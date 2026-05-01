@@ -191,9 +191,10 @@
                     // Use data from server response
                     const userName = response.userName || document.getElementById('userName').value;
                     const displayName = response.userDisplayName || document.getElementById('userDisplayName').value;
+                    const userId = response.userId || 'N/A';
                     
                     document.getElementById('auth-user-name').textContent = displayName || userName;
-                    document.getElementById('auth-user-id').textContent = '@' + userName;
+                    document.getElementById('auth-user-id').textContent = 'ID: ' + userId;
                     document.getElementById('auth-login-time').textContent = new Date().toLocaleString();
                     document.getElementById('auth-avatar').textContent = (displayName || userName).charAt(0).toUpperCase();
 
