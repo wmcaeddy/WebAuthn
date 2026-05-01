@@ -1,8 +1,0 @@
-{
-  "track_id": "fix_fido_userid_20260501",
-  "type": "bug",
-  "status": "new",
-  "created_at": "2026-05-01T10:00:00Z",
-  "updated_at": "2026-05-01T10:00:00Z",
-  "description": "research and fix the following. when i enroll a hardware fido token on windows workstation, it can authenticate successfully. but it cannot be used on iPhone to authenticate succesfully. it looks like to me there is an issue of how iPhone look up the user id of the hardware token."
-}
