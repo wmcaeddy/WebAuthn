@@ -5,7 +5,7 @@
 - [x] Task: Verify that `getCreateArgs` correctly converts this hex back to binary for the client.
 - [x] Task: Conductor - User Manual Verification 'Refactoring UserId Logic' (Protocol in workflow.md)
 
-## Phase 2: Verification and Cleanup
+## Phase 2: Verification and Cleanup [checkpoint: 49020ec]
 - [x] Task: Verify that existing registrations (using random hex IDs) still work for authentication.
 - [x] Task: Perform a new registration and verify that the authenticator (e.g., iPhone) shows the username as the account ID.
-- [~] Task: Conductor - User Manual Verification 'Verification and Cleanup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Verification and Cleanup' (Protocol in workflow.md)
