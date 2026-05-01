@@ -54,12 +54,7 @@ try {
      * Otherwise, generates a new random 16-byte hex string.
      */
     function getUserHandle($userName, $registrations) {
-        foreach ($registrations as $reg) {
-            if ($reg->userName === $userName && !empty($reg->userId)) {
-                return $reg->userId;
-            }
-        }
-        return bin2hex(random_bytes(16));
+        return bin2hex($userName);
     }
 
     // read get argument and post body
