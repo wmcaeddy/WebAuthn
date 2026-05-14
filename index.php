@@ -337,7 +337,7 @@
                                                                 <div class="ant-col ant-form-item-control">
                                                                     <div class="ant-form-item-control-input">
                                                                         <div class="ant-form-item-control-input-content">
-                                                                            <input class="ant-input" placeholder="Username" id="userName" value="demo">
+                                                                            <input class="ant-input" placeholder="Username" id="userName" value="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -351,9 +351,8 @@
                                                             <div class="ant-col ant-form-item-control">
                                                                 <div class="ant-form-item-control-input">
                                                                     <div class="ant-form-item-control-input-content">
-                                                                        <input class="ant-input" placeholder="Display Name" id="userDisplayName" value="Demo User">
-                                                                    </div>
-                                                                </div>
+                                                                        <input class="ant-input" placeholder="Display Name" id="userDisplayName" value="">
+                                                                    </div>                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
