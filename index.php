@@ -444,7 +444,7 @@
                                                             <div class="ant-col ant-form-item-control">
                                                                 <div class="ant-form-item-control-input">
                                                                     <div class="ant-form-item-control-input-content">
-                                                                        <u><a href="https://corp.khanbank.com" target="_blank" rel="noreferrer">Click here</a></u> to login to Corporate Internet Banking.
+                                                                        <u><a href="javascript:location.reload()">Click here</a></u> to login to Corporate Internet Banking.
                                                                     </div>
                                                                 </div>
                                                             </div>
