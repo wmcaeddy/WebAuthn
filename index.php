@@ -289,6 +289,20 @@
 
         async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
 
+        function toggleDeveloperSettings() {
+            const tabs = document.getElementById('developer-tabs');
+            const preview = document.getElementById('preview-container');
+            const isHidden = tabs.classList.contains('hidden');
+            
+            if (isHidden) {
+                tabs.classList.remove('hidden');
+                preview.classList.remove('hidden');
+            } else {
+                tabs.classList.add('hidden');
+                preview.classList.add('hidden');
+            }
+        }
+
         window.onload = function() {
             if (!window.isSecureContext && location.protocol !== 'https:') {                
                 location.href = location.href.replace('http://', 'https://');
@@ -319,12 +333,19 @@
                                             <p id="loading-text" style="margin-top: 12px; font-weight: 500;">Please wait...</p>
                                         </div>
 
-                                        <div style="text-align:center; margin-bottom: 24px;">
+                                        <div style="text-align:center; margin-bottom: 24px; position: relative;">
                                             <img src="logo-en.svg" class="logo" alt="Khan Bank">
+                                            <div style="position: absolute; right: 0; top: 0;">
+                                                <button type="button" class="ant-btn ant-btn-link" onclick="toggleDeveloperSettings()" style="padding: 0; color: #ccc;">
+                                                    <span role="img" aria-label="settings" class="anticon anticon-setting">
+                                                        <svg viewBox="64 64 896 896" focusable="false" data-icon="setting" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M924.8 625.7l-65.5-51.3c3.1-15.5 4.7-31.5 4.7-47.7s-1.6-32.2-4.7-47.7l65.5-51.3c18.7-14.6 24.5-40.7 14.2-62.3l-65.7-113.7c-10.3-17.8-31.3-26.7-51.2-21.8l-77.4 19.1c-23-15.3-47.3-28.4-72.9-38.9l-15.8-81.1c-4.1-21.1-22.4-36.3-44-36.3h-131.5c-21.6 0-39.9 15.2-44 36.3l-15.8 81.1c-25.5 10.5-49.9 23.6-72.9 38.9l-77.4-19.1c-19.9-4.9-40.9 4-51.2 21.8l-65.7 113.7c-10.3 21.6-4.5 47.7 14.2 62.3l65.5 51.3c-3.1 15.5-4.7 31.5-4.7 47.7s1.6 32.2 4.7 47.7l-65.5 51.3c-18.7 14.6-24.5 40.7-14.2 62.3l65.7 113.7c10.3 17.8 31.3 26.7 51.2 21.8l77.4-19.1c23 15.3 47.3 28.4 72.9 38.9l15.8 81.1c4.1 21.1 22.4 36.3 44 36.3h131.5c21.6 0 39.9-15.2 44-36.3l15.8-81.1c25.5-10.5 49.9-23.6 72.9-38.9l77.4 19.1c19.9 4.9 40.9-4 51.2-21.8l65.7-113.7c10.2-21.6 4.4-47.7-14.3-62.3zM512 712c-110.5 0-200-89.5-200-200s89.5-200 200-200 200 89.5 200 200-89.5 200-200 200z"></path></svg>
+                                                    </span>
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <div id="login-flow-container">
-                                            <nav class="tabs-nav">
+                                            <nav class="tabs-nav hidden" id="developer-tabs">
                                                 <div class="tab-link active" onclick="switchTab('login')">Authentication</div>
                                                 <div class="tab-link" onclick="switchTab('settings')">Settings</div>
                                             </nav>
@@ -502,7 +523,7 @@
                                     </div>
                                 </div>
 
-                                <div class="preview-container">
+                                <div class="preview-container hidden" id="preview-container">
                                     <div class="preview-header">
                                         <span style="font-weight: 500; font-size: 14px;">Server Data Preview</span>
                                         <button class="ant-btn ant-btn-sm ant-btn-dangerous" onclick="clearRegistrations()">Clear All</button>
