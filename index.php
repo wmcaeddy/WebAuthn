@@ -313,7 +313,7 @@
                         <div class="ant-spin-nested-loading">
                             <div class="ant-spin-container">
                                 <div class="ant-card ant-card-bordered ant-card-hoverable login-card">
-                                    <div class="ant-card-body" style="position: relative; text-align: center;">
+                                    <div class="ant-card-body" style="position: relative;">
                                         <div id="loading-overlay" class="loading-overlay hidden">
                                             <div class="spinner"></div>
                                             <p id="loading-text" style="margin-top: 12px; font-weight: 500;">Please wait...</p>
@@ -330,24 +330,107 @@
                                             </nav>
 
                                             <div id="content-login" class="tab-content">
-                                                <div class="ant-form-item">
-                                                    <input class="ant-input" placeholder="Username" id="userName" value="demo">
-                                                </div>
-                                                <div class="ant-form-item" id="displayNameGroup">
-                                                    <input class="ant-input" placeholder="Display Name" id="userDisplayName" value="Demo User">
-                                                </div>
-                                                
-                                                <div style="margin-top: 24px;">
-                                                    <button type="button" class="ant-btn ant-btn-primary ant-btn-lg ant-btn-block login-button" onclick="checkRegistration()">
-                                                        <span>Login</span>
-                                                    </button>
-                                                </div>
-                                                
-                                                <div style="margin-top: 12px;">
-                                                    <button type="button" class="ant-btn ant-btn-default ant-btn-lg ant-btn-block" style="border-color: #00a859; color: #00a859;" onclick="createRegistration()">
-                                                        <span>Sign Up</span>
-                                                    </button>
-                                                </div>
+                                                <form autocomplete="off" class="ant-form ant-form-horizontal">
+                                                    <div class="login-username-container">
+                                                        <div class="ant-form-item">
+                                                            <div class="ant-row ant-form-item-row">
+                                                                <div class="ant-col ant-form-item-control">
+                                                                    <div class="ant-form-item-control-input">
+                                                                        <div class="ant-form-item-control-input-content">
+                                                                            <input class="ant-input" placeholder="Username" id="userName" value="demo">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <i class="icon-hide login-username-eye-icon"></i>
+                                                    </div>
+
+                                                    <div class="ant-form-item" id="displayNameGroup">
+                                                        <div class="ant-row ant-form-item-row">
+                                                            <div class="ant-col ant-form-item-control">
+                                                                <div class="ant-form-item-control-input">
+                                                                    <div class="ant-form-item-control-input-content">
+                                                                        <input class="ant-input" placeholder="Display Name" id="userDisplayName" value="Demo User">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="ant-row">
+                                                        <div class="ant-col ant-col-10">
+                                                            <div class="ant-form-item ant-form-item-has-success">
+                                                                <div class="ant-row ant-form-item-row">
+                                                                    <div class="ant-col ant-form-item-control">
+                                                                        <div class="ant-form-item-control-input">
+                                                                            <div class="ant-form-item-control-input-content">
+                                                                                <label class="ant-checkbox-wrapper ant-checkbox-wrapper-in-form-item re-checkbox">
+                                                                                    <span class="ant-checkbox">
+                                                                                        <input id="remember" class="ant-checkbox-input" type="checkbox">
+                                                                                        <span class="ant-checkbox-inner"></span>
+                                                                                    </span>
+                                                                                    <span>Remember me</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ant-col ant-col-14 forgot-link">
+                                                            <div class="ant-form-item">
+                                                                <div class="ant-row ant-form-item-row">
+                                                                    <div class="ant-col ant-form-item-control">
+                                                                        <div class="ant-form-item-control-input">
+                                                                            <div class="ant-form-item-control-input-content">
+                                                                                <div class="forgot">Forgot username or password?</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="ant-form-item ant-form-item-has-success">
+                                                        <div class="ant-row ant-form-item-row">
+                                                            <div class="ant-col ant-form-item-control">
+                                                                <div class="ant-form-item-control-input">
+                                                                    <div class="ant-form-item-control-input-content">
+                                                                        <button type="button" class="ant-btn ant-btn-primary ant-btn-lg ant-btn-block login-button" onclick="checkRegistration()">
+                                                                            <span>Login</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="ant-form-item register-link">
+                                                        <div class="ant-row ant-form-item-row">
+                                                            <div class="ant-col ant-form-item-control">
+                                                                <div class="ant-form-item-control-input">
+                                                                    <div class="ant-form-item-control-input-content">
+                                                                        <a href="javascript:void(0)" onclick="createRegistration()">Sign Up</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="ant-form-item ebank-link">
+                                                        <div class="ant-row ant-form-item-row">
+                                                            <div class="ant-col ant-form-item-control">
+                                                                <div class="ant-form-item-control-input">
+                                                                    <div class="ant-form-item-control-input-content">
+                                                                        <u><a href="https://corp.khanbank.com" target="_blank" rel="noreferrer">Click here</a></u> to login to Corporate Internet Banking.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
 
                                             <div id="content-settings" class="tab-content hidden settings-section">
@@ -398,13 +481,13 @@
                                                     <div class="settings-row"><input type="checkbox" id="cert_microsoft"><label for="cert_microsoft">Microsoft</label></div>
                                                 </div>
                                                 
-                                                <div style="margin-top: 16px;">
+                                                <div style="margin-top: 16px; text-align: center;">
                                                     <button type="button" class="ant-btn ant-btn-sm" onclick="queryFidoMetaDataService()">Update MDS</button>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div id="user-authenticated-section" class="hidden" style="padding: 20px 0;">
+                                        <div id="user-authenticated-section" class="hidden" style="padding: 20px 0; text-align: center;">
                                             <div id="auth-avatar" class="avatar-circle">U</div>
                                             <h2 id="auth-user-name" style="margin-bottom: 4px;">User Name</h2>
                                             <p id="auth-user-id" style="color: rgba(0,0,0,0.45); margin-bottom: 32px;">@userid</p>
