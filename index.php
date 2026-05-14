@@ -68,7 +68,8 @@
                 showLoading('Preparing registration...');
                 hideStatus();
                 
-                let rep = await window.fetch('_test/server.php?fn=getCreateArgs&userName=' + encodeURIComponent(userName) + '&userDisplayName=' + encodeURIComponent(userDisplayName) + '&requireResidentKey=1', {method:'GET', cache:'no-cache'});
+                const params = getCommonParams() + '&userDisplayName=' + encodeURIComponent(userDisplayName);
+                let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + params, {method:'GET', cache:'no-cache'});
                 const createArgs = await rep.json();
                 if (createArgs.success === false) throw new Error(createArgs.msg || 'unknown error occured');
                 
@@ -76,7 +77,7 @@
                 showLoading('Waiting for authenticator...');
                 const cred = await navigator.credentials.create(createArgs);
                 
-                const response = await window.fetch('_test/server.php?fn=processCreate&userName=' + encodeURIComponent(userName), {
+                const response = await window.fetch('_test/server.php?fn=processCreate' + params, {
                     method: 'POST',
                     body: JSON.stringify({
                         transports: cred.response.getTransports ? cred.response.getTransports() : null,
@@ -97,7 +98,8 @@
                 showLoading('Preparing authentication...');
                 hideStatus();
                 
-                let rep = await window.fetch('_test/server.php?fn=getGetArgs&userName=' + encodeURIComponent(userName), {method:'GET',cache:'no-cache'});
+                const params = getCommonParams();
+                let rep = await window.fetch('_test/server.php?fn=getGetArgs' + params, {method:'GET',cache:'no-cache'});
                 const getArgs = await rep.json();
                 if (getArgs.success === false) throw new Error(getArgs.msg);
                 
@@ -105,7 +107,7 @@
                 showLoading('Waiting for authenticator...');
                 const cred = await navigator.credentials.get(getArgs);
                 
-                const response = await window.fetch('_test/server.php?fn=processGet', {
+                const response = await window.fetch('_test/server.php?fn=processGet' + params, {
                     method: 'POST',
                     body: JSON.stringify({
                         id: arrayBufferToBase64(cred.rawId),
@@ -129,6 +131,18 @@
                     setStatus('Login successful', 'success');
                 } else throw new Error(res.msg);
             } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+        }
+
+        function getCommonParams() {
+            let url = '';
+            url += '&rpId=' + encodeURIComponent(location.hostname);
+            url += '&userName=' + encodeURIComponent(document.getElementById('username').value);
+            url += '&requireResidentKey=1';
+            url += '&userVerification=preferred';
+            // Enable all formats and types by default
+            ['usb', 'nfc', 'ble', 'hybrid', 'int'].forEach(t => url += '&type_' + t + '=1');
+            ['none', 'packed', 'android-key', 'apple', 'tpm', 'fido-u2f'].forEach(f => url += '&fmt_' + f + '=1');
+            return url;
         }
 
         function recursiveBase64StrToArrayBuffer(obj) {
