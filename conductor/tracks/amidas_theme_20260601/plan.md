@@ -23,7 +23,7 @@
 - [x] Task: Conductor - User Manual Verification 'UI Polishing & State Management' (Protocol in workflow.md) 579ddfc
 
 ## Phase 5: Verification & Cleanup
-- [~] Task: Run automated tests to verify FIDO functionality in the new theme.
-- [ ] Task: Remove old "Khan Bank" assets (3992.css, etc.) and unused code.
-- [ ] Task: Final manual verification of the end-to-end flow.
-- [ ] Task: Conductor - User Manual Verification 'Verification & Cleanup' (Protocol in workflow.md)
+- [x] Task: Run automated tests to verify FIDO functionality in the new theme. 7285e06
+- [x] Task: Remove old "Khan Bank" assets (3992.css, etc.) and unused code. 11ece5a
+- [x] Task: Final manual verification of the end-to-end flow. 11ece5a
+- [x] Task: Conductor - User Manual Verification 'Verification & Cleanup' (Protocol in workflow.md) 11ece5a
