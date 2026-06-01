@@ -16,14 +16,14 @@
 - [x] Task: Port FIDO authentication JavaScript logic to the new `amidas` UI elements. 0220e7c
 - [x] Task: Conductor - User Manual Verification 'Theme Integration' (Protocol in workflow.md) 8a5438e
 
-## Phase 4: UI Polishing & State Management
+## Phase 4: UI Polishing & State Management [checkpoint: 579ddfc]
 - [x] Task: Implement loading states and progress indicators in the `amidas` theme. 8914e60
 - [x] Task: Implement error and success message displays in the `amidas` theme. 8914e60
-- [~] Task: Ensure responsive design and mobile compatibility for the new theme.
-- [ ] Task: Conductor - User Manual Verification 'UI Polishing & State Management' (Protocol in workflow.md)
+- [x] Task: Ensure responsive design and mobile compatibility for the new theme. 8914e60
+- [x] Task: Conductor - User Manual Verification 'UI Polishing & State Management' (Protocol in workflow.md) 579ddfc
 
 ## Phase 5: Verification & Cleanup
-- [ ] Task: Run automated tests to verify FIDO functionality in the new theme.
+- [~] Task: Run automated tests to verify FIDO functionality in the new theme.
 - [ ] Task: Remove old "Khan Bank" assets (3992.css, etc.) and unused code.
 - [ ] Task: Final manual verification of the end-to-end flow.
 - [ ] Task: Conductor - User Manual Verification 'Verification & Cleanup' (Protocol in workflow.md)
