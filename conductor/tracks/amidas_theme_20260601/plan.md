@@ -1,12 +1,12 @@
 # Implementation Plan: Amidas Theme Migration
 
-## Phase 1: Research & Preparation
+## Phase 1: Research & Preparation [checkpoint: 22f2bbe]
 - [x] Task: Analyze `amidas/index.html` and current `index.php` to identify integration points for FIDO logic. afaf1d8
 - [x] Task: Identify all assets (CSS, JS, Fonts) in the `amidas` folder required for the new theme. 3b3fa18
-- [~] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md) 22f2bbe
 
 ## Phase 2: Test Baseline
-- [ ] Task: Create automated tests that verify existing FIDO registration and login functionality (using the current theme as a baseline).
+- [~] Task: Create automated tests that verify existing FIDO registration and login functionality (using the current theme as a baseline).
 - [ ] Task: Conductor - User Manual Verification 'Test Baseline' (Protocol in workflow.md)
 
 ## Phase 3: Theme Integration
