@@ -5,12 +5,12 @@
 - [x] Task: Identify all assets (CSS, JS, Fonts) in the `amidas` folder required for the new theme. 3b3fa18
 - [x] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md) 22f2bbe
 
-## Phase 2: Test Baseline
+## Phase 2: Test Baseline [checkpoint: 1aef400]
 - [x] Task: Create automated tests that verify existing FIDO registration and login functionality (using the current theme as a baseline). 88b46cf
-- [~] Task: Conductor - User Manual Verification 'Test Baseline' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Test Baseline' (Protocol in workflow.md) 1aef400
 
 ## Phase 3: Theme Integration
-- [ ] Task: Update `index.php` to use the `amidas` HTML structure while preserving PHP backend logic.
+- [~] Task: Update `index.php` to use the `amidas` HTML structure while preserving PHP backend logic.
 - [ ] Task: Link `amidas` theme assets (CSS, JS, Fonts) in the new UI.
 - [ ] Task: Port FIDO registration JavaScript logic to the new `amidas` UI elements.
 - [ ] Task: Port FIDO authentication JavaScript logic to the new `amidas` UI elements.
