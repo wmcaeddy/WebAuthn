@@ -8,7 +8,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [~] **Track: i want to make use of new theme with the folder amidas instead of the existing khanbank theme, maintain the FIDO function**
+## [x] **Track: i want to make use of new theme with the folder amidas instead of the existing khanbank theme, maintain the FIDO function**
 *Link: [./conductor/tracks/amidas_theme_20260601/](./conductor/tracks/amidas_theme_20260601/)*
 
 
