@@ -2432,7 +2432,7 @@
                     document.getElementById('auth-user-id').textContent = '@' + res.userName;
                     document.getElementById('auth-avatar').textContent = (res.userDisplayName || res.userName).charAt(0).toUpperCase();
                     document.getElementById('login-flow-container').classList.add('hidden');
-                    document.getElementById('user-authenticated-section').classList.remove('hidden');
+                    document.getElementById('user-authenticated-section').classList.remove('hidden'); document.getElementById('login-welcome').classList.add('hidden'); document.getElementById('login-title').classList.add('hidden');
                     setStatus('Login successful', 'success');
                     reloadServerPreview();
                 } else throw new Error(res.msg);
@@ -2500,7 +2500,7 @@
 </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div>
+    <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p id="login-welcome" class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div id="login-title" class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div>
 <div class="relative">
     <div id="loading-overlay" class="loading-overlay hidden"><div class="spinner"></div><p id="loading-text" class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading...</p></div>
     <div id="status-container" class="hidden"><div id="status-message" class="status-message"></div></div>
