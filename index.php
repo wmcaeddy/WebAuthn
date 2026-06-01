@@ -2490,6 +2490,20 @@
         function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
         function setStatus(msg, type) { const c = document.getElementById('status-container'); const m = document.getElementById('status-message'); m.className = 'status-message status-' + type; m.textContent = msg; c.classList.remove('hidden'); }
         function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
+        
+        
+        function toggleDeveloperSettings() {
+            const tabs = document.getElementById('content-settings');
+            const preview = document.getElementById('preview-container');
+            if (tabs) {
+                const isHidden = tabs.classList.contains('hidden');
+                tabs.classList.toggle('hidden');
+                if (preview) preview.classList.toggle('hidden');
+                if (isHidden) reloadServerPreview();
+            }
+        }
+
+
         function reloadServerPreview() { const f = document.getElementById('serverPreview'); if (f) f.src = f.src; }
 
         window.onload = function() {
@@ -2497,10 +2511,22 @@
             if (document.getElementById('rpId') && !document.getElementById('rpId').value) { document.getElementById('rpId').value = location.hostname; }
         }
     </script>
+
+<style>
+    .credential-preview { width: 100%; height: 300px; border: 1px solid #e2e8f0; border-radius: 8px; margin-top: 16px; background: white; }
+    .dark .credential-preview { border-color: #1e293b; background: #0f172a; }
+</style>
 </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p id="login-welcome" class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div id="login-title" class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div>
+    <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6 relative w-full justify-center">
+    <img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto">
+    <div style="position: absolute; right: 0; top: 0;">
+        <button type="button" onclick="toggleDeveloperSettings()" style="color: #cbd5e1;" class="hover:text-primary transition-colors">
+            <svg viewBox="64 64 896 896" width="20" height="20" fill="currentColor"><path d="M924.8 625.7l-65.5-51.3c3.1-15.5 4.7-31.5 4.7-47.7s-1.6-32.2-4.7-47.7l65.5-51.3c18.7-14.6 24.5-40.7 14.2-62.3l-65.7-113.7c-10.3-17.8-31.3-26.7-51.2-21.8l-77.4 19.1c-23-15.3-47.3-28.4-72.9-38.9l-15.8-81.1c-4.1-21.1-22.4-36.3-44-36.3h-131.5c-21.6 0-39.9 15.2-44 36.3l-15.8 81.1c-25.5 10.5-49.9 23.6-72.9 38.9l-77.4-19.1c-19.9-4.9-40.9 4-51.2 21.8l-65.7 113.7c-10.3 21.6-4.5 47.7 14.2 62.3l65.5 51.3c-3.1 15.5-4.7 31.5-4.7 47.7s1.6 32.2 4.7 47.7l-65.5-51.3c-18.7 14.6-24.5 40.7-14.2 62.3l65.7 113.7c10.3 17.8 31.3 26.7 51.2 21.8l77.4-19.1c23 15.3 47.3 28.4 72.9 38.9l15.8 81.1c4.1 21.1 22.4 36.3 44 36.3h131.5c21.6 0 39.9-15.2 44-36.3l15.8-81.1c25.5-10.5 49.9-23.6 72.9-38.9l77.4 19.1c19.9 4.9 40.9-4 51.2-21.8l65.7-113.7c10.2-21.6 4.4-47.7-14.3-62.3zM512 712c-110.5 0-200-89.5-200-200s89.5-200 200-200 200 89.5 200 200-89.5 200-200 200z"></path></svg>
+        </button>
+    </div>
+</div><p id="login-welcome" class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div id="login-title" class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div>
 </div>
 <div class="relative">
     <div id="loading-overlay" class="loading-overlay hidden"><div class="spinner"></div><p id="loading-text" class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading...</p></div>
@@ -2564,7 +2590,7 @@
                 <input type="checkbox" id="cert_hypersecu" checked>
                 <input type="checkbox" id="cert_nitro" checked>
                 <input type="checkbox" id="cert_passkey" checked>
-                <div id="serverPreview"></div>
+                <div id="preview-container" class="hidden"><iframe src="_test/server.php?fn=getStoredDataHtml" id="serverPreview" class="credential-preview"></iframe></div>
             </div>
         </div>
     </div>
