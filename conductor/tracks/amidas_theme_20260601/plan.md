@@ -10,9 +10,9 @@
 - [x] Task: Conductor - User Manual Verification 'Test Baseline' (Protocol in workflow.md) 1aef400
 
 ## Phase 3: Theme Integration
-- [~] Task: Update `index.php` to use the `amidas` HTML structure while preserving PHP backend logic.
-- [ ] Task: Link `amidas` theme assets (CSS, JS, Fonts) in the new UI.
-- [ ] Task: Port FIDO registration JavaScript logic to the new `amidas` UI elements.
+- [x] Task: Update `index.php` to use the `amidas` HTML structure while preserving PHP backend logic. d653677
+- [x] Task: Link `amidas` theme assets (CSS, JS, Fonts) in the new UI. d653677
+- [~] Task: Port FIDO registration JavaScript logic to the new `amidas` UI elements.
 - [ ] Task: Port FIDO authentication JavaScript logic to the new `amidas` UI elements.
 - [ ] Task: Conductor - User Manual Verification 'Theme Integration' (Protocol in workflow.md)
 
