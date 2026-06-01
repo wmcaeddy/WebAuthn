@@ -2501,6 +2501,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p id="login-welcome" class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div id="login-title" class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div>
+</div>
 <div class="relative">
     <div id="loading-overlay" class="loading-overlay hidden"><div class="spinner"></div><p id="loading-text" class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading...</p></div>
     <div id="status-container" class="hidden"><div id="status-message" class="status-message"></div></div>
@@ -2511,59 +2512,69 @@
         <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11" onclick="location.reload()">Logout</button>
     </div>
     <div id="login-flow-container">
-<div class="text-sm text-muted-foreground" aria-label="Card description">Enter your credentials to access your dashboard</div></div><div class="p-0 md:p-2 pt-0 space-y-6" aria-label="Card content"><div class="space-y-3"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-8 w-full h-11"><span class="mr-2"><img src="amidas/sso.png" alt="single sign-on" style="width: 18px; height: 18px;"></span>Single sign-on</button></div><div class="relative"><div class="absolute inset-0 flex items-center"><div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-card px-2 text-muted-foreground">or</span></div></div>
-<form class="space-y-4" onsubmit="return false;">
-    <div class="space-y-2">
-        <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userName">Username</label>
-        <div class="relative">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-            <input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userName" placeholder="Username" value="">
-        </div>
-    </div>
-    <div class="space-y-2">
-        <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userDisplayName">Display Name</label>
-        <div class="relative">
-            <input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userDisplayName" placeholder="Display Name" value="">
-        </div>
-    </div>
-    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11 mt-6" type="button" onclick="checkRegistration()">Sign in</button>
-    <div class="text-center text-sm mt-4">
-        <a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a>
-    </div>
-</form>
-        <div id="content-settings" class="hidden">
-            <input id="rpId" value="">
-            <input type="checkbox" id="requireResidentKey" checked>
-            <input type="checkbox" id="userVerification_required">
-            <input type="checkbox" id="userVerification_preferred" checked>
-            <input type="checkbox" id="userVerification_discouraged">
-            <input type="checkbox" id="type_usb" checked>
-            <input type="checkbox" id="type_nfc" checked>
-            <input type="checkbox" id="type_ble" checked>
-            <input type="checkbox" id="type_hybrid" checked>
-            <input type="checkbox" id="type_int" checked>
-            <input type="checkbox" id="fmt_none" checked>
-            <input type="checkbox" id="fmt_packed" checked>
-            <input type="checkbox" id="fmt_android-key" checked>
-            <input type="checkbox" id="fmt_android-safetynet" checked>
-            <input type="checkbox" id="fmt_apple" checked>
-            <input type="checkbox" id="fmt_tpm" checked>
-            <input type="checkbox" id="fmt_fido-u2f" checked>
-            <input type="checkbox" id="cert_mds" checked>
-            <input type="checkbox" id="cert_apple" checked>
-            <input type="checkbox" id="cert_yubico" checked>
-            <input type="checkbox" id="cert_google" checked>
-            <input type="checkbox" id="cert_microsoft" checked>
-            <input type="checkbox" id="cert_solo" checked>
-            <input type="checkbox" id="cert_hypersecu" checked>
-            <div id="serverPreview"></div>
+        <div class="text-sm text-muted-foreground" aria-label="Card description" style="text-align: center; margin-bottom: 1.5rem;">Enter your credentials to access your dashboard</div>
+        <div class="p-0 md:p-2 pt-0 space-y-6" aria-label="Card content">
+            <div class="space-y-3">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-8 w-full h-11"><span class="mr-2"><img src="amidas/sso.png" alt="single sign-on" style="width: 18px; height: 18px;"></span>Single sign-on</button>
+            </div>
+            <div class="relative"><div class="absolute inset-0 flex items-center"><div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-card px-2 text-muted-foreground">or</span></div></div>
+            <form class="space-y-4" onsubmit="return false;">
+                <div class="space-y-2">
+                    <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userName">Username</label>
+                    <div class="relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        <input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userName" placeholder="Username" value="">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userDisplayName">Display Name</label>
+                    <div class="relative">
+                        <input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userDisplayName" placeholder="Display Name" value="">
+                    </div>
+                </div>
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11 mt-6" type="button" onclick="checkRegistration()">Sign in</button>
+                <div class="text-center text-sm mt-4">
+                    <a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a>
+                </div>
+            </form>
+            <div id="content-settings" class="hidden">
+                <input id="rpId" value="">
+                <input type="checkbox" id="requireResidentKey" checked>
+                <input type="checkbox" id="userVerification_required">
+                <input type="checkbox" id="userVerification_preferred" checked>
+                <input type="checkbox" id="userVerification_discouraged">
+                <input type="checkbox" id="type_usb" checked>
+                <input type="checkbox" id="type_nfc" checked>
+                <input type="checkbox" id="type_ble" checked>
+                <input type="checkbox" id="type_hybrid" checked>
+                <input type="checkbox" id="type_int" checked>
+                <input type="checkbox" id="fmt_none" checked>
+                <input type="checkbox" id="fmt_packed" checked>
+                <input type="checkbox" id="fmt_android-key" checked>
+                <input type="checkbox" id="fmt_android-safetynet" checked>
+                <input type="checkbox" id="fmt_apple" checked>
+                <input type="checkbox" id="fmt_tpm" checked>
+                <input type="checkbox" id="fmt_fido-u2f" checked>
+                <input type="checkbox" id="cert_mds" checked>
+                <input type="checkbox" id="cert_apple" checked>
+                <input type="checkbox" id="cert_yubico" checked>
+                <input type="checkbox" id="cert_google" checked>
+                <input type="checkbox" id="cert_microsoft" checked>
+                <input type="checkbox" id="cert_solo" checked>
+                <input type="checkbox" id="cert_hypersecu" checked>
+                <input type="checkbox" id="cert_nitro" checked>
+                <input type="checkbox" id="cert_passkey" checked>
+                <div id="serverPreview"></div>
+            </div>
         </div>
     </div>
 </div>
-
-</div></div></div></div></div></div>
-    
-    <link rel="stylesheet" href="amidas/katex.min.css">
+</div>
+</div>
+</div>
+</div>
+</div>
+<link rel="stylesheet" href="amidas/katex.min.css">
     
     
     
