@@ -1,7 +1,7 @@
 # Implementation Plan: Amidas Theme Migration
 
 ## Phase 1: Research & Preparation
-- [ ] Task: Analyze `amidas/index.html` and current `index.php` to identify integration points for FIDO logic.
+- [~] Task: Analyze `amidas/index.html` and current `index.php` to identify integration points for FIDO logic.
 - [ ] Task: Identify all assets (CSS, JS, Fonts) in the `amidas` folder required for the new theme.
 - [ ] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md)
 
