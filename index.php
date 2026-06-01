@@ -2728,7 +2728,195 @@
             margin: 0 auto 16px;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
-</style><script src="fido_logic.js"></script></head>
+</style>    <script>
+        async function createRegistration() {
+            try {
+                if (!window.fetch || !navigator.credentials || !navigator.credentials.create) throw new Error('Browser not supported.');
+                const userName = document.getElementById('userName').value;
+                if (!userName) {
+                    alert('Please enter a username first.');
+                    document.getElementById('userName').focus();
+                    return;
+                }
+                
+                showLoading('Preparing registration...');
+                hideStatus();
+                
+                let rep = await window.fetch('_test/server.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
+                const createArgs = await rep.json();
+                if (createArgs.success === false) throw new Error(createArgs.msg || 'unknown error occured');
+                
+                recursiveBase64StrToArrayBuffer(createArgs);
+                showLoading('Waiting for authenticator...');
+                const cred = await navigator.credentials.create(createArgs);
+                
+                const response = await window.fetch('_test/server.php?fn=processCreate' + getGetParams(), {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        transports: cred.response.getTransports ? cred.response.getTransports() : null,
+                        clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
+                        attestationObject: arrayBufferToBase64(cred.response.attestationObject)
+                    })
+                });
+                const res = await response.json();
+                hideLoading();
+                if (res.success) { 
+                    setStatus(res.msg || 'Registration successful!', 'success');
+                    reloadServerPreview();
+                } else throw new Error(res.msg);
+            } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+        }
+
+        async function checkRegistration() {
+            try {
+                showLoading('Preparing authentication...');
+                hideStatus();
+                
+                let rep = await window.fetch('_test/server.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
+                const getArgs = await rep.json();
+                if (getArgs.success === false) throw new Error(getArgs.msg);
+                
+                recursiveBase64StrToArrayBuffer(getArgs);
+                showLoading('Waiting for authenticator...');
+                const cred = await navigator.credentials.get(getArgs);
+                
+                const response = await window.fetch('_test/server.php?fn=processGet' + getGetParams(), {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        id: arrayBufferToBase64(cred.rawId),
+                        clientDataJSON: arrayBufferToBase64(cred.response.clientDataJSON),
+                        authenticatorData: arrayBufferToBase64(cred.response.authenticatorData),
+                        signature: arrayBufferToBase64(cred.response.signature),
+                        userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
+                    })
+                });
+                const res = await response.json();
+                hideLoading();
+                if (res.success) {
+                    const loginForm = document.getElementById('login-flow-container');
+                    const userSection = document.getElementById('user-authenticated-section');
+                    document.getElementById('auth-user-name').textContent = res.userDisplayName || res.userName;
+                    document.getElementById('auth-user-id').textContent = '@' + res.userName;
+                    document.getElementById('auth-avatar').textContent = (res.userDisplayName || res.userName).charAt(0).toUpperCase();
+                    
+                    loginForm.classList.add('hidden');
+                    userSection.classList.remove('hidden');
+                    setStatus('Login successful', 'success');
+                    reloadServerPreview();
+                } else throw new Error(res.msg);
+            } catch (err) { hideLoading(); setStatus(err.message, 'error'); }
+        }
+
+        function getGetParams() {
+            let url = '';
+            url += '&rpId=' + encodeURIComponent(document.getElementById('rpId').value);
+            url += '&userName=' + encodeURIComponent(document.getElementById('userName').value);
+            url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName').value);
+            url += '&requireResidentKey=' + (document.getElementById('requireResidentKey').checked ? '1' : '0');
+
+            // Verification
+            if (document.getElementById('userVerification_required').checked) url += '&userVerification=required';
+            else if (document.getElementById('userVerification_preferred').checked) url += '&userVerification=preferred';
+            else if (document.getElementById('userVerification_discouraged').checked) url += '&userVerification=discouraged';
+
+            // Types
+            ['usb', 'nfc', 'ble', 'hybrid', 'int'].forEach(t => {
+                url += '&type_' + t + '=' + (document.getElementById('type_' + t).checked ? '1' : '0');
+            });
+
+            // Formats
+            ['none', 'packed', 'android-key', 'android-safetynet', 'apple', 'tpm', 'fido-u2f'].forEach(f => {
+                url += '&fmt_' + f + '=' + (document.getElementById('fmt_' + f).checked ? '1' : '0');
+            });
+
+            // Root Certs
+            ['apple', 'yubico', 'solo', 'hypersecu', 'google', 'microsoft', 'mds'].forEach(c => {
+                url += '&' + c + '=' + (document.getElementById('cert_' + c).checked ? '1' : '0');
+            });
+
+            return url;
+        }
+
+        function recursiveBase64StrToArrayBuffer(obj) {
+            let prefix = '=?BINARY?B?'; let suffix = '?=';
+            if (typeof obj === 'object') {
+                for (let key in obj) {
+                    if (typeof obj[key] === 'string') {
+                        let str = obj[key];
+                        if (str.substring(0, prefix.length) === prefix && str.substring(str.length - suffix.length) === suffix) {
+                            str = str.substring(prefix.length, str.length - suffix.length);
+                            let binary_string = window.atob(str);
+                            let bytes = new Uint8Array(binary_string.length);
+                            for (let i = 0; i < binary_string.length; i++) bytes[i] = binary_string.charCodeAt(i);
+                            obj[key] = bytes.buffer;
+                        }
+                    } else recursiveBase64StrToArrayBuffer(obj[key]);
+                }
+            }
+        }
+        function arrayBufferToBase64(buffer) {
+            let binary = ''; let bytes = new Uint8Array(buffer);
+            for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+            return window.btoa(binary);
+        }
+        function showLoading(msg) { document.getElementById('loading-overlay').classList.remove('hidden'); document.getElementById('loading-text').textContent = msg; }
+        function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
+        function setStatus(msg, type) { const c = document.getElementById('status-container'); const m = document.getElementById('status-message'); m.className = 'status-message status-' + type; m.textContent = msg; c.classList.remove('hidden'); }
+        function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
+        
+        function switchTab(id) { 
+            document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden')); 
+            document.querySelectorAll('.tab-link').forEach(e => e.classList.remove('active')); 
+            document.getElementById('content-' + id).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+
+        function reloadServerPreview() { const f = document.getElementById('serverPreview'); if (f) f.src = f.src; }
+        
+        async function clearRegistrations() {
+            if (!confirm('Are you sure you want to clear all registrations?')) return;
+            showLoading('Clearing data...');
+            const res = await (await window.fetch('_test/server.php?fn=clearRegistrations', {method:'GET',cache:'no-cache'})).json();
+            hideLoading();
+            if (res.success) { reloadServerPreview(); setStatus(res.msg, 'success'); }
+            else setStatus(res.msg, 'error');
+        }
+
+        function queryFidoMetaDataService() {
+            showLoading('Updating root certificates...');
+            window.fetch('_test/server.php?fn=queryFidoMetaDataService', {method:'GET',cache:'no-cache'}).then(res => res.json()).then(json => {
+                hideLoading();
+                if (json.success) setStatus(json.msg, 'success');
+                else throw new Error(json.msg);
+            }).catch(err => { hideLoading(); setStatus(err.message, 'error'); });
+        }
+
+        async function logout() { await window.fetch('_test/server.php?fn=logout'); location.reload(); }
+
+        function toggleDeveloperSettings() {
+            const tabs = document.getElementById('developer-tabs');
+            const preview = document.getElementById('preview-container');
+            const isHidden = tabs.classList.contains('hidden');
+            
+            if (isHidden) {
+                tabs.classList.remove('hidden');
+                preview.classList.remove('hidden');
+            } else {
+                tabs.classList.add('hidden');
+                preview.classList.add('hidden');
+            }
+        }
+
+        window.onload = function() {
+            if (!window.isSecureContext && location.protocol !== 'https:') {                
+                location.href = location.href.replace('http://', 'https://');
+            }
+            if (!document.getElementById('rpId').value) {
+                document.getElementById('rpId').value = location.hostname;
+            }
+        }
+    </script>
+</head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div><div class="relative">
@@ -2749,7 +2937,7 @@
                             Logout
                         </button>
                     </div>
-<div id="login-flow-container"><div id="content-login" class="tab-content"><div class="text-sm text-muted-foreground" aria-label="Card description">Enter your credentials to access your dashboard</div></div><div class="p-0 md:p-2 pt-0 space-y-6" aria-label="Card content"><div class="space-y-3"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-8 w-full h-11"><span class="mr-2"><img src="amidas/sso.png" alt="single sign-on" style="width: 18px; height: 18px;"></span>Single sign-on</button></div><div class="relative"><div class="absolute inset-0 flex items-center"><div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-card px-2 text-muted-foreground">or</span></div></div><form class="space-y-4"><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userName">Username</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userName" placeholder="Username" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userDisplayName">Display Name</label><div class="relative"><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userDisplayName" placeholder="Display Name" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="password">Password</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><input type="password" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 pr-10 h-11" id="password" placeholder="Enter your password" required="" value=""><button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11 mt-6" type="button" onclick="checkRegistration()">Sign in</button><div class="text-center text-sm mt-4"><a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a></div></form></div>
+<div id="login-flow-container"><div id="content-login" class="tab-content"><div class="text-sm text-muted-foreground" aria-label="Card description">Enter your credentials to access your dashboard</div></div><div class="p-0 md:p-2 pt-0 space-y-6" aria-label="Card content"><div class="space-y-3"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-8 w-full h-11"><span class="mr-2"><img src="amidas/sso.png" alt="single sign-on" style="width: 18px; height: 18px;"></span>Single sign-on</button></div><div class="relative"><div class="absolute inset-0 flex items-center"><div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-card px-2 text-muted-foreground">or</span></div></div><form class="space-y-4" onsubmit="return false;"><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userName">Username</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userName" placeholder="Username" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userDisplayName">Display Name</label><div class="relative"><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userDisplayName" placeholder="Display Name" value=""></div></div><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11 mt-6" type="button" onclick="checkRegistration()">Sign in</button><div class="text-center text-sm mt-4"><a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a></div></form></div>
                 <div id="content-settings" class="hidden p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-800 mt-6">
                     <h4 class="text-sm font-semibold mb-3 text-slate-900 dark:text-white">Relying Party</h4>
                     <div class="mb-4">
