@@ -6,8 +6,8 @@
 - [x] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md) 22f2bbe
 
 ## Phase 2: Test Baseline
-- [~] Task: Create automated tests that verify existing FIDO registration and login functionality (using the current theme as a baseline).
-- [ ] Task: Conductor - User Manual Verification 'Test Baseline' (Protocol in workflow.md)
+- [x] Task: Create automated tests that verify existing FIDO registration and login functionality (using the current theme as a baseline). 88b46cf
+- [~] Task: Conductor - User Manual Verification 'Test Baseline' (Protocol in workflow.md)
 
 ## Phase 3: Theme Integration
 - [ ] Task: Update `index.php` to use the `amidas` HTML structure while preserving PHP backend logic.
