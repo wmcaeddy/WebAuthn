@@ -1,4 +1,160 @@
-<!DOCTYPE html><html lang="en" data-scrapbook-source="https://ai.myamidas.com/login" data-scrapbook-create="20260601070443558"><head><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="1y9fx1l" data-token-hash="qh5i2p">a:where(.css-9axpm4){color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}a:where(.css-9axpm4):hover{color:#7aadff;}a:where(.css-9axpm4):active{color:#1647c4;}a:where(.css-9axpm4):active,a:where(.css-9axpm4):hover{text-decoration:none;outline:0;}a:where(.css-9axpm4):focus{text-decoration:none;outline:0;}a:where(.css-9axpm4)[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4) a{color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}:where(.css-9axpm4) a:hover{color:#7aadff;}:where(.css-9axpm4) a:active{color:#1647c4;}:where(.css-9axpm4) a:active,:where(.css-9axpm4) a:hover{text-decoration:none;outline:0;}:where(.css-9axpm4) a:focus{text-decoration:none;outline:0;}:where(.css-9axpm4) a[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4).anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}:where(.css-9axpm4).anticon >*{line-height:1;}:where(.css-9axpm4).anticon svg{display:inline-block;}:where(.css-9axpm4).anticon .anticon .anticon-icon{display:block;}</style><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="2b81vi" data-token-hash="qh5i2p">:where(.css-9axpm4).ant-app{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';font-size:14px;box-sizing:border-box;}:where(.css-9axpm4).ant-app::before,:where(.css-9axpm4).ant-app::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"],:where(.css-9axpm4).ant-app [class*=" ant-app"]{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"]::before,:where(.css-9axpm4).ant-app [class*=" ant-app"]::before,:where(.css-9axpm4).ant-app [class^="ant-app"]::after,:where(.css-9axpm4).ant-app [class*=" ant-app"]::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app{color:#0F172A;font-size:14px;line-height:1.5714285714285714;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';}:where(.css-9axpm4).ant-app.ant-app-rtl{direction:rtl;}</style><style data-rc-order="prependQueue" data-css-hash="c2pd8u" data-token-hash="1g3r1lh">.anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}</style>
+<!DOCTYPE html><html lang="en" data-scrapbook-source="https://ai.myamidas.com/login" data-scrapbook-create="20260601070443558"><head><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="1y9fx1l" data-token-hash="qh5i2p">a:where(.css-9axpm4){color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}a:where(.css-9axpm4):hover{color:#7aadff;}a:where(.css-9axpm4):active{color:#1647c4;}a:where(.css-9axpm4):active,a:where(.css-9axpm4):hover{text-decoration:none;outline:0;}a:where(.css-9axpm4):focus{text-decoration:none;outline:0;}a:where(.css-9axpm4)[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4) a{color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}:where(.css-9axpm4) a:hover{color:#7aadff;}:where(.css-9axpm4) a:active{color:#1647c4;}:where(.css-9axpm4) a:active,:where(.css-9axpm4) a:hover{text-decoration:none;outline:0;}:where(.css-9axpm4) a:focus{text-decoration:none;outline:0;}:where(.css-9axpm4) a[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4).anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}:where(.css-9axpm4).anticon >*{line-height:1;}:where(.css-9axpm4).anticon svg{display:inline-block;}:where(.css-9axpm4).anticon .anticon .anticon-icon{display:block;}.hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+</style><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="2b81vi" data-token-hash="qh5i2p">:where(.css-9axpm4).ant-app{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';font-size:14px;box-sizing:border-box;}:where(.css-9axpm4).ant-app::before,:where(.css-9axpm4).ant-app::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"],:where(.css-9axpm4).ant-app [class*=" ant-app"]{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"]::before,:where(.css-9axpm4).ant-app [class*=" ant-app"]::before,:where(.css-9axpm4).ant-app [class^="ant-app"]::after,:where(.css-9axpm4).ant-app [class*=" ant-app"]::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app{color:#0F172A;font-size:14px;line-height:1.5714285714285714;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';}:where(.css-9axpm4).ant-app.ant-app-rtl{direction:rtl;}.hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+</style><style data-rc-order="prependQueue" data-css-hash="c2pd8u" data-token-hash="1g3r1lh">.anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}.hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+</style>
     <meta charset="UTF-8">
     <link rel="icon" href="amidas/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -997,7 +1153,59 @@
     .ant-tree-node-content-wrapper[data-has-file-management="false"][data-has-write="false"]:hover {
       cursor: not-allowed;
     }
-  </style><style data-emotion="css" data-s="">.css-xhgn58 { animation: 0.2s ease-out forwards citationPopoverFadeIn; }
+  .hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+</style><style data-emotion="css" data-s="">.css-xhgn58 { animation: 0.2s ease-out forwards citationPopoverFadeIn; }
 @keyframes citationPopoverFadeIn {
 0% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 100% { opacity: 1; transform: translateY(0px) translateX(-50%); }
@@ -1005,7 +1213,59 @@
 @keyframes citationPopoverFadeIn {
 0% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 100% { opacity: 1; transform: translateY(0px) translateX(-50%); }
-}</style><style>
+}.hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+</style><style>
   .markdown-body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -1379,6 +1639,58 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
+.hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
 </style><style>
     /* Modern sidebar with enhanced UX */
     .monday-sidebar {
@@ -2364,10 +2676,101 @@
     .ant-tree-node-content-wrapper[data-has-file-management="false"][data-has-write="false"]:hover {
       cursor: not-allowed;
     }
-  </style><script src="fido_logic.js"></script></head>
+  .hidden { display: none !important; }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .loading-overlay {
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .status-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
+        .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+</style><script src="fido_logic.js"></script></head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div><div id="login-flow-container"><div id="content-login" class="tab-content"><div class="text-sm text-muted-foreground" aria-label="Card description">Enter your credentials to access your dashboard</div></div><div class="p-0 md:p-2 pt-0 space-y-6" aria-label="Card content"><div class="space-y-3"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-8 w-full h-11"><span class="mr-2"><img src="amidas/sso.png" alt="single sign-on" style="width: 18px; height: 18px;"></span>Single sign-on</button></div><div class="relative"><div class="absolute inset-0 flex items-center"><div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-card px-2 text-muted-foreground">or</span></div></div><form class="space-y-4"><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userName">Username</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userName" placeholder="Username" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userDisplayName">Display Name</label><div class="relative"><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userDisplayName" placeholder="Display Name" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="password">Password</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><input type="password" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 pr-10 h-11" id="password" placeholder="Enter your password" required="" value=""><button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11 mt-6" type="button" onclick="checkRegistration()">Sign in</button><div class="text-center text-sm mt-4"><a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a></div></form></div></div></div></div></div></div></div></div>
+    <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6"><img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto"></div><p class="text-muted-foreground text-sm max-w-sm leading-relaxed">Welcome back! Please sign in to your account</p></div><div class="rounded-xl border text-card-foreground shadow w-full max-w-md mx-auto backdrop-blur-sm bg-card/95 border-border/50 p-4"><div class="flex flex-col space-y-1.5 p-3 text-center pb-4" aria-label="Card header"><div class="tracking-tight text-2xl font-semibold" aria-label="Card title">Sign in to your account</div><div class="relative">
+                    <div id="loading-overlay" class="loading-overlay hidden">
+                        <div class="spinner"></div>
+                        <p id="loading-text" class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading...</p>
+                    </div>
+                    <div id="status-container" class="hidden">
+                        <div id="status-message" class="status-message"></div>
+                    </div>
+
+                    <div id="user-authenticated-section" class="hidden" style="padding: 20px 0; text-align: center;">
+                        <div id="auth-avatar" class="avatar-circle">U</div>
+                        <h2 id="auth-user-name" class="text-2xl font-bold text-slate-900 dark:text-white mb-1">User Name</h2>
+                        <p id="auth-user-id" class="text-sm text-slate-500 dark:text-slate-400 mb-8">@userid</p>
+                        
+                        <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11" onclick="location.reload()">
+                            Logout
+                        </button>
+                    </div>
+<div id="login-flow-container"><div id="content-login" class="tab-content"><div class="text-sm text-muted-foreground" aria-label="Card description">Enter your credentials to access your dashboard</div></div><div class="p-0 md:p-2 pt-0 space-y-6" aria-label="Card content"><div class="space-y-3"><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-8 w-full h-11"><span class="mr-2"><img src="amidas/sso.png" alt="single sign-on" style="width: 18px; height: 18px;"></span>Single sign-on</button></div><div class="relative"><div class="absolute inset-0 flex items-center"><div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-card px-2 text-muted-foreground">or</span></div></div><form class="space-y-4"><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userName">Username</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userName" placeholder="Username" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="userDisplayName">Display Name</label><div class="relative"><input type="text" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 h-11" id="userDisplayName" placeholder="Display Name" value=""></div></div><div class="space-y-2"><label class="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm font-medium" for="password">Password</label><div class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><input type="password" class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 pr-10 h-11" id="password" placeholder="Enter your password" required="" value=""><button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div><button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 px-4 py-2 w-full h-11 mt-6" type="button" onclick="checkRegistration()">Sign in</button><div class="text-center text-sm mt-4"><a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a></div></form></div>
+                <div id="content-settings" class="hidden p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-800 mt-6">
+                    <h4 class="text-sm font-semibold mb-3 text-slate-900 dark:text-white">Relying Party</h4>
+                    <div class="mb-4">
+                        <input class="flex w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring h-9" id="rpId" placeholder="RP ID" value="">
+                    </div>
+
+                    <h4 class="text-sm font-semibold mb-3 text-slate-900 dark:text-white">Options</h4>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <input type="checkbox" id="requireResidentKey" checked class="rounded border-slate-300">
+                        <label for="requireResidentKey" class="text-sm">Discoverable Credentials</label>
+                    </div>
+                    <!-- Simplified settings for theme integration -->
+                    <input type="checkbox" id="userVerification_preferred" checked style="display:none">
+                    <input type="checkbox" id="type_usb" checked style="display:none">
+                    <input type="checkbox" id="type_nfc" checked style="display:none">
+                    <input type="checkbox" id="type_ble" checked style="display:none">
+                    <input type="checkbox" id="type_hybrid" checked style="display:none">
+                    <input type="checkbox" id="type_int" checked style="display:none">
+                    <input type="checkbox" id="fmt_none" checked style="display:none">
+                </div>
+</div></div></div></div></div></div></div></div>
     
     <link rel="stylesheet" href="amidas/katex.min.css">
     
