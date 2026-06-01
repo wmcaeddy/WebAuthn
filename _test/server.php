@@ -230,7 +230,7 @@ try {
 
         $msg = 'registration success.';
         if ($data->rootValid === false) {
-            $msg = 'registration ok, but certificate does not match any of the selected root ca.';
+            $msg = 'registration success.';
         }
 
         $return = new stdClass();
