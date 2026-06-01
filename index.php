@@ -2950,13 +2950,31 @@
                         <label for="requireResidentKey" class="text-sm">Discoverable Credentials</label>
                     </div>
                     <!-- Simplified settings for theme integration -->
+                    <input type="checkbox" id="userVerification_required" style="display:none">
                     <input type="checkbox" id="userVerification_preferred" checked style="display:none">
+                    <input type="checkbox" id="userVerification_discouraged" style="display:none">
                     <input type="checkbox" id="type_usb" checked style="display:none">
                     <input type="checkbox" id="type_nfc" checked style="display:none">
                     <input type="checkbox" id="type_ble" checked style="display:none">
                     <input type="checkbox" id="type_hybrid" checked style="display:none">
                     <input type="checkbox" id="type_int" checked style="display:none">
                     <input type="checkbox" id="fmt_none" checked style="display:none">
+                    <input type="checkbox" id="fmt_packed" checked style="display:none">
+                    <input type="checkbox" id="fmt_android-key" checked style="display:none">
+                    <input type="checkbox" id="fmt_android-safetynet" checked style="display:none">
+                    <input type="checkbox" id="fmt_apple" checked style="display:none">
+                    <input type="checkbox" id="fmt_tpm" checked style="display:none">
+                    <input type="checkbox" id="fmt_fido-u2f" checked style="display:none">
+                    <input type="checkbox" id="cert_mds" checked style="display:none">
+                    <input type="checkbox" id="cert_apple" checked style="display:none">
+                    <input type="checkbox" id="cert_yubico" checked style="display:none">
+                    <input type="checkbox" id="cert_google" checked style="display:none">
+                    <input type="checkbox" id="cert_microsoft" checked style="display:none">
+                    <input type="checkbox" id="cert_solo" checked style="display:none">
+                    <input type="checkbox" id="cert_nitro" checked style="display:none">
+                    <input type="checkbox" id="cert_passkey" checked style="display:none">
+                    <div id="developer-tabs" class="hidden"></div>
+                    <div id="preview-container" class="hidden"><div id="serverPreview"></div></div>
                 </div>
 </div></div></div></div></div></div></div></div>
     
