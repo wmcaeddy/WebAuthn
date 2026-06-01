@@ -2,8 +2,8 @@
 
 ## Phase 1: Research & Preparation
 - [x] Task: Analyze `amidas/index.html` and current `index.php` to identify integration points for FIDO logic. afaf1d8
-- [~] Task: Identify all assets (CSS, JS, Fonts) in the `amidas` folder required for the new theme.
-- [ ] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md)
+- [x] Task: Identify all assets (CSS, JS, Fonts) in the `amidas` folder required for the new theme. 3b3fa18
+- [~] Task: Conductor - User Manual Verification 'Research & Preparation' (Protocol in workflow.md)
 
 ## Phase 2: Test Baseline
 - [ ] Task: Create automated tests that verify existing FIDO registration and login functionality (using the current theme as a baseline).
