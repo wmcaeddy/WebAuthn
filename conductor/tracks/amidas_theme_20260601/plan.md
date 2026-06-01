@@ -17,9 +17,9 @@
 - [x] Task: Conductor - User Manual Verification 'Theme Integration' (Protocol in workflow.md) 8a5438e
 
 ## Phase 4: UI Polishing & State Management
-- [~] Task: Implement loading states and progress indicators in the `amidas` theme.
-- [ ] Task: Implement error and success message displays in the `amidas` theme.
-- [ ] Task: Ensure responsive design and mobile compatibility for the new theme.
+- [x] Task: Implement loading states and progress indicators in the `amidas` theme. 8914e60
+- [x] Task: Implement error and success message displays in the `amidas` theme. 8914e60
+- [~] Task: Ensure responsive design and mobile compatibility for the new theme.
 - [ ] Task: Conductor - User Manual Verification 'UI Polishing & State Management' (Protocol in workflow.md)
 
 ## Phase 5: Verification & Cleanup
