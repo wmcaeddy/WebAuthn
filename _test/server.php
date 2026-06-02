@@ -400,7 +400,7 @@ try {
                 $html .= '<div class="data-card">';
                 $html .= '<div class="card-header">';
                 $html .= '<span class="user-badge">' . htmlspecialchars($reg->userName) . '</span>';
-                $html .= '<button class="btn-danger" onclick="confirmDelete(\\' . $credIdHex . '\")">Delete</button>';
+                $html .= '<button class="btn-danger" onclick="confirmDelete(\'' . $credIdHex . '\')">Delete</button>';
                 $html .= '</div>';
                 
                 foreach ($reg as $key => $value) {
