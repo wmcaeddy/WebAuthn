@@ -2492,15 +2492,16 @@
         function hideStatus() { document.getElementById('status-container').classList.add('hidden'); }
         
         
+        
         function toggleDeveloperSettings() {
-            const tabs = document.getElementById('content-settings');
             const preview = document.getElementById('preview-container');
-            if (tabs) {
-                const isHidden = tabs.classList.contains('hidden');
-                tabs.classList.toggle('hidden');
-                if (preview) preview.classList.toggle('hidden');
+            if (preview) {
+                const isHidden = preview.classList.contains('hidden');
+                preview.classList.toggle('hidden');
                 if (isHidden) reloadServerPreview();
             }
+        }
+
         }
 
 
@@ -2564,33 +2565,33 @@
                     <a href="javascript:void(0)" onclick="createRegistration()" class="text-primary hover:underline">Sign Up (FIDO Registration)</a>
                 </div>
             </form>
-            <div id="content-settings" class="hidden">
-                <input id="rpId" value="">
-                <input type="checkbox" id="requireResidentKey" checked>
-                <input type="checkbox" id="userVerification_required">
-                <input type="checkbox" id="userVerification_preferred" checked>
-                <input type="checkbox" id="userVerification_discouraged">
-                <input type="checkbox" id="type_usb" checked>
-                <input type="checkbox" id="type_nfc" checked>
-                <input type="checkbox" id="type_ble" checked>
-                <input type="checkbox" id="type_hybrid" checked>
-                <input type="checkbox" id="type_int" checked>
-                <input type="checkbox" id="fmt_none" checked>
-                <input type="checkbox" id="fmt_packed" checked>
-                <input type="checkbox" id="fmt_android-key" checked>
-                <input type="checkbox" id="fmt_android-safetynet" checked>
-                <input type="checkbox" id="fmt_apple" checked>
-                <input type="checkbox" id="fmt_tpm" checked>
-                <input type="checkbox" id="fmt_fido-u2f" checked>
-                <input type="checkbox" id="cert_mds" checked>
-                <input type="checkbox" id="cert_apple" checked>
-                <input type="checkbox" id="cert_yubico" checked>
-                <input type="checkbox" id="cert_google" checked>
-                <input type="checkbox" id="cert_microsoft" checked>
-                <input type="checkbox" id="cert_solo" checked>
-                <input type="checkbox" id="cert_hypersecu" checked>
-                <input type="checkbox" id="cert_nitro" checked>
-                <input type="checkbox" id="cert_passkey" checked>
+            <div id="content-settings">
+                <input id="rpId" value="" style="display:none">
+                <input type="checkbox" id="requireResidentKey" checked style="display:none">
+                <input type="checkbox" id="userVerification_required" style="display:none">
+                <input type="checkbox" id="userVerification_preferred" checked style="display:none">
+                <input type="checkbox" id="userVerification_discouraged" style="display:none">
+                <input type="checkbox" id="type_usb" checked style="display:none">
+                <input type="checkbox" id="type_nfc" checked style="display:none">
+                <input type="checkbox" id="type_ble" checked style="display:none">
+                <input type="checkbox" id="type_hybrid" checked style="display:none">
+                <input type="checkbox" id="type_int" checked style="display:none">
+                <input type="checkbox" id="fmt_none" checked style="display:none">
+                <input type="checkbox" id="fmt_packed" checked style="display:none">
+                <input type="checkbox" id="fmt_android-key" checked style="display:none">
+                <input type="checkbox" id="fmt_android-safetynet" checked style="display:none">
+                <input type="checkbox" id="fmt_apple" checked style="display:none">
+                <input type="checkbox" id="fmt_tpm" checked style="display:none">
+                <input type="checkbox" id="fmt_fido-u2f" checked style="display:none">
+                <input type="checkbox" id="cert_mds" checked style="display:none">
+                <input type="checkbox" id="cert_apple" checked style="display:none">
+                <input type="checkbox" id="cert_yubico" checked style="display:none">
+                <input type="checkbox" id="cert_google" checked style="display:none">
+                <input type="checkbox" id="cert_microsoft" checked style="display:none">
+                <input type="checkbox" id="cert_solo" checked style="display:none">
+                <input type="checkbox" id="cert_hypersecu" checked style="display:none">
+                <input type="checkbox" id="cert_nitro" checked style="display:none">
+                <input type="checkbox" id="cert_passkey" checked style="display:none">
                 <div id="preview-container" class="hidden"><iframe src="_test/server.php?fn=getStoredDataHtml" id="serverPreview" class="credential-preview"></iframe></div>
             </div>
         </div>
