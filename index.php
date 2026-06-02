@@ -2502,7 +2502,6 @@
             }
         }
 
-        }
 
 
         function reloadServerPreview() { const f = document.getElementById('serverPreview'); if (f) f.src = f.src; }
