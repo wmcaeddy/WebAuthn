@@ -1,4 +1,61 @@
-<!DOCTYPE html><html lang="en" data-scrapbook-source="https://ai.myamidas.com/login" data-scrapbook-create="20260601070443558"><head><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="1y9fx1l" data-token-hash="qh5i2p">a:where(.css-9axpm4){color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}a:where(.css-9axpm4):hover{color:#7aadff;}a:where(.css-9axpm4):active{color:#1647c4;}a:where(.css-9axpm4):active,a:where(.css-9axpm4):hover{text-decoration:none;outline:0;}a:where(.css-9axpm4):focus{text-decoration:none;outline:0;}a:where(.css-9axpm4)[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4) a{color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}:where(.css-9axpm4) a:hover{color:#7aadff;}:where(.css-9axpm4) a:active{color:#1647c4;}:where(.css-9axpm4) a:active,:where(.css-9axpm4) a:hover{text-decoration:none;outline:0;}:where(.css-9axpm4) a:focus{text-decoration:none;outline:0;}:where(.css-9axpm4) a[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4).anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}:where(.css-9axpm4).anticon >*{line-height:1;}:where(.css-9axpm4).anticon svg{display:inline-block;}:where(.css-9axpm4).anticon .anticon .anticon-icon{display:block;}</style><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="2b81vi" data-token-hash="qh5i2p">:where(.css-9axpm4).ant-app{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';font-size:14px;box-sizing:border-box;}:where(.css-9axpm4).ant-app::before,:where(.css-9axpm4).ant-app::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"],:where(.css-9axpm4).ant-app [class*=" ant-app"]{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"]::before,:where(.css-9axpm4).ant-app [class*=" ant-app"]::before,:where(.css-9axpm4).ant-app [class^="ant-app"]::after,:where(.css-9axpm4).ant-app [class*=" ant-app"]::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app{color:#0F172A;font-size:14px;line-height:1.5714285714285714;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';}:where(.css-9axpm4).ant-app.ant-app-rtl{direction:rtl;}</style><style data-rc-order="prependQueue" data-css-hash="c2pd8u" data-token-hash="1g3r1lh">.anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}</style>
+<!DOCTYPE html><html lang="en" data-scrapbook-source="https://ai.myamidas.com/login" data-scrapbook-create="20260601070443558"><head><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="1y9fx1l" data-token-hash="qh5i2p">a:where(.css-9axpm4){color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}a:where(.css-9axpm4):hover{color:#7aadff;}a:where(.css-9axpm4):active{color:#1647c4;}a:where(.css-9axpm4):active,a:where(.css-9axpm4):hover{text-decoration:none;outline:0;}a:where(.css-9axpm4):focus{text-decoration:none;outline:0;}a:where(.css-9axpm4)[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4) a{color:#2563eb;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}:where(.css-9axpm4) a:hover{color:#7aadff;}:where(.css-9axpm4) a:active{color:#1647c4;}:where(.css-9axpm4) a:active,:where(.css-9axpm4) a:hover{text-decoration:none;outline:0;}:where(.css-9axpm4) a:focus{text-decoration:none;outline:0;}:where(.css-9axpm4) a[disabled]{color:rgba(2,8,23,0.25);cursor:not-allowed;}:where(.css-9axpm4).anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}:where(.css-9axpm4).anticon >*{line-height:1;}:where(.css-9axpm4).anticon svg{display:inline-block;}:where(.css-9axpm4).anticon .anticon .anticon-icon{display:block;}
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style><style data-rc-order="prependQueue" data-rc-priority="-999" data-css-hash="2b81vi" data-token-hash="qh5i2p">:where(.css-9axpm4).ant-app{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';font-size:14px;box-sizing:border-box;}:where(.css-9axpm4).ant-app::before,:where(.css-9axpm4).ant-app::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"],:where(.css-9axpm4).ant-app [class*=" ant-app"]{box-sizing:border-box;}:where(.css-9axpm4).ant-app [class^="ant-app"]::before,:where(.css-9axpm4).ant-app [class*=" ant-app"]::before,:where(.css-9axpm4).ant-app [class^="ant-app"]::after,:where(.css-9axpm4).ant-app [class*=" ant-app"]::after{box-sizing:border-box;}:where(.css-9axpm4).ant-app{color:#0F172A;font-size:14px;line-height:1.5714285714285714;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';}:where(.css-9axpm4).ant-app.ant-app-rtl{direction:rtl;}
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style><style data-rc-order="prependQueue" data-css-hash="c2pd8u" data-token-hash="1g3r1lh">.anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style>
     <meta charset="UTF-8">
     <link rel="icon" href="amidas/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -997,7 +1054,26 @@
     .ant-tree-node-content-wrapper[data-has-file-management="false"][data-has-write="false"]:hover {
       cursor: not-allowed;
     }
-  </style><style data-emotion="css" data-s="">.css-xhgn58 { animation: 0.2s ease-out forwards citationPopoverFadeIn; }
+  
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style><style data-emotion="css" data-s="">.css-xhgn58 { animation: 0.2s ease-out forwards citationPopoverFadeIn; }
 @keyframes citationPopoverFadeIn {
 0% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 100% { opacity: 1; transform: translateY(0px) translateX(-50%); }
@@ -1005,7 +1081,26 @@
 @keyframes citationPopoverFadeIn {
 0% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
 100% { opacity: 1; transform: translateY(0px) translateX(-50%); }
-}</style><style>
+}
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style><style>
   .markdown-body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -1379,6 +1474,25 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
 </style><style>
     /* Modern sidebar with enhanced UX */
     .monday-sidebar {
@@ -2364,7 +2478,26 @@
     .ant-tree-node-content-wrapper[data-has-file-management="false"][data-has-write="false"]:hover {
       cursor: not-allowed;
     }
-  </style>
+  
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style>
     <style>
         .hidden { display: none !important; }
         .loading-overlay { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; border-radius: 8px; backdrop-filter: blur(2px); }
@@ -2377,7 +2510,26 @@
         .dark .status-success { background: rgba(20, 83, 45, 0.3); color: #4ade80; border-color: rgba(34, 197, 94, 0.3); }
         .dark .status-error { background: rgba(127, 29, 29, 0.3); color: #f87171; border-color: rgba(239, 68, 68, 0.3); }
         .avatar-circle { width: 80px; height: 80px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 600; margin: 0 auto 16px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
-    </style>
+    
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
+</style>
 
     <script>
         async function createRegistration() {
@@ -2515,12 +2667,31 @@
 <style>
     .credential-preview { width: 100%; height: 300px; border: 1px solid #e2e8f0; border-radius: 8px; margin-top: 16px; background: white; }
     .dark .credential-preview { border-color: #1e293b; background: #0f172a; }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-block;
+        }
 </style>
 </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"><div class="css-9axpm4 ant-app"><div class="h-dvh flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4"><div class="w-full max-w-md space-y-8 animate-in fade-in-50 duration-500"><div class="flex flex-col items-center mb-8 text-center"><div class="flex items-center gap-4 mb-6 relative w-full justify-center">
-    <img src="amidas/logo.png" alt="Enterpise AI" class="h-12 w-auto">
+    <div class="logo-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>fakeamidas</div>
     <div style="position: absolute; right: 0; top: 0;">
         <button type="button" onclick="toggleDeveloperSettings()" style="color: #cbd5e1;" class="hover:text-primary transition-colors">
             <svg viewBox="64 64 896 896" width="20" height="20" fill="currentColor"><path d="M924.8 625.7l-65.5-51.3c3.1-15.5 4.7-31.5 4.7-47.7s-1.6-32.2-4.7-47.7l65.5-51.3c18.7-14.6 24.5-40.7 14.2-62.3l-65.7-113.7c-10.3-17.8-31.3-26.7-51.2-21.8l-77.4 19.1c-23-15.3-47.3-28.4-72.9-38.9l-15.8-81.1c-4.1-21.1-22.4-36.3-44-36.3h-131.5c-21.6 0-39.9 15.2-44 36.3l-15.8 81.1c-25.5 10.5-49.9 23.6-72.9 38.9l-77.4-19.1c-19.9-4.9-40.9 4-51.2 21.8l-65.7 113.7c-10.3 21.6-4.5 47.7 14.2 62.3l65.5 51.3c-3.1 15.5-4.7 31.5-4.7 47.7s1.6 32.2 4.7 47.7l-65.5-51.3c-18.7 14.6-24.5 40.7-14.2 62.3l65.7 113.7c10.3 17.8 31.3 26.7 51.2 21.8l77.4-19.1c23 15.3 47.3 28.4 72.9 38.9l15.8 81.1c4.1 21.1 22.4 36.3 44 36.3h131.5c21.6 0 39.9-15.2 44-36.3l15.8-81.1c25.5-10.5 49.9-23.6 72.9-38.9l77.4 19.1c19.9 4.9 40.9-4 51.2-21.8l65.7-113.7c10.2-21.6 4.4-47.7-14.3-62.3zM512 712c-110.5 0-200-89.5-200-200s89.5-200 200-200 200 89.5 200 200-89.5 200-200 200z"></path></svg>
